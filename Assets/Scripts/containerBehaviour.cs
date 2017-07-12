@@ -32,13 +32,4 @@ public class containerBehaviour : MonoBehaviour {
         return false;
     }
 
-    public void fill()
-    {
-        transform.GetComponent<SpriteRenderer>().color = Color.cyan;
-    }
-    public void empty()
-    {
-        transform.GetComponent<SpriteRenderer>().color = Color.green;
-    }
-
 }

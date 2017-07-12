@@ -40,7 +40,6 @@ public class clickControl : MonoBehaviour {
             {
                 con.occupant = null;
                 con.full = false;
-                con.empty();
             }
         }
     }
@@ -77,13 +76,11 @@ public class clickControl : MonoBehaviour {
          
             containerBehaviour tmp = coll.gameObject.GetComponent<containerBehaviour>();
             if (!tmp.full){
-                Debug.Log("Enter3");
                 Vector3 a = tmp.transform.position;
                 Vector3 b = transform.position;
                 float dist = Vector3.Distance(a, b);
                 if (dist < maxDistance || coll.gameObject.GetInstanceID() == insert)
                 {
-                    Debug.Log("Enter4");
                     maxDistance = dist;
                     cB = tmp;
                     insert = coll.gameObject.GetInstanceID();
@@ -114,8 +111,7 @@ public class clickControl : MonoBehaviour {
         {
             transform.position = hole;
             cB.full = true;
-            cB.occupant = transform;
-            cB.fill();
+            cB.occupant = transform;           
         }
         else
         {
@@ -132,7 +128,6 @@ public class clickControl : MonoBehaviour {
                 {
                     cB.full = false;
                     cB.occupant = null;
-                    cB.empty();
                 }                         
             }
         }        
