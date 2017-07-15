@@ -11,7 +11,6 @@ public class clickControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         og = new Vector3(GetComponent<Transform>().position.x, GetComponent<Transform>().position.y, GetComponent<Transform>().position.z);
-        
     }
 
     // Update is called once per frame
