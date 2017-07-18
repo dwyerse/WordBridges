@@ -83,4 +83,16 @@ public class levels {
         return letters;
     }
 
+    public string[,] B4()
+    {
+        string[,] letters = new string[6, 6];
+        letters[0, 0] = "H";
+        letters[0, 1] = "O";
+        letters[0, 2] = "O";
+        letters[0, 3] = "D";
+        letters[1, 2] = "W";
+        letters[2, 2] = "L";
+        return letters;
+    }
+
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class easybutton : MonoBehaviour
+public class easyButton : MonoBehaviour
 {
 
     // Use this for initialization
@@ -20,7 +20,8 @@ public class easybutton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SceneManager.LoadScene("Menu");
+        GameInfo.currentDif = 0;
+        SceneManager.LoadScene("Levels");
     }
 
 }

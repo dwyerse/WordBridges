@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges", "WordBridges.csproj", "{E2530EC3-BEB9-B554-A93D-334AACD845D5}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges", "Assembly-CSharp.csproj", "{B9C93B7C-DF4D-087D-BBF1-5EED652034CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges.Editor", "WordBridges.Editor.csproj", "{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges", "Assembly-CSharp-Editor.csproj", "{2CBB5203-0282-AB8F-75B0-8D551F39987D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,16 +11,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C93B7C-DF4D-087D-BBF1-5EED652034CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C93B7C-DF4D-087D-BBF1-5EED652034CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C93B7C-DF4D-087D-BBF1-5EED652034CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C93B7C-DF4D-087D-BBF1-5EED652034CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CBB5203-0282-AB8F-75B0-8D551F39987D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CBB5203-0282-AB8F-75B0-8D551F39987D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CBB5203-0282-AB8F-75B0-8D551F39987D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CBB5203-0282-AB8F-75B0-8D551F39987D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
