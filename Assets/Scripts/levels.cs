@@ -4,10 +4,11 @@ using UnityEngine;
 public class levels {
 
     public int easy = 3;
-    public int medium = 3;
-    public int hard = 3;
-    public int extreme = 3;
-  
+    public int medium = 4;
+    public int hard = 0;
+    
+
+
     public string [,] A1()
     {
         string[,] letters = new string[6, 6];

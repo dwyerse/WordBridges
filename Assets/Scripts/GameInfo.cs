@@ -8,6 +8,6 @@ public static class GameInfo{
 
     public static int currentDif;
     public static int chosenLevel;
-  
+    public static int play;
 
 }

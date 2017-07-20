@@ -17,6 +17,7 @@ public class playButton : MonoBehaviour {
 
     private void OnMouseDown()
     {
+        GameInfo.play = 1;
         SceneManager.LoadScene("WordBridges");
     }
 }

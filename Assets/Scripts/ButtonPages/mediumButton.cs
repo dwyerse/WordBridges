@@ -4,10 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class mediumButton : MonoBehaviour {
-
+	public TextMesh tm;
 	// Use this for initialization
 	void Start () {
-		
+		levels l = new levels();
+		int compl = 0;
+		for (int i = 0; i < l.medium; i++)
+		{
+			if (PlayerPrefs.HasKey(1 + "-" + (i + 1)))
+			{
+				compl++;
+			}
+		}
+		tm.text = "" + compl + "/" + l.medium;
 	}
 	
 	// Update is called once per frame

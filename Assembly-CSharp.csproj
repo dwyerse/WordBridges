@@ -59,18 +59,12 @@
      <Compile Include="Assets\Scripts\clickControl.cs" />
      <Compile Include="Assets\Scripts\containerBehaviour.cs" />
      <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
+     <Compile Include="Assets\Scripts\difficultyTitle.cs" />
      <Compile Include="Assets\Scripts\GameInfo.cs" />
      <Compile Include="Assets\Scripts\homebutton.cs" />
      <Compile Include="Assets\Scripts\LevelPicker.cs" />
      <Compile Include="Assets\Scripts\levels.cs" />
      <Compile Include="Assets\Scripts\manager.cs" />
-     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\MultiKeyDictionary.cs" />
-     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Reporter.cs" />
-     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\ReporterGUI.cs" />
-     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\ReporterMessageReceiver.cs" />
-     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Test\Rotate.cs" />
-     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Test\TestReporter.cs" />
-     <None Include="Assets\StreamingAssets\build_info.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

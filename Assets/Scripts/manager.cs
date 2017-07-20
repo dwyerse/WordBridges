@@ -11,41 +11,58 @@ public class manager : MonoBehaviour {
 	public GameObject title;
 	float scaler = 0;
 	string letters;
-	// Use this for initialization
-	void Start () {
-		int level = 1;
-		if (PlayerPrefs.HasKey("level"))
-		{
-			level = PlayerPrefs.GetInt("level");
-		}
-		else
-		{
-			PlayerPrefs.SetInt("level",1);
-		}
-	   
-		levels l = new levels();
+    int level = 1;
+    int diff = 0;
+    // Use this for initialization
+    void Start () {
+		
 
-		string methodName = "A" + level;
+        if(GameInfo.play == 1)
+        {
 
-		switch (GameInfo.currentDif)
-		{
-			case 0:
-				methodName = "A";
-				break;
-			case 1:
-				methodName = "B";
-				break;
-			case 2:
-				methodName = "C";
-				break;
-		}
-        Debug.Log(GameInfo.chosenLevel);
-        methodName += GameInfo.chosenLevel;
+            if (PlayerPrefs.HasKey("level"))
+            {
+                level = PlayerPrefs.GetInt("level");
+            }
+            else
+            {
+                PlayerPrefs.SetInt("level", 1);
+            }
+            if (PlayerPrefs.HasKey("diff"))
+            {
+                diff = PlayerPrefs.GetInt("diff");
+            }
+            else
+            {
+                PlayerPrefs.SetInt("diff", 0);
+            }
 
-		Debug.Log(methodName);
-		MethodInfo mi = l.GetType().GetMethod(methodName);
+        }
+        else
+        {            
+            
+            diff = GameInfo.currentDif;
+            level = GameInfo.chosenLevel;
+           
+        }
+        string methodName = "";
+        switch (diff)
+        {
+            case 0:
+                methodName = "A";
+                break;
+            case 1:
+                methodName = "B";
+                break;
+            case 2:
+                methodName = "C";
+                break;
+        }
+        methodName += level;
+        levels l = new levels();
+        MethodInfo mi = l.GetType().GetMethod(methodName);
 		word = (string[,])mi.Invoke(l, null);
-		title.GetComponent<TextMesh>().text = "LEVEL " + level;
+		title.GetComponent<TextMesh>().text = "LEVEL " + GameInfo.chosenLevel;
 		createContainers(word);
 		createLetters(word);
 	}
@@ -79,6 +96,7 @@ public class manager : MonoBehaviour {
 		cS.GetComponent<SpriteRenderer>().color = Color.grey;
 		cS.GetComponent<SpriteRenderer>().sortingOrder = 2;
 		cS.transform.localScale = new Vector3(5,7,1);
+        PlayerPrefs.SetInt(diff+"-"+level, 1);
 	}
 
 	void createContainers(string[,] str)
@@ -175,7 +193,7 @@ public class manager : MonoBehaviour {
 				resetOff = 0;
 			}
 			letter.GetComponent<Transform>().position = vec;
-			TextMesh textMesh = letter.AddComponent<TextMesh>();
+            letter.AddComponent<TextMesh>();
 			letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;            
 			letter.GetComponent<TextMesh>().characterSize = 0.06f;
 			letter.GetComponent<TextMesh>().fontSize = 60;

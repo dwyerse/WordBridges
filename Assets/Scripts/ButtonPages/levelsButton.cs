@@ -17,6 +17,7 @@ public class levelsButton : MonoBehaviour {
 
     private void OnMouseDown()
     {
+        GameInfo.play = 0;
         SceneManager.LoadScene("DifficultyLevels");
     }
 

@@ -1,17 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LevelPicker : MonoBehaviour {
 	public GameObject content;
-	int buttonAmount = 6;
+	levels l = new levels();
+	int buttonAmount = 0;
+    int diff;
 	// Use this for initialization
 	void Start () {
 
-		createButtons();
-		int diff = GameInfo.currentDif;
+		
+		diff = GameInfo.currentDif;
+		switch (diff)
+		{
+			case 0:
+				buttonAmount = l.easy;
+				break;
+			case 1:
+				buttonAmount = l.medium;
+				break;
+			case 2:
+				buttonAmount = l.hard;
+				break;
+		}        
 
+        createButtons();
 
 	}
 	
@@ -21,12 +37,11 @@ public class LevelPicker : MonoBehaviour {
 		for (int i = 0; i < buttonAmount; i++)
 		{
 			GameObject buttonGO = new GameObject();
-			buttonGO.name = "Button";
+			buttonGO.name = "" + (i +1);
 			RectTransform buttonRT = buttonGO.AddComponent<RectTransform>();
 			buttonRT.sizeDelta = new Vector2(700.0f, 200.0f);
 			Button buttonBU = buttonGO.AddComponent<Button>();
-            Debug.Log("Listener: " + (i + 1));
-            buttonBU.onClick.AddListener(() => taskOnClick((int)(i+1),buttonBU.name));
+			buttonBU.onClick.AddListener(() => taskOnClick((int)(i+1),buttonBU.name));
 			GameObject tOb = new GameObject();
 			tOb.name = "text";
 			tOb.transform.SetParent(buttonGO.transform);
@@ -35,7 +50,17 @@ public class LevelPicker : MonoBehaviour {
 			buttonIM.sprite = Resources.Load("UISprite", typeof(Sprite)) as Sprite;
 			buttonGO.transform.SetParent(content.transform);
 			txt.text = "LEVEL " + (i +1) ;
-			txt.color = Color.grey;
+
+
+            if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
+            {
+                txt.color = Color.green;
+            }
+            else
+            {
+                txt.color = Color.grey;
+            }
+			
 			txt.font = Resources.Load<Font>("Fonts/Composition");
 			txt.fontSize = 65;
 			txt.GetComponent<RectTransform>().sizeDelta = new Vector2(700.0f, 200.0f);
@@ -55,9 +80,8 @@ public class LevelPicker : MonoBehaviour {
 
 	void taskOnClick(int i,string button)
 	{
-        
-        GameInfo.chosenLevel = i;
-        SceneManager.LoadScene("WordBridges");
+		GameInfo.chosenLevel = Convert.ToInt32(button);
+		SceneManager.LoadScene("WordBridges");
 	}
 
 }
