@@ -7,8 +7,8 @@ public class mediumButton : MonoBehaviour {
 	public TextMesh tm;
 	// Use this for initialization
 	void Start () {
-		levels l = new levels();
-		int compl = 0;
+		levels l = GameInfo.l;
+        int compl = 0;
 		for (int i = 0; i < l.medium; i++)
 		{
 			if (PlayerPrefs.HasKey(1 + "-" + (i + 1)))

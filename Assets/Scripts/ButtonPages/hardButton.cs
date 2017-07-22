@@ -7,7 +7,7 @@ public class hardButton : MonoBehaviour {
     public TextMesh tm;
 	// Use this for initialization
 	void Start () {
-        levels l = new levels();
+        levels l = GameInfo.l;
         int compl = 0;
         for (int i = 0; i < l.hard; i++)
         {

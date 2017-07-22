@@ -27,6 +27,7 @@ public class clickControl : MonoBehaviour {
         pos.z = 0;
         transform.position = pos;
         emptyContainer(transform.GetInstanceID());
+        transform.localScale = new Vector3(1.1f,1.1f,1.1f);
     }
 
     void emptyContainer(int id)
@@ -106,11 +107,13 @@ public class clickControl : MonoBehaviour {
 
     private void OnMouseUp()
     {
+        transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
         if (Math.Abs(insert)>0)
         {
             transform.position = hole;
             cB.full = true;
-            cB.occupant = transform;           
+            cB.occupant = transform; 
+            GameInfo.grid[cB.i,cB.j] = cB.occupant.GetChild(0).GetComponent<TextMesh>().text;
         }
         else
         {
@@ -127,6 +130,7 @@ public class clickControl : MonoBehaviour {
                 {
                     cB.full = false;
                     cB.occupant = null;
+                    GameInfo.grid[cB.i, cB.j] = null;
                 }                         
             }
         }        

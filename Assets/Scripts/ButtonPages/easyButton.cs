@@ -9,7 +9,7 @@ public class easyButton : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        levels l = new levels();
+        levels l = GameInfo.l;
         int compl = 0;
         for (int i =0; i < l.easy; i++)
         {

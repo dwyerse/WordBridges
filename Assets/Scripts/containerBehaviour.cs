@@ -7,7 +7,8 @@ public class containerBehaviour : MonoBehaviour {
     public string c;
     public bool full = false;
     public Transform occupant;
-
+    public int i;
+    public int j;
 	// Use this for initialization
 	void Start () {
         occupant = null;

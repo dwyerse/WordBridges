@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 public class levels {
 
     public int easy = 3;
     public int medium = 4;
     public int hard = 0;
-    
-
+    public string[] file;
+    public levels(){
+               
+    }
 
     public string [,] A1()
     {

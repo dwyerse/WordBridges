@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LevelPicker : MonoBehaviour {
 	public GameObject content;
-	levels l = new levels();
+    levels l = GameInfo.l;
 	int buttonAmount = 0;
     int diff;
 	// Use this for initialization
@@ -54,7 +54,7 @@ public class LevelPicker : MonoBehaviour {
 
             if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
             {
-                txt.color = Color.green;
+                txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
             }
             else
             {

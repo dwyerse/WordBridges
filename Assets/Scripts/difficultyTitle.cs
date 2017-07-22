@@ -22,9 +22,8 @@ public class difficultyTitle : MonoBehaviour {
 			case 2:
 				title.text = "HARD";
 				break;
-
 		}
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class manager : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class manager : MonoBehaviour {
 	List<GameObject> cons;
 	List<GameObject> conts;
 	public GameObject title;
+    public GameObject victoryText;
+    public GameObject overlay;
+    public GameObject next;
 	float scaler = 0;
 	string letters;
     int level = 1;
@@ -59,7 +63,7 @@ public class manager : MonoBehaviour {
                 break;
         }
         methodName += level;
-        levels l = new levels();
+        levels l = GameInfo.l;
         MethodInfo mi = l.GetType().GetMethod(methodName);
 		word = (string[,])mi.Invoke(l, null);
 		title.GetComponent<TextMesh>().text = "LEVEL " + GameInfo.chosenLevel;
@@ -69,7 +73,8 @@ public class manager : MonoBehaviour {
 	bool completed = false;
 	// Update is called once per frame
 	void Update () {
-		if (complete()&&!completed)
+        
+		if (!completed&&(complete()|| alternateComplete()))
 		{
 			completed = true;
 			levelComplete();
@@ -89,15 +94,22 @@ public class manager : MonoBehaviour {
 	void levelComplete()
 	{
 		GameObject cS = new GameObject();
-		Vector3 vec = new Vector3(0.55f, 0, 0);
+		Vector3 vec = new Vector3(0.55f, 0, -2f);
 		cS.GetComponent<Transform>().position = vec;
 		cS.AddComponent<SpriteRenderer>();
 		cS.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
 		cS.GetComponent<SpriteRenderer>().color = Color.grey;
-		cS.GetComponent<SpriteRenderer>().sortingOrder = 2;
 		cS.transform.localScale = new Vector3(5,7,1);
         PlayerPrefs.SetInt(diff+"-"+level, 1);
-	}
+
+        //Text title 
+
+        victoryText.SetActive(true);
+        next.SetActive(true);
+        overlay.SetActive(true);
+
+
+    }
 
 	void createContainers(string[,] str)
 	{
@@ -117,12 +129,15 @@ public class manager : MonoBehaviour {
 					con.layer = 2;
 					con.AddComponent<SpriteRenderer>();
 					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
-					con.GetComponent<SpriteRenderer>().color = Color.grey;
+					con.GetComponent<SpriteRenderer>().color = Color.white;
 					con.GetComponent<SpriteRenderer>().sortingOrder = -1;
 					con.AddComponent<BoxCollider2D>();
 					con.AddComponent<containerBehaviour>();
 					con.GetComponent<containerBehaviour>().c = str[i, j];
-					con.AddComponent<Rigidbody2D>();
+                    con.GetComponent<containerBehaviour>().i = i;
+                    con.GetComponent<containerBehaviour>().j = j;
+                    con.AddComponent<Rigidbody2D>();
+                    
 					con.name = "con" + count++;
 					var rb = con.GetComponent<Rigidbody2D>();
 					rb.gravityScale = 0;
@@ -161,9 +176,10 @@ public class manager : MonoBehaviour {
 					con.GetComponent<Transform>().position = vec;
 					con.AddComponent<SpriteRenderer>();
 					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
-					con.GetComponent<SpriteRenderer>().color = Color.grey;
+					con.GetComponent<SpriteRenderer>().color = Color.white;
 					con.GetComponent<SpriteRenderer>().sortingOrder = 0;
-					con.AddComponent<clickControl>();
+                   
+                    con.AddComponent<clickControl>();
 					con.AddComponent<BoxCollider2D>();
 					con.GetComponent<BoxCollider2D>().isTrigger = true;
 					con.AddComponent<Rigidbody2D>();
@@ -196,20 +212,15 @@ public class manager : MonoBehaviour {
             letter.AddComponent<TextMesh>();
 			letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;            
 			letter.GetComponent<TextMesh>().characterSize = 0.06f;
-			letter.GetComponent<TextMesh>().fontSize = 60;
-			//letter.GetComponent<TextMesh>().font = Resources.Load<Font>("Fonts/Composition");  
+			letter.GetComponent<TextMesh>().fontSize = 60; 
 			letter.transform.SetParent(cons[a].transform);
 			letter.GetComponent<TextMesh>().text = letters.Substring(a, 1);
-			GameObject q = cons[a];
+            letter.GetComponent<TextMesh>().color = new Color32(0x30, 0x7B, 0xB0, 0xFF);
+            GameObject q = cons[a];
 			q.transform.localScale = new Vector3(0, 0, 0);
-		   
-
-		   
-		}
-
-		
+		   		   
+		}		
 	}
-	
 
 	public string Shuffle(string str)
 	{
@@ -218,7 +229,7 @@ public class manager : MonoBehaviour {
 		while (n > 1)
 		{
 			n--;
-			int k = Random.Range(0,n + 1);
+			int k = UnityEngine.Random.Range(0,n + 1);
 			var value = array[k];
 			array[k] = array[n];
 			array[n] = value;
@@ -241,4 +252,74 @@ public class manager : MonoBehaviour {
 		return true;
 	}
 
+    bool alternateComplete()
+    {
+
+        if (containersFull())
+        {
+            for (int i = 0; i < word.GetLength(0); i++)
+            {
+                for (int j = 0; j < word.GetLength(1); j++)
+                {
+                    string find = "";
+                    if (word[i, j] != null)
+                    {
+                        while (i < word.GetLength(0) && j < word.GetLength(1) && word[i, j] != null)
+                        {
+                            find += GameInfo.grid[i, j];
+                            j++;
+                        }
+                        find = find.ToLower();
+                        if (Array.IndexOf(GameInfo.l.file,find)==-1&&find.Length>1)
+                        {
+                            Debug.Log("Fails:" + find);
+                            return false;
+                        }
+                        Debug.Log("Works:" + find);
+                    }
+                }
+            }
+            for (int j = 0; j < word.GetLength(1); j++)
+            {
+                for (int i = 0; i < word.GetLength(0); i++)
+                {
+                
+                    string find = "";
+                    if (word[i, j] != null)
+                    {
+                        while (i < word.GetLength(0) && j < word.GetLength(1) && word[i, j] != null)
+                        {
+                            find += GameInfo.grid[i, j];
+                            i++;
+                        }
+                        find = find.ToLower();
+                        if (Array.IndexOf(GameInfo.l.file, find) == -1 && find.Length > 1)
+                        {
+                            Debug.Log("Fails:" + find);
+                            return false;
+                        }
+                        Debug.Log("Works:" + find);
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    bool containersFull()
+    {
+        GameObject[] containers = GameObject.FindGameObjectsWithTag("container");
+
+        for (int i = 0; i < containers.Length; i++)
+        {
+            containerBehaviour con = containers[i].transform.GetComponent<containerBehaviour>();
+            if (con.occupant==null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
