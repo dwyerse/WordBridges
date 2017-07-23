@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LevelPicker : MonoBehaviour {
 	public GameObject content;
-    levels l = GameInfo.l;
+	levels l = GameInfo.l;
 	int buttonAmount = 0;
-    int diff;
+	int diff;
 	// Use this for initialization
 	void Start () {
 
@@ -27,7 +27,7 @@ public class LevelPicker : MonoBehaviour {
 				break;
 		}        
 
-        createButtons();
+		createButtons();
 
 	}
 	
@@ -52,14 +52,14 @@ public class LevelPicker : MonoBehaviour {
 			txt.text = "LEVEL " + (i +1) ;
 
 
-            if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
-            {
-                txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
-            }
-            else
-            {
-                txt.color = Color.grey;
-            }
+			if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
+			{
+				txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
+			}
+			else
+			{
+				txt.color = Color.grey;
+			}
 			
 			txt.font = Resources.Load<Font>("Fonts/Composition");
 			txt.fontSize = 65;

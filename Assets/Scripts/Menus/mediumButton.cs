@@ -26,7 +26,8 @@ public class mediumButton : MonoBehaviour {
 
 	private void OnMouseDown()
 	{
-		GameInfo.currentDif = 1;
+        GameInfo.currentDif = 1;
+        
 		SceneManager.LoadScene("Levels");
 	}
 }

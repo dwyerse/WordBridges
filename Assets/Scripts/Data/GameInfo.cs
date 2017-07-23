@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameInfo{
 
-    public static int currentDif= 1;
+    public static int currentDif= 0;
     public static int chosenLevel= 1;
     public static int play = 0;
     public static levels l = new levels();
