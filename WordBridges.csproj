@@ -76,22 +76,43 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook.Unity">
+      <HintPath>Assets\FacebookSDK\Plugins\Facebook.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.Settings">
+      <HintPath>Assets\FacebookSDK\Plugins\Settings\Facebook.Unity.Settings.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ButtonPages\easyButton.cs" />
-    <Compile Include="Assets\Scripts\ButtonPages\hardButton.cs" />
-    <Compile Include="Assets\Scripts\ButtonPages\levelsButton.cs" />
-    <Compile Include="Assets\Scripts\ButtonPages\mediumButton.cs" />
-    <Compile Include="Assets\Scripts\ButtonPages\playButton.cs" />
-    <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
-    <Compile Include="Assets\Scripts\GameInfo.cs" />
-    <Compile Include="Assets\Scripts\LevelPicker.cs" />
-    <Compile Include="Assets\Scripts\clickControl.cs" />
-    <Compile Include="Assets\Scripts\containerBehaviour.cs" />
-    <Compile Include="Assets\Scripts\difficultyTitle.cs" />
-    <Compile Include="Assets\Scripts\homebutton.cs" />
-    <Compile Include="Assets\Scripts\levels.cs" />
-    <Compile Include="Assets\Scripts\manager.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AccessTokenMenu.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppEvents.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppInvites.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppLinks.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppRequests.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\DialogShare.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GameGroups.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
+    <Compile Include="Assets\Scripts\Data\GameInfo.cs" />
+    <Compile Include="Assets\Scripts\Data\levels.cs" />
+    <Compile Include="Assets\Scripts\MainGame\ShareImage.cs" />
+    <Compile Include="Assets\Scripts\MainGame\clickControl.cs" />
+    <Compile Include="Assets\Scripts\MainGame\containerBehaviour.cs" />
+    <Compile Include="Assets\Scripts\MainGame\manager.cs" />
+    <Compile Include="Assets\Scripts\MainGame\nextButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\LevelPicker.cs" />
+    <Compile Include="Assets\Scripts\Menus\difficultyTitle.cs" />
+    <Compile Include="Assets\Scripts\Menus\easyButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\hardButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\homebutton.cs" />
+    <Compile Include="Assets\Scripts\Menus\levelsButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\mediumButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\playButton.cs" />
+    <Compile Include="Assets\Scripts\Miscellaneous\ControllingCameraAspectScript.cs" />
     <Compile Include="Assets\Starting.cs" />
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\MultiKeyDictionary.cs" />
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Reporter.cs" />
@@ -101,6 +122,8 @@
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Test\TestReporter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\FacebookSDK\link.xml" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Resources\unixdict.txt" />
     <None Include="Assets\StreamingAssets\build_info.txt" />
   </ItemGroup>

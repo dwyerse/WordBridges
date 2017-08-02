@@ -9,6 +9,8 @@ public class LevelPicker : MonoBehaviour {
 	levels l = GameInfo.l;
 	int buttonAmount = 0;
 	int diff;
+    float buttonHeight = 200f;
+    public ScrollRect sr;
 	// Use this for initialization
 	void Start () {
 
@@ -39,7 +41,7 @@ public class LevelPicker : MonoBehaviour {
 			GameObject buttonGO = new GameObject();
 			buttonGO.name = "" + (i +1);
 			RectTransform buttonRT = buttonGO.AddComponent<RectTransform>();
-			buttonRT.sizeDelta = new Vector2(700.0f, 200.0f);
+			buttonRT.sizeDelta = new Vector2(700.0f, buttonHeight);
 			Button buttonBU = buttonGO.AddComponent<Button>();
 			buttonBU.onClick.AddListener(() => taskOnClick((int)(i+1),buttonBU.name));
 			GameObject tOb = new GameObject();
@@ -75,8 +77,28 @@ public class LevelPicker : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        RectTransform rt = content.GetComponent<RectTransform>();
+        float ba = (float)buttonAmount;
+        float y = rt.position.y;
+        Debug.Log("y: " + (y -1800) + " ba:" + ba + " bH:" + buttonHeight);
+        if (ba * buttonHeight > 6 * buttonHeight)
+        {
+            if (y > 700 + ba * buttonHeight)
+            {
+                rt.position = new Vector3(rt.position.x, 700 + ba * buttonHeight, rt.position.z);
+            }
+            else if (y < 1800)
+            {
+                rt.position = new Vector3(rt.position.x, 1800, rt.position.z);
+            }
+        }
+        else
+        {
+            sr.vertical = false;
+        }
+
+    }
 
 	void taskOnClick(int i,string button)
 	{
