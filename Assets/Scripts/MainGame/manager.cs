@@ -13,15 +13,18 @@ public class manager : MonoBehaviour {
 	public GameObject victoryText;
 	public GameObject overlay;
 	public GameObject next;
+    public TextMesh coinsText;
 	float scaler = 0;
 	string letters;
 	int level = 1;
 	int diff = 0;
 	// Use this for initialization
 	void Start () {
-		
 
-		if(GameInfo.play == 1)
+        //Set coins value
+        coinsText.text = "COINS:" + PlayerPrefs.GetInt("coins");
+
+        if (GameInfo.play == 1)
 		{
 
 			if (PlayerPrefs.HasKey("level"))
@@ -43,11 +46,9 @@ public class manager : MonoBehaviour {
 
 		}
 		else
-		{            
-			
+		{            			
 			diff = GameInfo.currentDif;
-			level = GameInfo.chosenLevel;
-		   
+			level = GameInfo.chosenLevel;		   
 		}
 		string methodName = "";
 		switch (diff)
@@ -63,6 +64,7 @@ public class manager : MonoBehaviour {
 				break;
 		}
 		methodName += level;
+        Debug.Log(methodName);
 		levels l = GameInfo.l;
 		MethodInfo mi = l.GetType().GetMethod(methodName);
 		word = (string[,])mi.Invoke(l, null);
@@ -70,6 +72,7 @@ public class manager : MonoBehaviour {
 		createContainers(word);
 		createLetters(word);
 	}
+
 	bool completed = false;
 	// Update is called once per frame
 	void Update () {
