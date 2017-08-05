@@ -6,7 +6,8 @@ public class hintButton : MonoBehaviour {
 
     int count = 0;
     public TextMesh coinsText;
-
+    public GameObject cost;
+    public GameObject shop;
     // Use this for initialization
     void Start () {
 		
@@ -20,22 +21,48 @@ public class hintButton : MonoBehaviour {
     private void OnMouseDown()
     {
         GameObject[] containers = GameObject.FindGameObjectsWithTag("container");
-         if (count < containers.Length)
+        if (count < containers.Length)
         {
-            GameObject letter = new GameObject();
-            Vector3 vec = containers[count].transform.position;           
-            letter.GetComponent<Transform>().position = vec;
-            letter.AddComponent<TextMesh>();
-            letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
-            letter.GetComponent<TextMesh>().characterSize = 0.06f;
-            letter.GetComponent<TextMesh>().fontSize = 60;
-            letter.transform.SetParent(containers[count].transform);
-            letter.GetComponent<TextMesh>().text = containers[count].GetComponent<containerBehaviour>().c;
-            letter.GetComponent<TextMesh>().color = new Color32(0x44, 0xDD, 0x44, 0xAA);
-            count++;
             int c = PlayerPrefs.GetInt("coins");
-            PlayerPrefs.SetInt("coins", c - 10);
-            coinsText.text = "COINS:" + PlayerPrefs.GetInt("coins");
+            if (c < 0)
+            {
+                PlayerPrefs.SetInt("coins", 0);
+            }
+            if (c < 10)
+            {
+                //Open Shop
+                shop.SetActive(true);
+            }
+            else
+            {
+                GameObject letter = new GameObject();
+                Vector3 vec = containers[count].transform.position;           
+                letter.GetComponent<Transform>().position = vec;
+                letter.AddComponent<TextMesh>();
+                letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
+                letter.GetComponent<TextMesh>().characterSize = 0.06f;
+                letter.GetComponent<TextMesh>().fontSize = 60;
+                letter.transform.SetParent(containers[count].transform);
+                letter.GetComponent<TextMesh>().text = containers[count].GetComponent<containerBehaviour>().c;
+                letter.GetComponent<TextMesh>().color = new Color32(0x44, 0xDD, 0x44, 0xAA);
+                count++; 
+                PlayerPrefs.SetInt("coins", c - 10);
+                StartCoroutine(showCost());
+            }            
+            coinsText.text = "" + PlayerPrefs.GetInt("coins");
         }        
+    }
+
+
+    IEnumerator showCost()
+    {
+        cost.SetActive(true);
+        TextMesh tm = cost.GetComponent<TextMesh>();
+     
+        for (float i = 0; i < 1; i += 0.01f)
+        {
+            yield return new WaitForSeconds(0.001f);
+            tm.color = new Color(tm.color.r, tm.color.g, tm.color.b, 1-i);
+        }
     }
 }

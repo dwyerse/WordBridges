@@ -22,7 +22,7 @@ public class manager : MonoBehaviour {
 	void Start () {
 
         //Set coins value
-        coinsText.text = "COINS:" + PlayerPrefs.GetInt("coins");
+        coinsText.text = "" + PlayerPrefs.GetInt("coins");
 
         if (GameInfo.play == 1)
 		{
@@ -111,6 +111,11 @@ public class manager : MonoBehaviour {
 		next.SetActive(true);
 		overlay.SetActive(true);
 
+        //Add coins
+
+        int c = PlayerPrefs.GetInt("coins");
+        c += 7;
+        PlayerPrefs.SetInt("coins", c);
 
 	}
 

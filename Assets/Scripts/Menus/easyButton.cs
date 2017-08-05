@@ -30,6 +30,13 @@ public class easyButton : MonoBehaviour
     private void OnMouseDown()
     {
         GameInfo.currentDif = 0;
+        StartCoroutine(change());
+    }
+
+    IEnumerator change()
+    {
+        float fadeTime = GameObject.Find("Main Camera").GetComponent<Fading>().beginFade(1);
+        yield return new WaitForSeconds(fadeTime);
         SceneManager.LoadScene("Levels");
     }
 

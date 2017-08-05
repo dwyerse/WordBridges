@@ -26,7 +26,15 @@ public class levelsButton : MonoBehaviour {
 	private void OnMouseDown()
 	{
 		GameInfo.play = 0;
-		SceneManager.LoadScene("DifficultyLevels");
-	}
+       
+        StartCoroutine(change());
+    }
+
+    IEnumerator change()
+    {
+        float fadeTime = GameObject.Find("Main Camera").GetComponent<Fading>().beginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene("DifficultyLevels");
+    }
 
 }

@@ -87,6 +87,8 @@
     <Compile Include="Assets\Scripts\MainGame\manager.cs" />
     <Compile Include="Assets\Scripts\MainGame\nextButton.cs" />
     <Compile Include="Assets\Scripts\Menus\LevelPicker.cs" />
+    <Compile Include="Assets\Scripts\Menus\XButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\buyHints.cs" />
     <Compile Include="Assets\Scripts\Menus\difficultyTitle.cs" />
     <Compile Include="Assets\Scripts\Menus\easyButton.cs" />
     <Compile Include="Assets\Scripts\Menus\hardButton.cs" />
@@ -94,7 +96,9 @@
     <Compile Include="Assets\Scripts\Menus\levelsButton.cs" />
     <Compile Include="Assets\Scripts\Menus\mediumButton.cs" />
     <Compile Include="Assets\Scripts\Menus\playButton.cs" />
+    <Compile Include="Assets\Scripts\Menus\shopButton.cs" />
     <Compile Include="Assets\Scripts\Miscellaneous\ControllingCameraAspectScript.cs" />
+    <Compile Include="Assets\Scripts\Miscellaneous\Fading.cs" />
     <Compile Include="Assets\Starting.cs" />
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\MultiKeyDictionary.cs" />
     <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Reporter.cs" />

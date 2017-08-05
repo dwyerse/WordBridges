@@ -27,6 +27,13 @@ public class hardButton : MonoBehaviour {
 	private void OnMouseDown()
 	{
 		GameInfo.currentDif = 2;
-		SceneManager.LoadScene("Levels");
-	}
+        StartCoroutine(change());
+    }
+
+    IEnumerator change()
+    {
+        float fadeTime = GameObject.Find("Main Camera").GetComponent<Fading>().beginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene("Levels");
+    }
 }

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Starting : MonoBehaviour {
 
+    public TextMesh t;
+
 	// Use this for initialization
 	void Start () {
+        t.text = ""+ PlayerPrefs.GetInt("coins");
 		TextAsset txt = (TextAsset)Resources.Load("unixdict", typeof(TextAsset));
 		GameInfo.l.file = txt.text.Split('\n');
 

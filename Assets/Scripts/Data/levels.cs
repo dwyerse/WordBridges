@@ -105,8 +105,8 @@ public class levels {
         letters[0, 0] = "S";
         letters[0, 1] = "H";
         letters[0, 2] = "Y";
-        letters[1, 0] = "A";
-        letters[2, 0] = "K";
+        letters[1, 2] = "A";
+        letters[2, 2] = "K";
         return letters;
     }
     public string[,] B1()

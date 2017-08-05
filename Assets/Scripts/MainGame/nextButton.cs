@@ -19,12 +19,28 @@ public class nextButton : MonoBehaviour {
     private void nextClick()
     {
         GameInfo.chosenLevel++;
-        if (GameInfo.chosenLevel > GameInfo.l.easy)
+        int diff =0;
+        switch (GameInfo.currentDif)
+        {
+            case 0:
+                diff = GameInfo.l.easy;
+                break;
+            case 1:
+                diff = GameInfo.l.medium;
+                break;
+            case 2:
+                diff = GameInfo.l.hard;
+                break;
+        }
+        if (GameInfo.chosenLevel > diff)
         {
             GameInfo.chosenLevel = 1;
             SceneManager.LoadScene("DifficultyLevels");
         }
-        GameInfo.play = 0;
-        SceneManager.LoadScene("WordBridges");
+        else
+        {
+            GameInfo.play = 0;
+            SceneManager.LoadScene("WordBridges");
+        }
     }
 }
