@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class manager : MonoBehaviour {
 
@@ -20,6 +19,17 @@ public class manager : MonoBehaviour {
 	int diff = 0;
 	// Use this for initialization
 	void Start () {
+
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show();
+            Debug.Log("Yes AD");
+        }
+        else
+        {
+            Debug.Log("No AD");
+        }
+        
 
         //Set coins value
         coinsText.text = "" + PlayerPrefs.GetInt("coins");

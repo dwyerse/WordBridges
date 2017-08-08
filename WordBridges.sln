@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges.Plugins", "WordBridges.Plugins.csproj", "{1BC64F83-A435-7F62-8112-7725EA92951F}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges", "WordBridges.csproj", "{E2530EC3-BEB9-B554-A93D-334AACD845D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges.Editor.Plugins", "WordBridges.Editor.Plugins.csproj", "{01DEEB71-06EE-523E-904F-D7EAC51C98C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordBridges.Editor", "WordBridges.Editor.csproj", "{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}"
 EndProject
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BC64F83-A435-7F62-8112-7725EA92951F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC64F83-A435-7F62-8112-7725EA92951F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC64F83-A435-7F62-8112-7725EA92951F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BC64F83-A435-7F62-8112-7725EA92951F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2530EC3-BEB9-B554-A93D-334AACD845D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01DEEB71-06EE-523E-904F-D7EAC51C98C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01DEEB71-06EE-523E-904F-D7EAC51C98C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01DEEB71-06EE-523E-904F-D7EAC51C98C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01DEEB71-06EE-523E-904F-D7EAC51C98C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61B47F09-EDA8-359D-0DEB-DEDFB32D5FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU

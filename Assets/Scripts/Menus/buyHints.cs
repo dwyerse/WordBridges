@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using CompleteProject;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ public class buyHints : MonoBehaviour {
         int coins = PlayerPrefs.GetInt("coins");
         PlayerPrefs.SetInt("coins", coins + value);
         coinTm.text = "" + (coins + value);
+        Purchaser p = new Purchaser();
+        p.buyCoins100();
     }
 
 }

@@ -119,7 +119,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0
+  bundleVersion: 0.1
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -213,8 +213,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/Seamus/Documents/WordBridges/newKey.keystore
+  AndroidKeyaliasName: test
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
@@ -587,11 +587,11 @@ PlayerSettings:
     Collab: 0
     ErrorHub: 0
     Hub: 0
-    UNet: 0
+    UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 5cc8fb88-da91-42ee-b44a-5573154d69b9
-  projectName: Word Bridges
+  cloudProjectId: 469349d9-787b-4f07-aced-73d2f9ab9547
+  projectName: WordBridges
   organizationId: seamus-dwyer
   cloudEnabled: 0
   enableNewInputSystem: 0
