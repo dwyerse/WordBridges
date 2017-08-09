@@ -12,6 +12,7 @@ public class manager : MonoBehaviour {
 	public GameObject victoryText;
 	public GameObject overlay;
 	public GameObject next;
+    public GameObject hint;
     public TextMesh coinsText;
 	float scaler = 0;
 	string letters;
@@ -22,12 +23,10 @@ public class manager : MonoBehaviour {
 
         if (Advertisement.IsReady())
         {
-            Advertisement.Show();
-            Debug.Log("Yes AD");
+            //Advertisement.Show();
         }
         else
         {
-            Debug.Log("No AD");
         }
         
 
@@ -74,7 +73,6 @@ public class manager : MonoBehaviour {
 				break;
 		}
 		methodName += level;
-        Debug.Log(methodName);
 		levels l = GameInfo.l;
 		MethodInfo mi = l.GetType().GetMethod(methodName);
 		word = (string[,])mi.Invoke(l, null);
@@ -103,33 +101,23 @@ public class manager : MonoBehaviour {
 		}
 		scaler += 0.10f;
 	}
-	//On completion of the level, a box appears.
+	//On completion of the level.
 	void levelComplete()
-	{
-		GameObject cS = new GameObject();
-		Vector3 vec = new Vector3(0.55f, 0, -2f);
-		cS.GetComponent<Transform>().position = vec;
-		cS.AddComponent<SpriteRenderer>();
-		cS.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
-		cS.GetComponent<SpriteRenderer>().color = Color.grey;
-		cS.transform.localScale = new Vector3(5,7,1);
+	{	
 		PlayerPrefs.SetInt(diff+"-"+level, 1);
+        Destroy(hint.GetComponent<hintButton>());
 
-		//Text title 
-
-		victoryText.SetActive(true);
-		next.SetActive(true);
-		overlay.SetActive(true);
+        CompleteAnimation.c = true;
 
         //Add coins
-
         int c = PlayerPrefs.GetInt("coins");
         c += 7;
         PlayerPrefs.SetInt("coins", c);
 
 	}
 
-	void createContainers(string[,] str)
+ 
+    void createContainers(string[,] str)
 	{
 		conts = new List<GameObject>();
 		int count = 0;
@@ -196,7 +184,7 @@ public class manager : MonoBehaviour {
 					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
 					con.GetComponent<SpriteRenderer>().color = Color.white;
 					con.GetComponent<SpriteRenderer>().sortingOrder = 0;
-				   
+                    con.tag = "letterbox";
 					con.AddComponent<clickControl>();
 					con.AddComponent<BoxCollider2D>();
 					con.GetComponent<BoxCollider2D>().isTrigger = true;
@@ -294,7 +282,6 @@ public class manager : MonoBehaviour {
 							
                             return false;
 						}
-						Debug.Log("Works:" + find);
 					}
 				}
 			}
@@ -317,7 +304,6 @@ public class manager : MonoBehaviour {
 						{
 							return false;
 						}
-						Debug.Log("Works:" + find);
 					}
 				}
 			}
