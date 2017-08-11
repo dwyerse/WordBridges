@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\Data\GameInfo.cs" />
     <Compile Include="Assets\Scripts\Data\levels.cs" />
     <Compile Include="Assets\Scripts\MainGame\CompleteAnimation.cs" />
+    <Compile Include="Assets\Scripts\MainGame\Effects.cs" />
     <Compile Include="Assets\Scripts\MainGame\ShareImage.cs" />
     <Compile Include="Assets\Scripts\MainGame\clickControl.cs" />
     <Compile Include="Assets\Scripts\MainGame\containerBehaviour.cs" />

@@ -52,7 +52,6 @@ public class clickControl : MonoBehaviour {
             containerBehaviour tmp = coll.gameObject.GetComponent<containerBehaviour>();
             if (!tmp.full)
             {
-
                 Vector3 a = tmp.transform.position;
                 Vector3 b = transform.position;
                 float dist = Vector3.Distance(a, b);               
@@ -112,7 +111,9 @@ public class clickControl : MonoBehaviour {
         {
             transform.position = hole;
             cB.full = true;
-            cB.occupant = transform; 
+            cB.occupant = transform;
+            GameObject effects = GameObject.Find("Effects");
+            effects.GetComponent<Effects>().produceSlotEffect(transform);
             GameInfo.grid[cB.i,cB.j] = cB.occupant.GetChild(0).GetComponent<TextMesh>().text;
         }
         else
