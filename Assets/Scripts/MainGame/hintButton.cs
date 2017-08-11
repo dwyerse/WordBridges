@@ -45,6 +45,7 @@ public class hintButton : MonoBehaviour {
                 letter.transform.SetParent(containers[count].transform);
                 letter.GetComponent<TextMesh>().text = containers[count].GetComponent<containerBehaviour>().c;
                 letter.GetComponent<TextMesh>().color = new Color32(0x44, 0xDD, 0x44, 0xAA);
+                letter.tag = "hint";
                 count++; 
                 PlayerPrefs.SetInt("coins", c - 10);
                 StartCoroutine(showCost());

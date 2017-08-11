@@ -7,6 +7,7 @@ TagManager:
   - container
   - letterbox
   - letter
+  - hint
   layers:
   - Default
   - TransparentFX

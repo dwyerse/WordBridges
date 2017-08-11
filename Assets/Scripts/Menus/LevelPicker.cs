@@ -56,7 +56,6 @@ public class LevelPicker : MonoBehaviour {
 
 			if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
 			{
-                Debug.Log("Here - " + diff + "-" + (i+1));
                 txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
 			}
 			else

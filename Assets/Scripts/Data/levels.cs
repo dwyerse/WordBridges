@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 public class levels {
 
-    public int easy = 9;
+    public int easy = 14;
     public int medium = 4;
     public int hard = 1;
     public string[] file;
@@ -108,6 +108,61 @@ public class levels {
         letters[1, 2] = "A";
         letters[2, 2] = "R";
         letters[3, 2] = "N";
+        return letters;
+    }
+    public string[,] A10()
+    {
+        string[,] letters = new string[6, 6];
+        letters[0, 2] = "L";
+        letters[1, 2] = "A";
+        letters[2, 2] = "Z";
+        letters[3, 2] = "Y";
+        letters[1, 1] = "M";
+        letters[1, 3] = "N";
+        return letters;
+    }
+    public string[,] A11()
+    {
+        string[,] letters = new string[6, 6];
+        letters[0, 2] = "T";
+        letters[1, 2] = "R";
+        letters[2, 2] = "I";
+        letters[3, 2] = "A";
+        letters[4, 2] = "L";
+        letters[2, 3] = "N";
+        return letters;
+    }
+    public string[,] A12()
+    {
+        string[,] letters = new string[6, 6];
+        letters[0, 2] = "P";
+        letters[1, 2] = "A";
+        letters[2, 2] = "R";
+        letters[3, 2] = "K";
+        letters[1, 3] = "I";
+        letters[1, 4] = "M";
+        return letters;
+    }
+    public string[,] A13()
+    {
+        string[,] letters = new string[6, 6];
+        letters[0, 2] = "P";
+        letters[1, 2] = "L";
+        letters[2, 2] = "A";
+        letters[3, 2] = "N";
+        letters[0, 0] = "M";
+        letters[0, 1] = "A";
+        return letters;
+    }
+    public string[,] A14()
+    {
+        string[,] letters = new string[6, 6];
+        letters[0, 2] = "W";
+        letters[1, 2] = "A";
+        letters[2, 2] = "V";
+        letters[3, 2] = "E";
+        letters[0, 1] = "A";
+        letters[0, 3] = "E";
         return letters;
     }
     public string[,] B1()

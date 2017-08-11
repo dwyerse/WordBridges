@@ -149,9 +149,14 @@ public class manager : MonoBehaviour {
         {
             CompleteAnimation.addCoins = false;
         }
+
         PlayerPrefs.SetInt(diff+"-"+level, 1);
         Destroy(hint.GetComponent<hintButton>());
-        
+        GameObject[] hints = GameObject.FindGameObjectsWithTag("hint");
+        foreach(GameObject g in hints)
+        {
+            g.SetActive(false);
+        }
         CompleteAnimation.c = true;     
         
 

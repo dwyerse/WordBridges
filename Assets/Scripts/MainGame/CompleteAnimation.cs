@@ -36,9 +36,7 @@ public class CompleteAnimation : MonoBehaviour {
                     SpriteRenderer sp = containers[i].GetComponent<SpriteRenderer>();
                     if (colorPhase == 0)
                     {
-                        Debug.Log("here");
                         if (sp.color.r>0.5) {
-                            Debug.Log("green: " + sp.color.g);
                             sp.color = new Color(sp.color.r- colorSpeed, sp.color.g, sp.color.b - colorSpeed);
                         }
                         else
