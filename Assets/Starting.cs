@@ -14,7 +14,7 @@ public class Starting : MonoBehaviour {
 
         if (!PlayerPrefs.HasKey("coins"))
         {
-            PlayerPrefs.SetInt("coins", 100);
+            PlayerPrefs.SetInt("coins", 10);
         }
 
 	}

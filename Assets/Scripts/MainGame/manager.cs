@@ -2,6 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 
 public class manager : MonoBehaviour {
 
@@ -14,9 +15,10 @@ public class manager : MonoBehaviour {
 	public GameObject next;
     public GameObject hint;
     public TextMesh coinsText;
+    public Font font;
 	float scaler = 0;
 	string letters;
-	int level = 1;
+	int level;
 	int diff = 0;
 	// Use this for initialization
 	void Start () {
@@ -35,84 +37,123 @@ public class manager : MonoBehaviour {
 
         if (GameInfo.play == 1)
 		{
-
-			if (PlayerPrefs.HasKey("level"))
-			{
-				level = PlayerPrefs.GetInt("level");
-			}
-			else
-			{
-				PlayerPrefs.SetInt("level", 1);
-			}
-			if (PlayerPrefs.HasKey("diff"))
-			{
-				diff = PlayerPrefs.GetInt("diff");
-			}
-			else
-			{
-				PlayerPrefs.SetInt("diff", 0);
-			}
+            level = 0;
+            for (int d =0;d<3&&level==0;d++) {
+                if (!PlayerPrefs.HasKey(d + "-" + 1))
+                {
+                    level = 1;
+                }
+                else
+                {
+                    int b = 0;
+                    switch (d)
+                    {
+                        case 0:
+                            b = GameInfo.l.easy;
+                            break;
+                        case 1:
+                            b = GameInfo.l.medium;
+                            break;
+                        case 2:
+                            b = GameInfo.l.hard;
+                            break;
+                    }
+                    for (int i = 0; i < b && level==0; i++)
+                    {
+                        if (!PlayerPrefs.HasKey(d + "-" + (i + 1)))
+                        {
+                            level = i + 1;
+                            diff = d;
+                        }
+                    }
+                }
+            }
+            if (level==0)
+            {
+                GameInfo.play = 0;
+                SceneManager.LoadScene("DifficultyLevels",LoadSceneMode.Single);
+            }
 
 		}
 		else
-		{            			
-			diff = GameInfo.currentDif;
+		{
+
+            diff = GameInfo.currentDif;
 			level = GameInfo.chosenLevel;		   
 		}
-		string methodName = "";
-		switch (diff)
-		{
-			case 0:
-				methodName = "A";
-				break;
-			case 1:
-				methodName = "B";
-				break;
-			case 2:
-				methodName = "C";
-				break;
-		}
-		methodName += level;
-		levels l = GameInfo.l;
-		MethodInfo mi = l.GetType().GetMethod(methodName);
-		word = (string[,])mi.Invoke(l, null);
-		title.GetComponent<TextMesh>().text = "LEVEL " + GameInfo.chosenLevel;
-		createContainers(word);
-		createLetters(word);
+        if (level != 0)
+        {
+            string methodName = "";
+            string diffText = "";
+            switch (diff)
+            {
+                case 0:
+                    methodName = "A";
+                    diffText = "EASY";
+                    break;
+                case 1:
+                    methodName = "B";
+                    diffText = "MEDIUM";
+                    break;
+                case 2:
+                    methodName = "C";
+                    diffText = "HARD";
+                    break;
+            }
+
+            methodName += level;
+            levels l = GameInfo.l;
+            MethodInfo mi = l.GetType().GetMethod(methodName);
+            word = (string[,])mi.Invoke(l, null);
+
+
+            title.GetComponent<TextMesh>().text = diffText + " " + level;
+            createContainers(word);
+            createLetters(word);
+        }
 	}
 
 	bool completed = false;
 	// Update is called once per frame
 	void Update () {
-		
-		if (!completed&&(complete()|| alternateComplete()))
-		{
-			completed = true;
-			levelComplete();
-		}
+        if (level != 0)
+        {
+            if (!completed && (complete() || alternateComplete()))
+            {
+                completed = true;
+                levelComplete();
+            }
 
-		if (scaler < 1)
-		{
-			for (int i=0;i<letters.Length;i++)
-			{
-				cons[i].transform.localScale = new Vector3(scaler, scaler, scaler);
-				conts[i].transform.localScale = new Vector3(scaler, scaler, scaler);
-			}
-		}
-		scaler += 0.10f;
+            if (scaler < 1)
+            {
+                for (int i = 0; i < letters.Length; i++)
+                {
+                    cons[i].transform.localScale = new Vector3(scaler, scaler, scaler);
+                    conts[i].transform.localScale = new Vector3(scaler, scaler, scaler);
+                }
+            }
+            scaler += 0.10f;
+        }
 	}
 	//On completion of the level.
 	void levelComplete()
-	{	
-		PlayerPrefs.SetInt(diff+"-"+level, 1);
+	{
+        //Add coins if level not complete
+        if (!PlayerPrefs.HasKey(diff+"-"+level))
+        {
+            int c = PlayerPrefs.GetInt("coins");
+            c += 7;
+            PlayerPrefs.SetInt("coins", c);
+        }
+        else
+        {
+            CompleteAnimation.addCoins = false;
+        }
+        PlayerPrefs.SetInt(diff+"-"+level, 1);
         Destroy(hint.GetComponent<hintButton>());
-
-        CompleteAnimation.c = true;
-
-        //Add coins
-        int c = PlayerPrefs.GetInt("coins");
-        c += 7;
-        PlayerPrefs.SetInt("coins", c);
+        
+        CompleteAnimation.c = true;     
+        
 
 	}
 
@@ -202,12 +243,17 @@ public class manager : MonoBehaviour {
 		resetOff = 0;
 		rowOff = 0;
 
+        GameObject[] lets = GameObject.FindGameObjectsWithTag("letter");
+        for (int j=0;j<lets.Length;j++)
+        {
+            lets[j].SetActive(false);
+        }
 		//Letter Part
 		for (int a=0;a<letters.Length;a++)
 		{
-			GameObject letter = new GameObject();
+            GameObject letter = lets[a];
 			letter.name = "letter" + a;
-			Vector3 vec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.5f + (float)(rowOff * 0.6), -1);
+			Vector3 vec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.53f + (float)(rowOff * 0.6), -1);
 			resetOff++;
 			if (a % 4 == 0 && a != 0)
 			{
@@ -215,16 +261,15 @@ public class manager : MonoBehaviour {
 				resetOff = 0;
 			}
 			letter.GetComponent<Transform>().position = vec;
-			letter.AddComponent<TextMesh>();
 			letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;            
-			letter.GetComponent<TextMesh>().characterSize = 0.06f;
-			letter.GetComponent<TextMesh>().fontSize = 60; 
-			letter.transform.SetParent(cons[a].transform);
+			letter.GetComponent<TextMesh>().characterSize = 0.07f;
+			letter.GetComponent<TextMesh>().fontSize = 60;
+            letter.transform.SetParent(cons[a].transform);
 			letter.GetComponent<TextMesh>().text = letters.Substring(a, 1);
 			letter.GetComponent<TextMesh>().color = new Color32(0x30, 0x7B, 0xB0, 0xFF);
 			GameObject q = cons[a];
 			q.transform.localScale = new Vector3(0, 0, 0);
-				   
+            letter.SetActive(true);
 		}		
 	}
 

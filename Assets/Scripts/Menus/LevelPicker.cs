@@ -56,7 +56,8 @@ public class LevelPicker : MonoBehaviour {
 
 			if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
 			{
-				txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
+                Debug.Log("Here - " + diff + "-" + (i+1));
+                txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
 			}
 			else
 			{
@@ -81,7 +82,7 @@ public class LevelPicker : MonoBehaviour {
         RectTransform rt = content.GetComponent<RectTransform>();
         float ba = (float)buttonAmount;
         float y = rt.position.y;
-        Debug.Log("y: " + (y -1800) + " ba:" + ba + " bH:" + buttonHeight);
+        //Debug.Log("y: " + (y -1800) + " ba:" + ba + " bH:" + buttonHeight);
         if (ba * buttonHeight > 6 * buttonHeight)
         {
             if (y > 700 + ba * buttonHeight)

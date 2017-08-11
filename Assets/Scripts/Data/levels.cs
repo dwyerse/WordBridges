@@ -15,10 +15,10 @@ public class levels {
     public string [,] A1()
     {
         string[,] letters = new string[6, 6];
-        letters[0, 0] = "A";
-        letters[0, 1] = "T";
-        letters[1, 1] = "I";
-        letters[2, 1] = "E";
+        letters[0, 1] = "A";
+        letters[0, 2] = "T";
+        letters[1, 2] = "I";
+        letters[2, 2] = "E";
         return letters;
     }
 
@@ -106,7 +106,8 @@ public class levels {
         letters[0, 1] = "H";
         letters[0, 2] = "Y";
         letters[1, 2] = "A";
-        letters[2, 2] = "K";
+        letters[2, 2] = "R";
+        letters[3, 2] = "N";
         return letters;
     }
     public string[,] B1()

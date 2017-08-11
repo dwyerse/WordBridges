@@ -15,6 +15,7 @@ public class CompleteAnimation : MonoBehaviour {
     public float colorSpeed = 0.04f;
     int phase;
     int colorPhase;
+    public static bool addCoins = true;
     // Use this for initialization
     void Start () {
         phase = 0;
@@ -125,12 +126,20 @@ public class CompleteAnimation : MonoBehaviour {
                     last.localScale = new Vector3(0,0,0);
                     if (extra.localScale.x<1)
                     {
-                        extra.localScale = new Vector3(extra.localScale.x + 0.06f, extra.localScale.y + 0.06f, extra.localScale.z);
+                        if (addCoins)
+                        {
+                            extra.localScale = new Vector3(extra.localScale.x + 0.06f, extra.localScale.y + 0.06f, extra.localScale.z);
+                        }
+                        else
+                        {
+                            phase = 6;
+                            showCompletePanel();
+                        }
                     }
                     else
-                    {
-                        phase = 4;
-                        showCompletePanel();
+                    {                        
+                            phase = 4;                        
+                            showCompletePanel();
                     }                    
                 }
             }
@@ -147,6 +156,7 @@ public class CompleteAnimation : MonoBehaviour {
                 if(extra.position.x<=-0.65 && extra.position.y <= 2.5)
                 {
                     extra.localScale = new Vector3(0, 0, 0);
+                   
                     phase = 5;
                 }
             }
@@ -162,7 +172,7 @@ public class CompleteAnimation : MonoBehaviour {
     {
         int cv = int.Parse(coins.text);
         int pCoins = PlayerPrefs.GetInt("coins");
-        for (int i = 0; i + cv < pCoins; i++)
+        for (int i = 0; i + cv <= pCoins; i++)
         {
             coins.text = "" + (cv + i);
             yield return new WaitForSeconds(0.1f);
