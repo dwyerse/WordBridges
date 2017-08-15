@@ -22,9 +22,12 @@ public class Effects : MonoBehaviour {
         float oga = go.GetComponent<SpriteRenderer>().color.a;
         for (float i=0;i<10;i++)
         {
-            go.transform.localScale = new Vector2(go.transform.localScale.x + 0.005f, go.transform.localScale.y + 0.005f);
-            Color c = go.GetComponent<SpriteRenderer>().color;
-            go.GetComponent<SpriteRenderer>().color = new Color(c.r,c.g,c.b,c.a - 0.1f);            
+            if (go != null)
+            {
+                go.transform.localScale = new Vector2(go.transform.localScale.x + 0.005f, go.transform.localScale.y + 0.005f);
+                Color c = go.GetComponent<SpriteRenderer>().color;
+                go.GetComponent<SpriteRenderer>().color = new Color(c.r, c.g, c.b, c.a - 0.1f);
+            }
             yield return new WaitForSeconds(0.01f);
         }
         Destroy(go);      

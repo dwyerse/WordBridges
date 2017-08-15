@@ -84,9 +84,9 @@ public class LevelPicker : MonoBehaviour {
         //Debug.Log("y: " + (y -1800) + " ba:" + ba + " bH:" + buttonHeight);
         if (ba * buttonHeight > 6 * buttonHeight)
         {
-            if (y > 700 + ba * buttonHeight)
+            if (y > 1000 + ba * buttonHeight)
             {
-                rt.position = new Vector3(rt.position.x, 700 + ba * buttonHeight, rt.position.z);
+                rt.position = new Vector3(rt.position.x, 1000 + ba * buttonHeight, rt.position.z);
             }
             else if (y < 1800)
             {

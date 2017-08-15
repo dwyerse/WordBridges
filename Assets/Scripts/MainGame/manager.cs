@@ -14,23 +14,23 @@ public class manager : MonoBehaviour {
 	public GameObject overlay;
 	public GameObject next;
     public GameObject hint;
+    public GameObject tutorialObj;
+    public GameObject arrow;
     public TextMesh coinsText;
     public Font font;
 	float scaler = 0;
 	string letters;
 	int level;
 	int diff = 0;
+    
 	// Use this for initialization
 	void Start () {
-
+       
+        
         if (Advertisement.IsReady())
         {
             //Advertisement.Show();
-        }
-        else
-        {
-        }
-        
+        }        
 
         //Set coins value
         coinsText.text = "" + PlayerPrefs.GetInt("coins");
@@ -65,7 +65,7 @@ public class manager : MonoBehaviour {
                             level = i + 1;
                             diff = d;
                         }
-                    }
+                    }                    
                 }
             }
             if (level==0)
@@ -73,8 +73,9 @@ public class manager : MonoBehaviour {
                 GameInfo.play = 0;
                 SceneManager.LoadScene("DifficultyLevels",LoadSceneMode.Single);
             }
-
-		}
+            GameInfo.chosenLevel = level;
+            GameInfo.currentDif = diff;
+        }
 		else
 		{
 
@@ -110,8 +111,21 @@ public class manager : MonoBehaviour {
             title.GetComponent<TextMesh>().text = diffText + " " + level;
             createContainers(word);
             createLetters(word);
-        }
-	}
+
+            //Tutorial
+
+            int tutorial = 1;
+            if (PlayerPrefs.HasKey("tutorial"))
+            {                
+                tutorial = 0;
+            }
+            if (tutorial == 1)
+            {
+                overlay.SetActive(true);
+                tutorialObj.SetActive(true);
+            }
+        }       
+    }
 
 	bool completed = false;
 	// Update is called once per frame
@@ -138,6 +152,9 @@ public class manager : MonoBehaviour {
 	//On completion of the level.
 	void levelComplete()
 	{
+
+        PlayerPrefs.SetInt("tutorial",1);
+
         //Add coins if level not complete
         if (!PlayerPrefs.HasKey(diff+"-"+level))
         {
@@ -171,7 +188,7 @@ public class manager : MonoBehaviour {
 		{
 			for (int j = 0; j < str.GetLength(1); j++)
 			{
-				if (str[i, j] != null)
+				if (str[i, j] != null&& str[i, j] != "")
 				{
 					GameObject con = new GameObject();
 					
@@ -213,7 +230,7 @@ public class manager : MonoBehaviour {
 		{
 			for (int j = 0; j < str.GetLength(1); j++)
 			{
-				if (str[i, j] != null)
+				if (str[i, j] != null&&str[i, j] != "")
 				{
 					GameObject con = new GameObject();
 					Vector3 vec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.5f + (float)(rowOff * 0.6), 0);
@@ -229,10 +246,13 @@ public class manager : MonoBehaviour {
 					con.AddComponent<SpriteRenderer>();
 					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
 					con.GetComponent<SpriteRenderer>().color = Color.white;
+
 					con.GetComponent<SpriteRenderer>().sortingOrder = 0;
                     con.tag = "letterbox";
 					con.AddComponent<clickControl>();
-					con.AddComponent<BoxCollider2D>();
+                    con.GetComponent<clickControl>().tut = tutorialObj;
+                    con.GetComponent<clickControl>().tut.GetComponent<Tutorial>().arrow = arrow;
+                    con.AddComponent<BoxCollider2D>();
 					con.GetComponent<BoxCollider2D>().isTrigger = true;
 					con.AddComponent<Rigidbody2D>();
 					var rb = con.GetComponent<Rigidbody2D>();
@@ -329,7 +349,7 @@ public class manager : MonoBehaviour {
 						
                         if (!search(GameInfo.l.file,find)&&find.Length>1)
 						{
-							
+                            Debug.Log("Fail: " + find);
                             return false;
 						}
 					}
@@ -352,6 +372,7 @@ public class manager : MonoBehaviour {
 						
 						if (!search(GameInfo.l.file, find) && find.Length > 1)
 						{
+                            Debug.Log("Fail: " + find);
 							return false;
 						}
 					}

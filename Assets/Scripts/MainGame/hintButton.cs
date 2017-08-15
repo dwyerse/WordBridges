@@ -21,6 +21,7 @@ public class hintButton : MonoBehaviour {
     private void OnMouseDown()
     {
         GameObject[] containers = GameObject.FindGameObjectsWithTag("container");
+        GameObject[] hints = GameObject.FindGameObjectsWithTag("hint");
         if (count < containers.Length)
         {
             int c = PlayerPrefs.GetInt("coins");
@@ -35,17 +36,16 @@ public class hintButton : MonoBehaviour {
             }
             else
             {
-                GameObject letter = new GameObject();
-                Vector3 vec = containers[count].transform.position;           
+                GameObject letter = hints[count];
+                Vector3 vec = containers[count].transform.position;
+                vec = new Vector3(vec.x,vec.y-0.03f,vec.z);
                 letter.GetComponent<Transform>().position = vec;
-                letter.AddComponent<TextMesh>();
                 letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;
                 letter.GetComponent<TextMesh>().characterSize = 0.06f;
                 letter.GetComponent<TextMesh>().fontSize = 60;
                 letter.transform.SetParent(containers[count].transform);
                 letter.GetComponent<TextMesh>().text = containers[count].GetComponent<containerBehaviour>().c;
-                letter.GetComponent<TextMesh>().color = new Color32(0x44, 0xDD, 0x44, 0xAA);
-                letter.tag = "hint";
+                letter.GetComponent<TextMesh>().color = new Color32(0x44, 0xDD, 0x44, 0xAA);                
                 count++; 
                 PlayerPrefs.SetInt("coins", c - 10);
                 StartCoroutine(showCost());

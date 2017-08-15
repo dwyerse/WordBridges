@@ -8,6 +8,7 @@ TagManager:
   - letterbox
   - letter
   - hint
+  - tutorial
   layers:
   - Default
   - TransparentFX
@@ -53,4 +54,7 @@ TagManager:
     locked: 0
   - name: boxes
     uniqueID: 7100993
+    locked: 0
+  - name: tutorial
+    uniqueID: 3984223729
     locked: 0

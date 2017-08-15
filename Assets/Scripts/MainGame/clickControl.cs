@@ -6,11 +6,18 @@ using UnityEngine;
 public class clickControl : MonoBehaviour {
     public Vector3 og;
     public Vector3 hole;
-    public int insert = 0;   
+    public int insert = 0;
+    public GameObject tut;
     GameObject[] containers;
+    int tutorial;
     // Use this for initialization
     void Start () {
         og = new Vector3(GetComponent<Transform>().position.x, GetComponent<Transform>().position.y, GetComponent<Transform>().position.z);
+        tutorial = 1;
+        if (PlayerPrefs.HasKey("tutorial"))
+        {
+            tutorial = 0;
+        }
     }
 
     // Update is called once per frame
@@ -107,6 +114,7 @@ public class clickControl : MonoBehaviour {
     private void OnMouseUp()
     {
         transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+        //Put in container
         if (Math.Abs(insert)>0)
         {
             transform.position = hole;
@@ -115,8 +123,12 @@ public class clickControl : MonoBehaviour {
             GameObject effects = GameObject.Find("Effects");
             effects.GetComponent<Effects>().produceSlotEffect(transform);
             GameInfo.grid[cB.i,cB.j] = cB.occupant.GetChild(0).GetComponent<TextMesh>().text;
+            if (tutorial>0)
+            {
+                tut.GetComponent<Tutorial>().nextPhase(1);
+            }
         }
-        else
+        else //Put in original spot
         {
             transform.position = og;
             if (cB != null)
@@ -132,7 +144,7 @@ public class clickControl : MonoBehaviour {
                     cB.full = false;
                     cB.occupant = null;
                     GameInfo.grid[cB.i, cB.j] = null;
-                }                         
+                }
             }
         }        
     }

@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
     <None Include="Assets\Resources\unixdict.txt" />
     <None Include="Assets\StreamingAssets\build_info.txt" />
   </ItemGroup>
