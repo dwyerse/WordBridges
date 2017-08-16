@@ -223,6 +223,7 @@ public class manager : MonoBehaviour {
 		int offset = 0;
 		int resetOff = 0;
 		int rowOff = 0;
+        int co = 0;
 		letters = "";
 		cons = new List<GameObject>();
 		//Box part
@@ -233,16 +234,19 @@ public class manager : MonoBehaviour {
 				if (str[i, j] != null&&str[i, j] != "")
 				{
 					GameObject con = new GameObject();
-					Vector3 vec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.5f + (float)(rowOff * 0.6), 0);
+					Vector3 mvec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.5f + (float)(rowOff * 0.6), 0);
 					resetOff++;
-					if (offset % 4 == 0 && offset!=0)
+                    co++;
+					if (co==5)
 					{
+                        Debug.Log(offset);
 						rowOff--;
 						resetOff = 0;
+                        co = 0;
 					}                 
 					con.name = "letterbox" + offset;
 				  
-					con.GetComponent<Transform>().position = vec;
+					con.GetComponent<Transform>().position = mvec;
 					con.AddComponent<SpriteRenderer>();
 					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
 					con.GetComponent<SpriteRenderer>().color = Color.white;
@@ -273,17 +277,20 @@ public class manager : MonoBehaviour {
         {
             lets[j].SetActive(false);
         }
-		//Letter Part
-		for (int a=0;a<letters.Length;a++)
+        //Letter Part
+        co = 0;
+        for (int a=0;a<letters.Length;a++)
 		{
             GameObject letter = lets[a];
 			letter.name = "letter" + a;
 			Vector3 vec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.53f + (float)(rowOff * 0.6), -1);
 			resetOff++;
-			if (a % 4 == 0 && a != 0)
-			{
+            co++;
+            if (co == 5)
+            {
 				rowOff--;
 				resetOff = 0;
+                co = 0;
 			}
 			letter.GetComponent<Transform>().position = vec;
 			letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;            
@@ -294,6 +301,7 @@ public class manager : MonoBehaviour {
 			letter.GetComponent<TextMesh>().color = new Color32(0x30, 0x7B, 0xB0, 0xFF);
 			GameObject q = cons[a];
 			q.transform.localScale = new Vector3(0, 0, 0);
+            
             letter.SetActive(true);
 		}		
 	}

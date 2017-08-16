@@ -25,7 +25,22 @@ public class buyHints : MonoBehaviour {
         PlayerPrefs.SetInt("coins", coins + value);
         coinTm.text = "" + (coins + value);
         Purchaser p = new Purchaser();
-        p.buyCoins100();
+        switch (value)
+        {
+            case 100:
+                p.buyCoins100();
+                break;
+            case 200:
+                p.buyCoins200();
+                break;
+            case 1000:
+                p.buyCoins1000();
+                break;
+            case 10000:
+                p.buyCoins10000();
+                break;
+        }
+        
     }
 
 }

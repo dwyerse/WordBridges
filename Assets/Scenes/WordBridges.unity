@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 8699694}
   - component: {fileID: 8699696}
   - component: {fileID: 8699695}
+  - component: {fileID: 8699697}
   m_Layer: 0
   m_Name: HintH (3)
   m_TagString: Untagged
@@ -346,6 +347,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8699697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 8699693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &11175337
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +369,7 @@ GameObject:
   - component: {fileID: 11175338}
   - component: {fileID: 11175340}
   - component: {fileID: 11175339}
+  - component: {fileID: 11175341}
   m_Layer: 0
   m_Name: HintH (1)
   m_TagString: Untagged
@@ -429,6 +443,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &11175341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 11175337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &17729012
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +467,7 @@ GameObject:
   - component: {fileID: 17729016}
   - component: {fileID: 17729015}
   - component: {fileID: 17729014}
+  - component: {fileID: 17729018}
   m_Layer: 0
   m_Name: cost2
   m_TagString: Untagged
@@ -553,6 +580,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &17729018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 17729012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &90714041
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +602,7 @@ GameObject:
   - component: {fileID: 90714042}
   - component: {fileID: 90714044}
   - component: {fileID: 90714043}
+  - component: {fileID: 90714045}
   m_Layer: 0
   m_Name: HintCircle (3)
   m_TagString: Untagged
@@ -636,6 +676,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &90714045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 90714041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &128824256
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,8 +878,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1838598257
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3a99b72822b06d04998e80fe5675f3ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1250,6 +1302,7 @@ GameObject:
   - component: {fileID: 325813650}
   - component: {fileID: 325813652}
   - component: {fileID: 325813651}
+  - component: {fileID: 325813653}
   m_Layer: 0
   m_Name: ShopTitle
   m_TagString: Untagged
@@ -1323,6 +1376,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &325813653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 325813649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &340224003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,6 +1756,7 @@ GameObject:
   - component: {fileID: 367137153}
   - component: {fileID: 367137152}
   - component: {fileID: 367137151}
+  - component: {fileID: 367137155}
   m_Layer: 0
   m_Name: cost3
   m_TagString: Untagged
@@ -1757,7 +1823,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 367137149}
-  m_Text: $1
+  m_Text: "\u20AC1"
   m_OffsetZ: 0
   m_CharacterSize: 0.08
   m_LineSpacing: 1
@@ -1803,6 +1869,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &367137155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 367137149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &373995494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,6 +1893,7 @@ GameObject:
   - component: {fileID: 373995498}
   - component: {fileID: 373995497}
   - component: {fileID: 373995496}
+  - component: {fileID: 373995500}
   m_Layer: 0
   m_Name: cost4
   m_TagString: Untagged
@@ -1881,7 +1960,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 373995494}
-  m_Text: $5
+  m_Text: "\u20AC5"
   m_OffsetZ: 0
   m_CharacterSize: 0.08
   m_LineSpacing: 1
@@ -1927,6 +2006,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &373995500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 373995494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &427019744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,6 +2468,7 @@ GameObject:
   - component: {fileID: 592197202}
   - component: {fileID: 592197204}
   - component: {fileID: 592197203}
+  - component: {fileID: 592197205}
   m_Layer: 0
   m_Name: ShopTitle (5)
   m_TagString: Untagged
@@ -2450,6 +2542,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &592197205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 592197201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &636627949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2460,6 +2564,7 @@ GameObject:
   - component: {fileID: 636627950}
   - component: {fileID: 636627952}
   - component: {fileID: 636627951}
+  - component: {fileID: 636627953}
   m_Layer: 0
   m_Name: HintCircle (2)
   m_TagString: Untagged
@@ -2533,6 +2638,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &636627953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636627949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &671386745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,6 +2839,7 @@ GameObject:
   - component: {fileID: 714676704}
   - component: {fileID: 714676706}
   - component: {fileID: 714676705}
+  - component: {fileID: 714676707}
   m_Layer: 0
   m_Name: ShopTitle (3)
   m_TagString: Untagged
@@ -2795,6 +2913,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &714676707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 714676703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &715678585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,7 +3029,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 715678585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.444, y: -2.869, z: 1}
+  m_LocalPosition: {x: 1.444, y: -2.99, z: 1}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3565,7 +3695,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 888510621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.947, y: -2.869, z: -2.0722656}
+  m_LocalPosition: {x: -0.947, y: -2.99, z: -2.0722656}
   m_LocalScale: {x: 0.5892894, y: 0.58928955, z: 0.58928955}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3581,6 +3711,7 @@ GameObject:
   - component: {fileID: 893562099}
   - component: {fileID: 893562101}
   - component: {fileID: 893562100}
+  - component: {fileID: 893562102}
   m_Layer: 0
   m_Name: ShopTitle (4)
   m_TagString: Untagged
@@ -3654,6 +3785,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &893562102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 893562098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &905217564
 GameObject:
   m_ObjectHideFlags: 0
@@ -4136,6 +4279,7 @@ GameObject:
   - component: {fileID: 1072805874}
   - component: {fileID: 1072805876}
   - component: {fileID: 1072805875}
+  - component: {fileID: 1072805877}
   m_Layer: 0
   m_Name: ShopTitle (2)
   m_TagString: Untagged
@@ -4209,6 +4353,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1072805877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1072805873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1135793466
 GameObject:
   m_ObjectHideFlags: 0
@@ -4221,6 +4377,7 @@ GameObject:
   - component: {fileID: 1135793470}
   - component: {fileID: 1135793469}
   - component: {fileID: 1135793468}
+  - component: {fileID: 1135793472}
   m_Layer: 0
   m_Name: cost
   m_TagString: Untagged
@@ -4333,6 +4490,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1135793472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1135793466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1148942306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4343,6 +4512,7 @@ GameObject:
   - component: {fileID: 1148942307}
   - component: {fileID: 1148942309}
   - component: {fileID: 1148942308}
+  - component: {fileID: 1148942310}
   m_Layer: 0
   m_Name: HintCircle (1)
   m_TagString: Untagged
@@ -4416,6 +4586,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1148942310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148942306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1162220670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,6 +4705,7 @@ GameObject:
   - component: {fileID: 1170875983}
   - component: {fileID: 1170875982}
   - component: {fileID: 1170875981}
+  - component: {fileID: 1170875984}
   m_Layer: 0
   m_Name: ShopTitle (6)
   m_TagString: Untagged
@@ -4575,7 +4758,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170875979}
-  m_Text: $1
+  m_Text: "\u20AC1"
   m_OffsetZ: 0
   m_CharacterSize: 0.08
   m_LineSpacing: 1
@@ -4621,6 +4804,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1170875984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1170875979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1202100695
 GameObject:
   m_ObjectHideFlags: 0
@@ -4964,6 +5159,7 @@ GameObject:
   - component: {fileID: 1373322866}
   - component: {fileID: 1373322868}
   - component: {fileID: 1373322867}
+  - component: {fileID: 1373322869}
   m_Layer: 0
   m_Name: ShopTitle (1)
   m_TagString: Untagged
@@ -5037,6 +5233,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1373322869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1373322865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1377551759
 GameObject:
   m_ObjectHideFlags: 0
@@ -5213,6 +5421,7 @@ GameObject:
   - component: {fileID: 1434984124}
   - component: {fileID: 1434984126}
   - component: {fileID: 1434984125}
+  - component: {fileID: 1434984127}
   m_Layer: 0
   m_Name: HintCircle
   m_TagString: Untagged
@@ -5286,6 +5495,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1434984127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1434984123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1443579772
 GameObject:
   m_ObjectHideFlags: 0
@@ -5737,6 +5958,7 @@ GameObject:
   - component: {fileID: 1636956837}
   - component: {fileID: 1636956839}
   - component: {fileID: 1636956838}
+  - component: {fileID: 1636956840}
   m_Layer: 0
   m_Name: HintH
   m_TagString: Untagged
@@ -5810,6 +6032,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1636956840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1636956836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1649448434
 GameObject:
   m_ObjectHideFlags: 0
@@ -6373,6 +6607,7 @@ GameObject:
   - component: {fileID: 1891384262}
   - component: {fileID: 1891384264}
   - component: {fileID: 1891384263}
+  - component: {fileID: 1891384265}
   m_Layer: 0
   m_Name: HintH (2)
   m_TagString: Untagged
@@ -6446,6 +6681,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1891384265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891384261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1902001540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6458,6 +6705,7 @@ GameObject:
   - component: {fileID: 1902001544}
   - component: {fileID: 1902001543}
   - component: {fileID: 1902001542}
+  - component: {fileID: 1902001546}
   m_Layer: 0
   m_Name: XButton
   m_TagString: Untagged
@@ -6568,6 +6816,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1902001546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1902001540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69909a61232b4f24091f4bd5cb39f765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerToPushTo: shop
 --- !u!1 &1933937034
 GameObject:
   m_ObjectHideFlags: 0

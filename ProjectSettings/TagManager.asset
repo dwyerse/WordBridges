@@ -58,3 +58,6 @@ TagManager:
   - name: tutorial
     uniqueID: 3984223729
     locked: 0
+  - name: shop
+    uniqueID: 1838598257
+    locked: 0

@@ -15,7 +15,10 @@ namespace CompleteProject
 
        
         public static string coins100 = "coins100";
-                
+        public static string coins200 = "coins200";
+        public static string coins1000 = "coins1000";
+        public static string coins10000 = "coins10000";
+
 
         void Start()
         {
@@ -60,6 +63,21 @@ namespace CompleteProject
         public void buyCoins100()
         {
             BuyProductID(coins100);
+        }
+
+        public void buyCoins200()
+        {
+            BuyProductID(coins200);
+        }
+
+        public void buyCoins1000()
+        {
+            BuyProductID(coins1000);
+        }
+
+        public void buyCoins10000()
+        {
+            BuyProductID(coins10000);
         }
 
 
