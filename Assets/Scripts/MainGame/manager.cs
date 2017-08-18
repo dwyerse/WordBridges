@@ -42,6 +42,7 @@ public class manager : MonoBehaviour {
                 if (!PlayerPrefs.HasKey(d + "-" + 1))
                 {
                     level = 1;
+                    diff = d;
                 }
                 else
                 {
@@ -60,6 +61,7 @@ public class manager : MonoBehaviour {
                     }
                     for (int i = 0; i < b && level==0; i++)
                     {
+
                         if (!PlayerPrefs.HasKey(d + "-" + (i + 1)))
                         {
                             level = i + 1;
@@ -95,14 +97,16 @@ public class manager : MonoBehaviour {
                 case 1:
                     methodName = "B";
                     diffText = "MEDIUM";
+                    title.transform.position = new Vector2(-0.1f, title.transform.position.y);
                     break;
                 case 2:
                     methodName = "C";
                     diffText = "HARD";
                     break;
             }
-
+            
             methodName += level;
+
             levels l = GameInfo.l;
             MethodInfo mi = l.GetType().GetMethod(methodName);
             word = (string[,])mi.Invoke(l, null);
@@ -239,7 +243,6 @@ public class manager : MonoBehaviour {
                     co++;
 					if (co==5)
 					{
-                        Debug.Log(offset);
 						rowOff--;
 						resetOff = 0;
                         co = 0;
@@ -351,10 +354,10 @@ public class manager : MonoBehaviour {
 						while (i < word.GetLength(0) && j < word.GetLength(1) && word[i, j] != null)
 						{
 							find += GameInfo.grid[i, j];
-							j++;
+                            j++;
 						}
 						find = find.ToLower();
-						
+                        
                         if (!search(GameInfo.l.file,find)&&find.Length>1)
 						{
                             Debug.Log("Fail: " + find);

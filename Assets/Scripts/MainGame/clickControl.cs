@@ -18,6 +18,14 @@ public class clickControl : MonoBehaviour {
         {
             tutorial = 0;
         }
+        for (int i=0;i< GameInfo.grid.GetLength(0);i++)
+        {
+            for (int j = 0; j < GameInfo.grid.GetLength(1); j++)
+            {
+                GameInfo.grid[i, j] = null;
+            }
+        }
+
     }
 
     // Update is called once per frame
