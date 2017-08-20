@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Advertisements;
 
 public class CompleteAnimation : MonoBehaviour {
     public static bool c = false;
@@ -162,6 +163,14 @@ public class CompleteAnimation : MonoBehaviour {
             {
                 StartCoroutine(countUp());
                 phase = 6;                             
+            }
+            else if (phase==6)
+            {
+                if (Advertisement.IsReady() && !PlayerPrefs.HasKey("BlockAds"))
+                {
+                    Advertisement.Show();
+                }
+                phase = 7;
             }
         }
 	}   

@@ -21,9 +21,7 @@ public class buyHints : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        int coins = PlayerPrefs.GetInt("coins");
-        PlayerPrefs.SetInt("coins", coins + value);
-        coinTm.text = "" + (coins + value);
+        
         Purchaser p = new Purchaser();
         switch (value)
         {
@@ -39,8 +37,14 @@ public class buyHints : MonoBehaviour {
             case 10000:
                 p.buyCoins10000();
                 break;
+            case 0:
+                p.buyNoAds();
+                break;
         }
-        
+
+        int coins = PlayerPrefs.GetInt("coins");
+        coinTm.text = "" + (coins + value);
+
     }
 
 }

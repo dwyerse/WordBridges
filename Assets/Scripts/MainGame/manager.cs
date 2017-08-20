@@ -27,10 +27,7 @@ public class manager : MonoBehaviour {
 	void Start () {
        
         
-        if (Advertisement.IsReady())
-        {
-            //Advertisement.Show();
-        }        
+            
 
         //Set coins value
         coinsText.text = "" + PlayerPrefs.GetInt("coins");
@@ -156,6 +153,8 @@ public class manager : MonoBehaviour {
 	//On completion of the level.
 	void levelComplete()
 	{
+
+       
 
         PlayerPrefs.SetInt("tutorial",1);
 
@@ -301,8 +300,8 @@ public class manager : MonoBehaviour {
 			letter.GetComponent<TextMesh>().fontSize = 60;
             letter.transform.SetParent(cons[a].transform);
 			letter.GetComponent<TextMesh>().text = letters.Substring(a, 1);
-			letter.GetComponent<TextMesh>().color = new Color32(0x30, 0x7B, 0xB0, 0xFF);
-			GameObject q = cons[a];
+			letter.GetComponent<TextMesh>().color = new Color32(0x02, 0x78, 0xfd, 0xFF); 
+             GameObject q = cons[a];
 			q.transform.localScale = new Vector3(0, 0, 0);
             
             letter.SetActive(true);

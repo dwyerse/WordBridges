@@ -18,6 +18,7 @@ namespace CompleteProject
         public static string coins200 = "coins200";
         public static string coins1000 = "coins1000";
         public static string coins10000 = "coins10000";
+        public static string noads = "noads";
 
 
         void Start()
@@ -80,7 +81,10 @@ namespace CompleteProject
             BuyProductID(coins10000);
         }
 
-
+        public void buyNoAds()
+        {
+            BuyProductID(noads);
+        }
 
         void BuyProductID(string productId)
         {
@@ -140,9 +144,27 @@ namespace CompleteProject
             // A consumable product has been purchased by this user.
             if (String.Equals(args.purchasedProduct.definition.id, coins100, StringComparison.Ordinal))
             {
-                Debug.Log("Purchased 100 coins");
-                // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
-                //ScoreManager.score += 100;
+                int coins = PlayerPrefs.GetInt("coins");
+                PlayerPrefs.SetInt("coins", coins + 100);
+            }
+            else if (String.Equals(args.purchasedProduct.definition.id, coins200, StringComparison.Ordinal))
+            {
+                int coins = PlayerPrefs.GetInt("coins");
+                PlayerPrefs.SetInt("coins", coins + 200);
+            }
+            else if (String.Equals(args.purchasedProduct.definition.id, coins1000, StringComparison.Ordinal))
+            {
+                int coins = PlayerPrefs.GetInt("coins");
+                PlayerPrefs.SetInt("coins", coins + 1000);
+            }
+            else if (String.Equals(args.purchasedProduct.definition.id, coins10000, StringComparison.Ordinal))
+            {
+                int coins = PlayerPrefs.GetInt("coins");
+                PlayerPrefs.SetInt("coins", coins + 10000);
+            }
+            else if (String.Equals(args.purchasedProduct.definition.id, noads, StringComparison.Ordinal))
+            {
+                PlayerPrefs.SetInt("BlockAds", 1);
             }
             // Or ... an unknown product has been purchased by this user. Fill in additional products here....
             else
