@@ -1,3 +1,7 @@
+## [1.13.1] - 2017-08-18
+### Fixed
+- Android platforms - Fix Unity crash by stack-overflow when using the `UnityPurchasingEditor.TargetAndroidStore(AndroidStore store)` method or the Window > Unity IAP > Android > Xiaomi Mi Game Pay targeting menu.
+
 ## [1.13.0] - 2017-07-31
 ### Added
 - iOS and tvOS - Added support for purchases initiated from the App Store using the new API in iOS 11 and tvOS 11. For more information about this feature, watch the ["What's New in StoreKit" video from WWDC 2017](https://developer.apple.com/videos/play/wwdc2017/303/). If you intend to support this feature in your app, it is important that you initialize Unity Purchasing and be prepared to handle purchases as soon as possible when your app is launched.

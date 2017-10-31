@@ -166,9 +166,20 @@ public class CompleteAnimation : MonoBehaviour {
             }
             else if (phase==6)
             {
-                if (Advertisement.IsReady() && !PlayerPrefs.HasKey("BlockAds"))
+                if (PlayerPrefs.HasKey("howManyAds"))
                 {
-                    Advertisement.Show();
+                    int ads = PlayerPrefs.GetInt("howManyAds");
+                    ads++;
+                    PlayerPrefs.SetInt("howManyAds",ads);
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("howManyAds", 1);
+                }
+
+                if (Advertisement.IsReady() && (PlayerPrefs.GetInt("howManyAds")%3==0) && !PlayerPrefs.HasKey("BlockAds"))
+                {
+                    //Advertisement.Show();
                 }
                 phase = 7;
             }

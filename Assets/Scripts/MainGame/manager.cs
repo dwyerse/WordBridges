@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 
 public class manager : MonoBehaviour {
@@ -152,9 +151,7 @@ public class manager : MonoBehaviour {
 	}
 	//On completion of the level.
 	void levelComplete()
-	{
-
-       
+	{     
 
         PlayerPrefs.SetInt("tutorial",1);
 

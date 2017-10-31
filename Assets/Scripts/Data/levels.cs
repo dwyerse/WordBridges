@@ -29,10 +29,10 @@ public class levels {
     {
         string[,] letters = new string[5, 5];
         
-        letters[1, 2] = "A";
-        letters[2, 2] = "R";
-        letters[3, 2] = "E";
-        letters[2, 1] = "A";
+        letters[1, 2] = "Z";
+        letters[2, 2] = "O";
+        letters[3, 2] = "O";
+        letters[2, 1] = "D";
         letters[2, 3] = "T";
 
         return letters;
