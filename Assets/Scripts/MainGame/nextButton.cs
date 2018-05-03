@@ -19,19 +19,8 @@ public class nextButton : MonoBehaviour {
     private void nextClick()
     {
         GameInfo.chosenLevel++;
-        int diff =0;
-        switch (GameInfo.currentDif)
-        {
-            case 0:
-                diff = GameInfo.l.easy;
-                break;
-            case 1:
-                diff = GameInfo.l.medium;
-                break;
-            case 2:
-                diff = GameInfo.l.hard;
-                break;
-        }
+        int diff =20;
+      
         if (GameInfo.chosenLevel > diff)
         {
             GameInfo.chosenLevel = 1;

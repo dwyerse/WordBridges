@@ -9,13 +9,19 @@ public class Starting : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        
         if (!PlayerPrefs.HasKey("tutorial"))
         {
             SceneManager.LoadScene("WordBridges");
         }
         t.text = ""+ PlayerPrefs.GetInt("coins");
 		TextAsset txt = (TextAsset)Resources.Load("unixdict", typeof(TextAsset));
-		GameInfo.l.file = txt.text.Split('\n');
+		string[] words = txt.text.Split('\n');
+
+        foreach (string word in words)
+        {
+            GameInfo.wordSet.Add(word.Trim());
+        }
 
         if (!PlayerPrefs.HasKey("coins"))
         {

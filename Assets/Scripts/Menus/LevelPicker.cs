@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelPicker : MonoBehaviour {
 	public GameObject content;
 	levels l = GameInfo.l;
-	int buttonAmount = 0;
+	int buttonAmount = 20;
 	int diff;
     float buttonHeight = 200f;
     public ScrollRect sr;
@@ -15,19 +15,7 @@ public class LevelPicker : MonoBehaviour {
 	void Start () {
 
 		
-		diff = GameInfo.currentDif;
-		switch (diff)
-		{
-			case 0:
-				buttonAmount = l.easy;
-				break;
-			case 1:
-				buttonAmount = l.medium;
-				break;
-			case 2:
-				buttonAmount = l.hard;
-				break;
-		}        
+		diff = GameInfo.currentDif;	      
 
 		createButtons();
 

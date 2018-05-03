@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 public class levels {
-
-    public int easy = 20;
-    public int medium = 20;
-    public int hard = 20;
+    
     public string[] file;
     public levels(){
                

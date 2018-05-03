@@ -21,6 +21,7 @@ public class manager : MonoBehaviour {
 	string letters;
 	int level;
 	int diff = 0;
+    bool fullChecked = false;
     
 	// Use this for initialization
 	void Start () {
@@ -42,19 +43,8 @@ public class manager : MonoBehaviour {
                 }
                 else
                 {
-                    int b = 0;
-                    switch (d)
-                    {
-                        case 0:
-                            b = GameInfo.l.easy;
-                            break;
-                        case 1:
-                            b = GameInfo.l.medium;
-                            break;
-                        case 2:
-                            b = GameInfo.l.hard;
-                            break;
-                    }
+                    int b = 20;
+                   
                     for (int i = 0; i < b && level==0; i++)
                     {
 
@@ -338,7 +328,7 @@ public class manager : MonoBehaviour {
 	bool alternateComplete()
 	{
 
-		if (containersFull())
+		if (containersFull()&&!fullChecked)
 		{
 			for (int i = 0; i < word.GetLength(0); i++)
 			{
@@ -353,10 +343,11 @@ public class manager : MonoBehaviour {
                             j++;
 						}
 						find = find.ToLower();
-                        
-                        if (!search(GameInfo.l.file,find)&&find.Length>1)
+                        float oldTime = Time.fixedTime; 
+                        if (!search(find)&&find.Length>1)
 						{
-                            Debug.Log("Fail: " + find);
+                            Debug.Log("Fail: " + find + "search time: " + (Time.fixedTime-oldTime));
+                            fullChecked = true;
                             return false;
 						}
 					}
@@ -377,7 +368,7 @@ public class manager : MonoBehaviour {
 						}
 						find = find.ToLower();
 						
-						if (!search(GameInfo.l.file, find) && find.Length > 1)
+						if (!search(find) && find.Length > 1)
 						{
                             Debug.Log("Fail: " + find);
 							return false;
@@ -400,24 +391,16 @@ public class manager : MonoBehaviour {
 			containerBehaviour con = containers[i].transform.GetComponent<containerBehaviour>();
 			if (con.occupant==null)
 			{
+                fullChecked = false;
 				return false;
 			}
 		}
 		return true;
 	}
 
-    bool search(string[] arr,string str)
+    bool search(string str)
     {
-
-        for (int i=0;i<arr.Length;i++)
-        {
-            if (str.Equals(arr[i].Trim()))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return GameInfo.wordSet.Contains(str);
     }
 
 }

@@ -3,6 +3,10 @@
 #import "Base64.h"
 #endif
 
+#if !MAC_APPSTORE
+#import "UnityEarlyTransactionObserver.h"
+#endif
+
 @implementation ProductDefinition
 
 @synthesize id;
@@ -10,6 +14,16 @@
 @synthesize type;
 
 @end
+
+void UnityPurchasingLog(NSString *format, ...) {
+    va_list args;
+    va_start(args, format);
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    
+    NSLog(@"UnityIAP:%@", message);
+}
+
 
 @implementation ReceiptRefresher
 
@@ -28,14 +42,10 @@
 
 @end
 
-void UnityPurchasingLog(NSString *format, ...) {
-    va_list args;
-    va_start(args, format);
-    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
-    va_end(args);
-
-    NSLog(@"UnityIAP:%@", message);
-}
+#if !MAC_APPSTORE
+@interface UnityPurchasing ()<UnityEarlyTransactionObserverDelegate>
+@end
+#endif
 
 @implementation UnityPurchasing
 
@@ -66,6 +76,14 @@ int delayInSeconds = 2;
 
     UnityPurchasingLog(@"No App Receipt found");
     return @"";
+}
+
+-(NSString*) getTransactionReceiptForProductId:(NSString *)productId {
+    NSString *result = transactionReceipts[productId];
+    if (!result) {
+        UnityPurchasingLog(@"No Transaction Receipt found for product %@", productId);
+    }
+    return result ?: @"";
 }
 
 -(void) UnitySendMessage:(NSString*) subject payload:(NSString*) payload {
@@ -267,7 +285,36 @@ int delayInSeconds = 2;
     if (processExistingTransactions) {
         [self paymentQueue:defaultQueue updatedTransactions:defaultQueue.transactions];
     }
+
+#if !MAC_APPSTORE
+    UnityEarlyTransactionObserver *observer = [UnityEarlyTransactionObserver defaultObserver];
+    if (observer) {
+        observer.readyToReceiveTransactionUpdates = YES;
+        if (self.interceptPromotionalPurchases) {
+            observer.delegate = self;
+        } else {
+            [observer initiateQueuedPayments];
+        }
+    }
+#endif
 }
+
+- (void)initiateQueuedEarlyTransactionObserverPayments {
+#if !MAC_APPSTORE
+    [[UnityEarlyTransactionObserver defaultObserver] initiateQueuedPayments];
+#endif
+}
+
+#if !MAC_APPSTORE
+#pragma mark -
+#pragma mark UnityEarlyTransactionObserverDelegate Methods
+
+- (void)promotionalPurchaseAttempted:(SKPayment *)payment {
+    UnityPurchasingLog(@"Promotional purchase attempted");
+    [self UnitySendMessage:@"onPromotionalPurchaseAttempted" payload:payment.productIdentifier];
+}
+
+#endif
 
 #pragma mark -
 #pragma mark SKProductsRequestDelegate Methods
@@ -336,7 +383,20 @@ int delayInSeconds = 2;
                 // Item is still in the process of being purchased
                 break;
 
-            case SKPaymentTransactionStatePurchased:
+            case SKPaymentTransactionStatePurchased: {
+#if MAC_APPSTORE
+                // There is no transactionReceipt on Mac
+                NSString* receipt = @"";
+#else
+                // The transactionReceipt field is deprecated, but is being used here to validate Ask-To-Buy purchases
+                NSString* receipt = [transaction.transactionReceipt base64EncodedStringWithOptions:0];
+#endif
+                if (transaction.payment.productIdentifier != nil) {
+                    transactionReceipts[transaction.payment.productIdentifier] = receipt;
+                }
+                [self onTransactionSucceeded:transaction];
+                break;
+            }
             case SKPaymentTransactionStateRestored: {
                 [self onTransactionSucceeded:transaction];
                 break;
@@ -365,12 +425,6 @@ int delayInSeconds = 2;
 - (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions
 {
     // Nothing to do here.
-}
-
-// Called when a transaction is initiated from the app store
-- (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product
-{
-    return YES;
 }
 
 // Called when SKPaymentQueue has finished sending restored transactions.
@@ -444,6 +498,17 @@ int delayInSeconds = 2;
     {
         UnityPurchasingLog(@"Update store promotion visibility is only available on iOS and tvOS 11 or later");
     }
+}
+
+
+- (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+    if (@available(iOS 11_0, *)) {
+        // Just defer to the early transaction observer. This should have no effect, just return whatever the observer returns.
+        return [[UnityEarlyTransactionObserver defaultObserver] paymentQueue:queue shouldAddStorePayment:payment forProduct:product];
+    }
+#endif
+    return YES;
 }
 
 +(ProductDefinition*) decodeProductDefinition:(NSDictionary*) hash
@@ -547,6 +612,7 @@ int delayInSeconds = 2;
         validProducts = [[NSMutableDictionary alloc] init];
         pendingTransactions = [[NSMutableDictionary alloc] init];
         finishedTransactions = [[NSMutableSet alloc] init];
+        transactionReceipts = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -605,17 +671,17 @@ void unityPurchasingFinishTransaction(const char* productJSON, const char* trans
 }
 
 void unityPurchasingRestoreTransactions() {
-    UnityPurchasingLog(@"restoreTransactions");
+    UnityPurchasingLog(@"Restore transactions");
     [UnityPurchasing_getInstance() restorePurchases];
 }
 
 void unityPurchasingAddTransactionObserver() {
-    UnityPurchasingLog(@"addTransactionObserver");
+    UnityPurchasingLog(@"Add transaction observer");
     [UnityPurchasing_getInstance() addTransactionObserver];
 }
 
 void unityPurchasingRefreshAppReceipt() {
-    UnityPurchasingLog(@"refreshAppReceipt");
+    UnityPurchasingLog(@"Refresh app receipt");
     [UnityPurchasing_getInstance() refreshReceipt];
 }
 
@@ -624,12 +690,17 @@ char* getUnityPurchasingAppReceipt () {
     return UnityPurchasingMakeHeapAllocatedStringCopy(receipt);
 }
 
+char* getUnityPurchasingTransactionReceiptForProductId (const char *productId) {
+    NSString* receipt = [UnityPurchasing_getInstance() getTransactionReceiptForProductId:[NSString stringWithUTF8String:productId]];
+    return UnityPurchasingMakeHeapAllocatedStringCopy(receipt);
+}
+
 BOOL getUnityPurchasingCanMakePayments () {
     return [SKPaymentQueue canMakePayments];
 }
 
 void setSimulateAskToBuy(BOOL enabled) {
-    UnityPurchasingLog(@"setSimulateAskToBuy %@", enabled ? @"true" : @"false");
+    UnityPurchasingLog(@"Set simulate Ask To Buy %@", enabled ? @"true" : @"false");
     UnityPurchasing_getInstance().simulateAskToBuyEnabled = enabled;
 }
 
@@ -655,4 +726,14 @@ void unityPurchasingUpdateStorePromotionVisibility(const char *productId, const 
     NSString* prodId = [NSString stringWithUTF8String:productId];
     NSString* visibilityStr = [NSString stringWithUTF8String:visibility];
     [UnityPurchasing_getInstance() updateStorePromotionVisibility:visibilityStr forProduct:prodId];
+}
+
+void unityPurchasingInterceptPromotionalPurchases() {
+    UnityPurchasingLog(@"Intercept promotional purchases");
+    UnityPurchasing_getInstance().interceptPromotionalPurchases = YES;
+}
+
+void unityPurchasingContinuePromotionalPurchases() {
+    UnityPurchasingLog(@"Continue promotional purchases");
+    [UnityPurchasing_getInstance() initiateQueuedEarlyTransactionObserverPayments];
 }

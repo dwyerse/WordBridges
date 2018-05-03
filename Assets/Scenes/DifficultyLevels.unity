@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -87,7 +87,7 @@ LightmapSettings:
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 1270377580}
+  difficulty: 0
 --- !u!61 &351796325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -324,6 +325,8 @@ SpriteRenderer:
   m_Size: {x: 3.6, y: 3.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!4 &388602426
 Transform:
   m_ObjectHideFlags: 0
@@ -364,10 +367,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 668148987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1126934e37da524987c3cf140199ba1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f93d93dfa0f6a141aa6849d5415b4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 1933629484}
+  difficulty: 1
 --- !u!61 &668148989
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -672,10 +676,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 759114218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e00c89ac618694cbebed267273cfa8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f93d93dfa0f6a141aa6849d5415b4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 1515813604}
+  difficulty: 2
 --- !u!61 &759114220
 BoxCollider2D:
   m_ObjectHideFlags: 0
