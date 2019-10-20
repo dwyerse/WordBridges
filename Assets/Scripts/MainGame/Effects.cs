@@ -13,25 +13,14 @@ public class Effects : MonoBehaviour {
         go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/box");
         go.transform.position = t.position;
         go.name = "slotEffect";
-        go.transform.localScale = new Vector2(0.1f,0.1f);
-        StartCoroutine(slot());
+        go.transform.localScale = new Vector2(0, 0);
+        LeanTween.scale(go, new Vector2(0.3f, 0.3f), 0.2f).setOnComplete(DestroyMe);
+        LeanTween.alpha(go, 0, 0.2f);
     }
        
-    IEnumerator slot()
+    void DestroyMe()
     {
-        float oga = go.GetComponent<SpriteRenderer>().color.a;
-        for (float i=0;i<10;i++)
-        {
-            if (go != null)
-            {
-                go.transform.localScale = new Vector2(go.transform.localScale.x + 0.005f, go.transform.localScale.y + 0.005f);
-                Color c = go.GetComponent<SpriteRenderer>().color;
-                go.GetComponent<SpriteRenderer>().color = new Color(c.r, c.g, c.b, c.a - 0.1f);
-            }
-            yield return new WaitForSeconds(0.01f);
-        }
-        Destroy(go);      
-        
+        Destroy(go);
     }
 
 }

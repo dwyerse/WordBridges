@@ -1,37 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class manager : MonoBehaviour {
+public class Manager : MonoBehaviour {
 
-	string[,] word = new string[6,6];
-	List<GameObject> cons;
-	List<GameObject> conts;
-	public GameObject title;
-	public GameObject victoryText;
-	public GameObject overlay;
-	public GameObject next;
-    public GameObject hint;
-    public GameObject tutorialObj;
-    public GameObject arrow;
-    public TextMesh coinsText;
-    public Font font;
-	float scaler = 0;
-	string letters;
+	string[,] goalGrid = new string[6,6];
+    public string[,] currentGrid;
+	public List<GameObject> containers;
+	public TextMeshProUGUI title;
+    public GameObject letterPrefab;
+    public GameObject containerPrefab;
+    public GameObject itemBeingDragged;
+    public Canvas canvas;
+    public GameObject letterPanel;
+    public GameObject containerPanel;
+    public GameObject correctnessPanel;
+    public GameObject correctnessPrefab;
+    List<List<int[]>> wordIndexes;
+
+
 	int level;
 	int diff = 0;
-    bool fullChecked = false;
     
 	// Use this for initialization
 	void Start () {
-       
-        
-            
 
-        //Set coins value
-        coinsText.text = "" + PlayerPrefs.GetInt("coins");
-
+        Application.targetFrameRate = 60;
+        wordIndexes = new List<List<int[]>>();
         if (GameInfo.play == 1)
 		{
             level = 0;
@@ -66,7 +64,6 @@ public class manager : MonoBehaviour {
         }
 		else
 		{
-
             diff = GameInfo.currentDif;
 			level = GameInfo.chosenLevel;		   
 		}
@@ -83,7 +80,6 @@ public class manager : MonoBehaviour {
                 case 1:
                     methodName = "B";
                     diffText = "MEDIUM";
-                    title.transform.position = new Vector2(-0.1f, title.transform.position.y);
                     break;
                 case 2:
                     methodName = "C";
@@ -95,308 +91,185 @@ public class manager : MonoBehaviour {
 
             levels l = GameInfo.l;
             MethodInfo mi = l.GetType().GetMethod(methodName);
-            word = (string[,])mi.Invoke(l, null);
+            goalGrid = (string[,])mi.Invoke(l, null);
 
 
-            title.GetComponent<TextMesh>().text = diffText + " " + level;
-            createContainers(word);
-            createLetters(word);
-
-            //Tutorial
-
-            int tutorial = 1;
-            if (PlayerPrefs.HasKey("tutorial"))
-            {                
-                tutorial = 0;
-            }
-            if (tutorial == 1)
-            {
-                overlay.SetActive(true);
-                tutorialObj.SetActive(true);
-            }
-        }       
-    }
-
-	bool completed = false;
-	// Update is called once per frame
-	void Update () {
-        if (level != 0)
-        {
-            if (!completed && (complete() || alternateComplete()))
-            {
-                completed = true;
-                levelComplete();
-            }
-
-            if (scaler < 1)
-            {
-                for (int i = 0; i < letters.Length; i++)
-                {
-                    cons[i].transform.localScale = new Vector3(scaler, scaler, scaler);
-                    conts[i].transform.localScale = new Vector3(scaler, scaler, scaler);
-                }
-            }
-            scaler += 0.10f;
+            title.text =  diffText + " " + level;
+            createContainers(goalGrid);
         }
-	}
+    }
+    	
+    
 	//On completion of the level.
 	void levelComplete()
-	{     
-
-        PlayerPrefs.SetInt("tutorial",1);
-
-        //Add coins if level not complete
-        if (!PlayerPrefs.HasKey(diff+"-"+level))
-        {
-            int c = PlayerPrefs.GetInt("coins");
-            c += 7;
-            PlayerPrefs.SetInt("coins", c);
-        }
-        else
-        {
-            CompleteAnimation.addCoins = false;
-        }
-
-        PlayerPrefs.SetInt(diff+"-"+level, 1);
-        Destroy(hint.GetComponent<hintButton>());
-        GameObject[] hints = GameObject.FindGameObjectsWithTag("hint");
-        foreach(GameObject g in hints)
-        {
-            g.SetActive(false);
-        }
-        CompleteAnimation.c = true;     
-        
-
+	{
+        print("Level Complete");
+        gameObject.GetComponent<CompleteAnimation>().startAnimation();        
 	}
-
  
     void createContainers(string[,] str)
 	{
-		conts = new List<GameObject>();
-		int count = 0;
+        currentGrid = new string[6, 6];
+        containers = new List<GameObject>();
+        List<string> letters = new List<string>();
+
+        int count = 0;
 		for(int i=0;i< str.GetLength(0); i++)
 		{
+            List<int[]> word = new List<int[]>();
 			for (int j = 0; j < str.GetLength(1); j++)
 			{
-				if (str[i, j] != null&& str[i, j] != "")
-				{
-					GameObject con = new GameObject();
-					
-					Vector3 vec = new Vector3(-0.6f+(float)(j*0.6),2f-(float)(i*0.6),0);
-					con.GetComponent<Transform>().position = vec;
+                GameObject container = Instantiate(containerPrefab);					
+				container.layer = 2;					
+                container.transform.SetParent(containerPanel.transform);
+                
+                if (str[i, j] == null  || str[i, j] == "")
+                {
+                    if(word.Count > 1)
+                    {
+                        wordIndexes.Add(word);
+                        word = new List<int[]>();
+                    }
+                    else
+                    {
+                        word.Clear();
+                    }
 
-					con.layer = 2;
-					con.AddComponent<SpriteRenderer>();
-					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
-					con.GetComponent<SpriteRenderer>().color = Color.white;
-					con.GetComponent<SpriteRenderer>().sortingOrder = -1;
-					con.AddComponent<BoxCollider2D>();
-					con.AddComponent<containerBehaviour>();
-					con.GetComponent<containerBehaviour>().c = str[i, j];
-					con.GetComponent<containerBehaviour>().i = i;
-					con.GetComponent<containerBehaviour>().j = j;
-					con.AddComponent<Rigidbody2D>();
-					
-					con.name = "con" + count++;
-					var rb = con.GetComponent<Rigidbody2D>();
-					rb.gravityScale = 0;
-					rb.constraints = RigidbodyConstraints2D.FreezeAll;
-					con.tag = "container";
-					conts.Add(con);
-				}
-			}
-		}
-	}
+                    container.name = "Placeholder";
+                    Destroy(container.GetComponent<Image>());
+                    Destroy(container.GetComponent<Container>());
+                }
+                else
+                {
+                    container.name = "Container " + count++;
+                    container.tag = "container";
+                    containers.Add(container);
+                    letters.Add(str[i, j]);
+                    int[] letterIndex = {i,j};
+                    word.Add(letterIndex);
+                    container.transform.localScale = new Vector2(0, 0);
+                    container.GetComponent<Container>().i = i;
+                    container.GetComponent<Container>().j = j;
 
-	void createLetters(string[,] str)
-	{
-		int offset = 0;
-		int resetOff = 0;
-		int rowOff = 0;
-        int co = 0;
-		letters = "";
-		cons = new List<GameObject>();
-		//Box part
-		for (int i = 0; i < str.GetLength(0); i++)
-		{
-			for (int j = 0; j < str.GetLength(1); j++)
-			{
-				if (str[i, j] != null&&str[i, j] != "")
-				{
-					GameObject con = new GameObject();
-					Vector3 mvec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.5f + (float)(rowOff * 0.6), 0);
-					resetOff++;
-                    co++;
-					if (co==5)
-					{
-						rowOff--;
-						resetOff = 0;
-                        co = 0;
-					}                 
-					con.name = "letterbox" + offset;
-				  
-					con.GetComponent<Transform>().position = mvec;
-					con.AddComponent<SpriteRenderer>();
-					con.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/letterbox");
-					con.GetComponent<SpriteRenderer>().color = Color.white;
-
-					con.GetComponent<SpriteRenderer>().sortingOrder = 0;
-                    con.tag = "letterbox";
-					con.AddComponent<clickControl>();
-                    con.GetComponent<clickControl>().tut = tutorialObj;
-                    con.GetComponent<clickControl>().tut.GetComponent<Tutorial>().arrow = arrow;
-                    con.AddComponent<BoxCollider2D>();
-					con.GetComponent<BoxCollider2D>().isTrigger = true;
-					con.AddComponent<Rigidbody2D>();
-					var rb = con.GetComponent<Rigidbody2D>();
-					rb.gravityScale = 0;
-					letters += str[i, j];
-					
-					cons.Add(con);
-					offset++;
-				}
-			}        
-		}
-		letters = Shuffle(letters);
-		resetOff = 0;
-		rowOff = 0;
-
-        GameObject[] lets = GameObject.FindGameObjectsWithTag("letter");
-        for (int j=0;j<lets.Length;j++)
-        {
-            lets[j].SetActive(false);
-        }
-        //Letter Part
-        co = 0;
-        for (int a=0;a<letters.Length;a++)
-		{
-            GameObject letter = lets[a];
-			letter.name = "letter" + a;
-			Vector3 vec = new Vector3(-0.6f + (float)(resetOff * 0.6), -1.53f + (float)(rowOff * 0.6), -1);
-			resetOff++;
-            co++;
-            if (co == 5)
+                    LeanTween.scale(container, new Vector2(1, 1), 0.5f).setEase(LeanTweenType.easeInBack);
+                }
+            }
+            if (word.Count > 1)
             {
-				rowOff--;
-				resetOff = 0;
-                co = 0;
-			}
-			letter.GetComponent<Transform>().position = vec;
-			letter.GetComponent<TextMesh>().anchor = TextAnchor.MiddleCenter;            
-			letter.GetComponent<TextMesh>().characterSize = 0.07f;
-			letter.GetComponent<TextMesh>().fontSize = 60;
-            letter.transform.SetParent(cons[a].transform);
-			letter.GetComponent<TextMesh>().text = letters.Substring(a, 1);
-			letter.GetComponent<TextMesh>().color = new Color32(0x02, 0x78, 0xfd, 0xFF); 
-             GameObject q = cons[a];
-			q.transform.localScale = new Vector3(0, 0, 0);
-            
-            letter.SetActive(true);
-		}		
-	}
+                wordIndexes.Add(word);
+            }
+        }       
 
-	public string Shuffle(string str)
-	{
-		char[] array = str.ToCharArray();
-		int n = array.Length;
+        for (int j = 0; j < str.GetLength(1); j++)
+        {
+            List<int[]> word = new List<int[]>();
+            for (int i = 0; i < str.GetLength(0); i++)
+            {
+                if (str[i, j] == null || str[i, j] == "")
+                {
+                    if (word.Count > 1)
+                    {
+                        wordIndexes.Add(word);
+                        word = new List<int[]>();
+                    }
+                    else
+                    {
+                        word.Clear();
+                    }
+                }
+                else
+                {
+                    int[] letterIndex = { i, j };
+                    word.Add(letterIndex);
+                }
+            }
+            if (word.Count > 1)
+            {
+                wordIndexes.Add(word);
+            }
+        }        
+
+        letters = Shuffle(letters);
+        foreach (string letter in letters)
+        {
+            GameObject letterObject = Instantiate(letterPrefab);
+            letterObject.GetComponent<Letter>().letter = letter;
+            letterObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = letter;
+            letterObject.transform.SetParent(letterPanel.transform);
+            letterObject.transform.localScale = new Vector2(0, 0);
+            LeanTween.scale(letterObject, new Vector2(1, 1), 1f).setEase(LeanTweenType.easeInBack);
+        }
+    }
+
+	public List<string> Shuffle(List<string> list)
+	{		
+		int n = list.Count;
 		while (n > 1)
 		{
 			n--;
-			int k = UnityEngine.Random.Range(0,n + 1);
-			var value = array[k];
-			array[k] = array[n];
-			array[n] = value;
+			int k = Random.Range(0,n + 1);
+			var value = list[k];
+			list[k] = list[n];
+            list[n] = value;
 		}
-		return new string(array);
-	}
+		return list;
+	}  
+  
 
-	bool complete()
+	public void completeCheck()
 	{
-		GameObject[] containers = GameObject.FindGameObjectsWithTag("container");
+        print("Complete check");
+        bool complete = true;
+        foreach(Transform child in correctnessPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
-		for (int i = 0; i < containers.Length; i++)
-		{
-			containerBehaviour con = containers[i].transform.GetComponent<containerBehaviour>();
-			if (!con.isCorrect())
-			{
-				return false;
-			}
-		}
-		return true;
+        foreach(var wordIndex in wordIndexes)
+        {
+            string find = "";
+            foreach(var index in wordIndex)
+            {
+                find += currentGrid[index[0], index[1]];
+            }
+            print(find);
+            find = find.ToLower();
+            if (find.Length == wordIndex.Count)
+            {
+                if (!search(find))
+                {
+                    Debug.Log(find + " is not a word");
+                    addToCorrectnessPanel(find.ToUpper(), Color.red);
+                    complete = false;
+                }
+                else
+                {
+                    addToCorrectnessPanel(find.ToUpper(), Color.green);
+                    Debug.Log(find + " is a word");
+                }
+            }
+            else
+            {
+                complete = false;
+            }
+        }
+        if (complete)
+        {
+            levelComplete();
+        }
+        
 	}
 
-	bool alternateComplete()
-	{
+    void addToCorrectnessPanel(string word, Color color)
+    {
+        GameObject correctnessText = Instantiate(correctnessPrefab);
+        correctnessText.transform.SetParent(correctnessPanel.transform);
+        correctnessText.GetComponent<TextMeshProUGUI>().text = word;
+        //correctnessText.GetComponent<TextMeshProUGUI>().color = color;
+        LeanTween.color(correctnessText, color, 0.2f);
+    }
 
-		if (containersFull()&&!fullChecked)
-		{
-			for (int i = 0; i < word.GetLength(0); i++)
-			{
-				for (int j = 0; j < word.GetLength(1); j++)
-				{
-					string find = "";
-					if (word[i, j] != null)
-					{
-						while (i < word.GetLength(0) && j < word.GetLength(1) && word[i, j] != null)
-						{
-							find += GameInfo.grid[i, j];
-                            j++;
-						}
-						find = find.ToLower();
-                        float oldTime = Time.fixedTime; 
-                        if (!search(find)&&find.Length>1)
-						{
-                            Debug.Log("Fail: " + find + "search time: " + (Time.fixedTime-oldTime));
-                            fullChecked = true;
-                            return false;
-						}
-					}
-				}
-			}
-			for (int j = 0; j < word.GetLength(1); j++)
-			{
-				for (int i = 0; i < word.GetLength(0); i++)
-				{
-				
-					string find = "";
-					if (word[i, j] != null)
-					{
-						while (i < word.GetLength(0) && j < word.GetLength(1) && word[i, j] != null)
-						{
-							find += GameInfo.grid[i, j];
-							i++;
-						}
-						find = find.ToLower();
-						
-						if (!search(find) && find.Length > 1)
-						{
-                            Debug.Log("Fail: " + find);
-							return false;
-						}
-					}
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-
-	bool containersFull()
-	{
-		GameObject[] containers = GameObject.FindGameObjectsWithTag("container");
-
-		for (int i = 0; i < containers.Length; i++)
-		{
-			containerBehaviour con = containers[i].transform.GetComponent<containerBehaviour>();
-			if (con.occupant==null)
-			{
-                fullChecked = false;
-				return false;
-			}
-		}
-		return true;
-	}
+    
 
     bool search(string str)
     {

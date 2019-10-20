@@ -14,24 +14,13 @@ public class Starting : MonoBehaviour {
         {
             SceneManager.LoadScene("WordBridges");
         }
-        t.text = ""+ PlayerPrefs.GetInt("coins");
 		TextAsset txt = (TextAsset)Resources.Load("unixdict", typeof(TextAsset));
 		string[] words = txt.text.Split('\n');
-
+        print("Loading words...");
         foreach (string word in words)
         {
             GameInfo.wordSet.Add(word.Trim());
         }
-
-        if (!PlayerPrefs.HasKey("coins"))
-        {
-            PlayerPrefs.SetInt("coins", 10);
-        }
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        
 	}
 }
