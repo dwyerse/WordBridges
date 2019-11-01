@@ -4,18 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class playButton : MonoBehaviour {
- 
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    private void OnMouseDown()
+    public void onClick()
     {
         GameInfo.play = 1;
         SceneManager.LoadScene("WordBridges");

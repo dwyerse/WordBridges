@@ -32,7 +32,7 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     public void OnBeginDrag(PointerEventData eventData)
     {   
         LeanTween.scale(gameObject, new Vector2(1.5f, 1.5f), 0.2f);
-        LeanTween.value(gameObject,updateShadow, shadow.effectDistance,new Vector2(10.0f, -10.0f), 0.1f);
+        LeanTween.value(gameObject,updateShadow, shadow.effectDistance,new Vector2(10.0f, -10.0f), 0.2f);
 
         canvasGroup.blocksRaycasts = false;
         startParent = transform.parent;
@@ -49,7 +49,7 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     public void OnEndDrag(PointerEventData eventData)
     {
         LeanTween.scale(gameObject, new Vector2(1, 1), 0.2f);
-        LeanTween.value(gameObject, updateShadow, shadow.effectDistance, new Vector2(0.0f, 0.0f), 0.1f);
+        LeanTween.value(gameObject, updateShadow, shadow.effectDistance, new Vector2(0.0f, 0.0f), 0.2f);
 
         if (transform.parent == startParent)
         {

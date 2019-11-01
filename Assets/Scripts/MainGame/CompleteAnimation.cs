@@ -5,7 +5,6 @@ using UnityEngine.Advertisements;
 
 public class CompleteAnimation : MonoBehaviour {
     public static bool c = false;
-    List<GameObject> containers;
     GameObject[] letters;
     public GameObject victoryText;
     public GameObject overlay;
@@ -24,25 +23,31 @@ public class CompleteAnimation : MonoBehaviour {
         phase = 0;
         colorPhase = 0;
         c = false;
-        containers = manager.containers;
     }
 
     // Update is called once per frame
 
     public void startAnimation()
     {
-        for (int i = 0; i < containers.Count; i++)
-        {
-            LeanTween.color(containers[i], new Color(50, 50, 255), 0.5f).setOnComplete(phase2);
+        print("Start Animation");
+        for (int i = 0; i < manager.containers.Count; i++)
+        {   
+            LeanTween.scale(manager.containers[i], new Vector2(1.2f, 1.2f), 1.2f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(AnimationFinished).setOnCompleteParam(i);
         }
+    }
+
+
+    void AnimationFinished(object onCompleteParams)
+    {
+        int i = (int)onCompleteParams;
+        LeanTween.scale(manager.containers[i], new Vector2(0f, 0f), 0.5f).setEase(LeanTweenType.easeInOutQuad);
     }
 
     void phase2()
     {
-        hideLetters();
-        for (int i = 0; i < containers.Count; i++)
+        for (int i = 0; i < manager.containers.Count; i++)
         {
-            LeanTween.move(containers[i], new Vector2(0.5f, 0.5f), 0.5f);
+            LeanTween.move(manager.containers[i], new Vector2(0.5f, 0.5f), 0.5f);
         }
     }
  
@@ -52,14 +57,6 @@ public class CompleteAnimation : MonoBehaviour {
             victoryText.SetActive(true);
             next.SetActive(true);
             overlay.SetActive(true);     
-    }
-
-    public void hideLetters()
-    {
-        for (int i = 0; i < letters.Length; i++)
-        {
-            letters[i].SetActive(false);
-        }
     }
 
 }
