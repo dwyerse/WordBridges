@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
     public Vector3 startPosition;
-    public String letter;
+    public string letter;
     Shadow shadow;
     Image image;
     CanvasGroup canvasGroup;

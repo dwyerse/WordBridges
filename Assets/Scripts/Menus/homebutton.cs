@@ -5,17 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class homebutton : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    private void OnMouseDown()
+    public void OnClick()
     {
         SceneManager.LoadScene("Menu");
     }

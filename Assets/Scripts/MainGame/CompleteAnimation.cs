@@ -4,25 +4,11 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 
 public class CompleteAnimation : MonoBehaviour {
-    public static bool c = false;
-    GameObject[] letters;
-    public GameObject victoryText;
-    public GameObject overlay;
-    public GameObject next;
-    public Transform extra;
-    Transform last;
-    public float speed = 0.04f;
-    public float colorSpeed = 0.04f;
-    int phase;
-    int colorPhase;
     public Manager manager;
-
+    public GameObject levelComplete;
 
     // Use this for initialization
     void Start () {
-        phase = 0;
-        colorPhase = 0;
-        c = false;
     }
 
     // Update is called once per frame
@@ -32,7 +18,7 @@ public class CompleteAnimation : MonoBehaviour {
         print("Start Animation");
         for (int i = 0; i < manager.containers.Count; i++)
         {   
-            LeanTween.scale(manager.containers[i], new Vector2(1.2f, 1.2f), 1.2f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(AnimationFinished).setOnCompleteParam(i);
+            LeanTween.scale(manager.letterObjects[i], new Vector2(1.2f, 1.2f), 1.2f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.2f).setOnComplete(AnimationFinished).setOnCompleteParam(i);
         }
     }
 
@@ -40,23 +26,27 @@ public class CompleteAnimation : MonoBehaviour {
     void AnimationFinished(object onCompleteParams)
     {
         int i = (int)onCompleteParams;
-        LeanTween.scale(manager.containers[i], new Vector2(0f, 0f), 0.5f).setEase(LeanTweenType.easeInOutQuad);
+        LeanTween.scale(manager.letterObjects[i], new Vector2(0f, 0f), 0.5f).setEase(LeanTweenType.easeInOutQuad);
+        LeanTween.scale(manager.containers[i], new Vector2(1.1f, 1.1f), 0.6f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(LetterAnimFinished).setOnCompleteParam(i);
+
     }
 
-    void phase2()
+    void LetterAnimFinished(object onCompleteParams)
     {
-        for (int i = 0; i < manager.containers.Count; i++)
+        int i = (int)onCompleteParams;
+        if(i == manager.containers.Count - 1)
         {
-            LeanTween.move(manager.containers[i], new Vector2(0.5f, 0.5f), 0.5f);
+            LeanTween.scale(manager.containers[i], new Vector2(0f, 0f), 0.3f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(LevelComplete);
+        }
+        else
+        {
+            LeanTween.scale(manager.containers[i], new Vector2(0f, 0f), 0.3f).setEase(LeanTweenType.easeInOutQuad);
         }
     }
- 
 
-    public void showCompletePanel()
-    {        
-            victoryText.SetActive(true);
-            next.SetActive(true);
-            overlay.SetActive(true);     
+    void LevelComplete()
+    {
+        levelComplete.SetActive(true);
     }
 
 }

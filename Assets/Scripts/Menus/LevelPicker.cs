@@ -9,8 +9,8 @@ public class LevelPicker : MonoBehaviour {
 	levels l = GameInfo.l;
 	int buttonAmount = 20;
 	int diff;
-    float buttonHeight = 200f;
-    public ScrollRect sr;
+	float buttonHeight = 200f;
+	public ScrollRect sr;
 	// Use this for initialization
 	void Start () {
 
@@ -44,7 +44,7 @@ public class LevelPicker : MonoBehaviour {
 
 			if (PlayerPrefs.HasKey(diff+"-" + (i+1)))
 			{
-                txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
+				txt.color = new Color32(0x07, 0x8E, 0x01, 0xFF);
 			}
 			else
 			{
@@ -61,32 +61,6 @@ public class LevelPicker : MonoBehaviour {
 
 
 	}
-
-
-	// Update is called once per frame
-	void Update () {
-
-        RectTransform rt = content.GetComponent<RectTransform>();
-        float ba = (float)buttonAmount;
-        float y = rt.position.y;
-        //Debug.Log("y: " + (y -1800) + " ba:" + ba + " bH:" + buttonHeight);
-        if (ba * buttonHeight > 6 * buttonHeight)
-        {
-            if (y > 1000 + ba * buttonHeight)
-            {
-                rt.position = new Vector3(rt.position.x, 1000 + ba * buttonHeight, rt.position.z);
-            }
-            else if (y < 1800)
-            {
-                rt.position = new Vector3(rt.position.x, 1800, rt.position.z);
-            }
-        }
-        else
-        {
-            sr.vertical = false;
-        }
-
-    }
 
 	void taskOnClick(int i,string button)
 	{

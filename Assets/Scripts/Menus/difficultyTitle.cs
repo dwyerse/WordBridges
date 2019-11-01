@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class difficultyTitle : MonoBehaviour {
 
-	public Text title;
+	TextMeshProUGUI title;
 
 	// Use this for initialization
 	void Start () {
 		int diff = GameInfo.currentDif;
-	   
+		title = GetComponent<TextMeshProUGUI>();
 		switch (diff)
 		{
 			case 0:
@@ -23,10 +24,5 @@ public class difficultyTitle : MonoBehaviour {
 				title.text = "HARD";
 				break;
 		}
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

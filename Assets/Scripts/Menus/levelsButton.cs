@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class levelsButton : MonoBehaviour {
-
-
-	private void OnMouseDown()
+	public void onClick()
 	{
 		GameInfo.play = 0;
-        SceneManager.LoadScene("DifficultyLevels");
-    }
+		SceneManager.LoadScene("DifficultyLevels");
+	}
 
 
 }
