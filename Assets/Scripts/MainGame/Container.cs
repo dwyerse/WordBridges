@@ -43,4 +43,6 @@ public class Container : MonoBehaviour, IDropHandler
 		manager.currentGrid[i, j] = beingDragged.GetComponent<Letter>().letter;
 		manager.completeCheck();
 	}
+
+
 }

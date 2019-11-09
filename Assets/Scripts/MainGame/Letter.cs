@@ -2,11 +2,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using Coffee.UIExtensions;
 public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
     public Vector3 startPosition;
     public string letter;
-    Shadow shadow;
+    UIShadow shadow;
     Image image;
     CanvasGroup canvasGroup;
     Transform startParent;
@@ -16,7 +16,7 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         startPosition = transform.position;
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
         canvasGroup = GetComponent<CanvasGroup>();     
-        shadow = GetComponent<Shadow>();
+        shadow = GetComponent<UIShadow>();
         image = GetComponent<Image>();
 
     }
