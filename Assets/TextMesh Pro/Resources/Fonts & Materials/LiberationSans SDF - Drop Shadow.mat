@@ -52,7 +52,7 @@ Material:
     - _ColorMask: 15
     - _Diffuse: 0.5
     - _DiffusePower: 1
-    - _FaceDilate: -0.078
+    - _FaceDilate: 0.1
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05

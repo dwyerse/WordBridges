@@ -14,6 +14,11 @@ public class ProceduralMesh : MonoBehaviour
 	public Material mat;
 	float perlinVal = 0f;
 	Vector2[] uvs;
+    public float animationFrames = 0.1f;
+    public Vector2 redness;
+    public Vector2 blueness;
+    public Vector2 greenness;
+
 
 	void Start()
 	{
@@ -49,14 +54,13 @@ public class ProceduralMesh : MonoBehaviour
 		{
 			vertices[x].y = 3 * Mathf.PerlinNoise(vertices[x].x + offset, vertices[x].z + offset);
 		}
-		offset += 0.001f;
+		offset += animationFrames;
 
 	}
 
 	void SplitMesh()
 	{
 		int[] tris = mesh.triangles;
-		print(vertices.Length);
 		Vector3[] verts = mesh.vertices;
 		Vector3[] normals = mesh.normals;
 		Vector2[] meshUvs = mesh.uv;
@@ -81,7 +85,6 @@ public class ProceduralMesh : MonoBehaviour
 			tris[i] = i;
 		}
 		vertices = newVerts;
-		print(vertices.Length);
 		normals = newNormals;
 		uvs = newUvs;
 		triangles = tris;
@@ -93,7 +96,7 @@ public class ProceduralMesh : MonoBehaviour
 		colors = new Color[vertices.Length];
 		for (int i = 0; i < colors.Length; i += 3)
 		{
-			Color col = new Color(Random.Range(0f, 0.5f), Random.Range(0f, 0.5f), Random.Range(0.7f, 1f));
+			Color col = new Color(Random.Range(redness.x, redness.y), Random.Range(greenness.x,greenness.y), Random.Range(blueness.x, blueness.y));
 			colors[i] = col;
 			colors[i + 1] = col;
 			colors[i + 2] = col;

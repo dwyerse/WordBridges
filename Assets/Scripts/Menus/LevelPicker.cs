@@ -15,7 +15,7 @@ public class LevelPicker : MonoBehaviour {
 	void Start () {
 
 		
-		diff = GameInfo.currentDif;	      
+		diff = GameInfo.currentDiff;	      
 
 		createButtons();
 
@@ -28,7 +28,8 @@ public class LevelPicker : MonoBehaviour {
 		{
             GameObject buttonGO = Instantiate(levelButtonPrefab);
 			Button buttonBU = buttonGO.GetComponent<Button>();
-			buttonBU.onClick.AddListener(() => taskOnClick((i+1)));
+			buttonBU.name = "" + (i+1);
+			buttonBU.onClick.AddListener(() => taskOnClick(buttonBU.name));
             TextMeshProUGUI txt = buttonGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 			txt.text = "LEVEL " + (i +1) ;
 
@@ -48,9 +49,10 @@ public class LevelPicker : MonoBehaviour {
 
 	}
 
-	void taskOnClick(int i)
+	void taskOnClick(String i)
 	{
-		GameInfo.chosenLevel = i;
+		print(i);
+		GameInfo.chosenLevel = Int32.Parse(i);
 		SceneManager.LoadScene("WordBridges");
 	}
 

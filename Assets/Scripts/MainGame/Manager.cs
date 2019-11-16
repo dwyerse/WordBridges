@@ -5,20 +5,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Manager : MonoBehaviour {
+public class Manager : MonoBehaviour
+{
 
-	string[, ] goalGrid = new string[6, 6];
-	public string[, ] currentGrid;
+	string[,] goalGrid = new string[6, 6];
+	public string[,] currentGrid;
 	public List<GameObject> containers;
 	public List<GameObject> letterObjects;
 
 	public TextMeshProUGUI title;
 	public GameObject letterPrefab;
+	public GameObject landingPrefab;
 	public GameObject containerPrefab;
 	public GameObject itemBeingDragged;
 	public Canvas canvas;
 	public GameObject letterPanel;
 	public GameObject containerPanel;
+	public GameObject landingPanel;
 	public GameObject correctnessPanel;
 	public GameObject correctnessPrefab;
 	List<List<int[]>> wordIndexes;
@@ -29,42 +32,55 @@ public class Manager : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 
 		Application.targetFrameRate = 60;
-		wordIndexes = new List<List<int[]>> ();
-		if (GameInfo.play == 1) {
+		wordIndexes = new List<List<int[]>>();
+		if (GameInfo.play == 1)
+		{
 			level = 0;
-			for (int d = 0; d < 3 && level == 0; d++) {
-				if (!PlayerPrefs.HasKey (d + "-" + 1)) {
+			for (int d = 0; d < 3 && level == 0; d++)
+			{
+				if (!PlayerPrefs.HasKey(d + "-" + 1))
+				{
 					level = 1;
 					diff = d;
-				} else {
+				}
+				else
+				{
 					int b = 20;
 
-					for (int i = 0; i < b && level == 0; i++) {
+					for (int i = 0; i < b && level == 0; i++)
+					{
 
-						if (!PlayerPrefs.HasKey (d + "-" + (i + 1))) {
+						if (!PlayerPrefs.HasKey(d + "-" + (i + 1)))
+						{
 							level = i + 1;
 							diff = d;
 						}
 					}
 				}
 			}
-			if (level == 0) {
+			if (level == 0)
+			{
 				GameInfo.play = 0;
-				SceneManager.LoadScene ("DifficultyLevels", LoadSceneMode.Single);
+				SceneManager.LoadScene("DifficultyLevels", LoadSceneMode.Single);
 			}
 			GameInfo.chosenLevel = level;
-			GameInfo.currentDif = diff;
-		} else {
-			diff = GameInfo.currentDif;
+			GameInfo.currentDiff = diff;
+		}
+		else
+		{
+			diff = GameInfo.currentDiff;
 			level = GameInfo.chosenLevel;
 		}
-		if (level != 0) {
+		if (level != 0)
+		{
 			string methodName = "";
 			string diffText = "";
-			switch (diff) {
+			switch (diff)
+			{
 				case 0:
 					methodName = "A";
 					diffText = "Easy";
@@ -80,103 +96,187 @@ public class Manager : MonoBehaviour {
 			}
 
 			methodName += level;
-
+			print(methodName);
 			levels l = GameInfo.l;
-			MethodInfo mi = l.GetType ().GetMethod (methodName);
-			goalGrid = (string[, ]) mi.Invoke (l, null);
+			MethodInfo mi = l.GetType().GetMethod(methodName);
+			goalGrid = (string[,])mi.Invoke(l, null);
 
 			title.text = diffText + " " + level;
-			createContainers (goalGrid);
+			createContainers(goalGrid);
+			createLandingPanel(goalGrid);
+
 		}
 	}
 
 	//On completion of the level.
-	void levelComplete () {
-		print ("Level Complete");
+	void levelComplete()
+	{
+		print("Level Complete");
+		PlayerPrefs.SetString(diff + "-" + level, "done");
 		canvasGroup.blocksRaycasts = true;
-		gameObject.GetComponent<CompleteAnimation> ().startAnimation ();
+		gameObject.GetComponent<CompleteAnimation>().startAnimation();
 	}
 
-	void createContainers (string[, ] str) {
+	public void Next()
+	{
+		GameInfo.chosenLevel++;
+		if (GameInfo.chosenLevel > 20)
+		{
+			GameInfo.currentDiff++;
+			GameInfo.chosenLevel = 1;
+			print("Next level " + GameInfo.currentDiff + " - " + GameInfo.chosenLevel);
+			if (GameInfo.currentDiff > 2)
+			{
+				SceneManager.LoadScene("Menu");
+			}
+			else
+			{
+				SceneManager.LoadScene("WordBridges");
+
+			}
+		}
+		else
+		{
+			SceneManager.LoadScene("WordBridges");
+		}
+	}
+
+	void createLandingPanel(string[,] str)
+	{
+
+		for (int i = 0; i < str.GetLength(0); i++)
+		{
+			for (int j = 0; j < str.GetLength(1); j++)
+			{
+				if (str[i, j] == null || str[i, j] == "")
+				{
+					GameObject container = Instantiate(landingPrefab);
+					container.layer = 2;
+					container.transform.SetParent(landingPanel.transform);
+					container.tag = "container";
+					container.name = "Landing " + i + j;
+					Destroy(container.GetComponent<Image>());
+					Destroy(container.GetComponent<Container>());
+					Destroy(container.GetComponent<CanvasRenderer>());
+					Destroy(container.GetComponent<GridLayoutGroup>());
+				}
+				else
+				{
+					GameObject container = Instantiate(landingPrefab);
+					container.layer = 2;
+					container.transform.SetParent(landingPanel.transform);
+					container.tag = "container";
+					container.name = "Landing " + i + j;
+					container.GetComponent<Container>().i = i;
+					container.GetComponent<Container>().j = j;
+				}
+			}
+		}
+	}
+
+	void createContainers(string[,] str)
+	{
 		currentGrid = new string[6, 6];
-		containers = new List<GameObject> ();
-		List<string> letters = new List<string> ();
+		containers = new List<GameObject>();
+		List<string> letters = new List<string>();
 
 		int count = 0;
-		for (int i = 0; i < str.GetLength (0); i++) {
-			List<int[]> word = new List<int[]> ();
-			for (int j = 0; j < str.GetLength (1); j++) {
-				GameObject container = Instantiate (containerPrefab);
+		for (int i = 0; i < str.GetLength(0); i++)
+		{
+			List<int[]> word = new List<int[]>();
+			for (int j = 0; j < str.GetLength(1); j++)
+			{
+				GameObject container = Instantiate(containerPrefab);
 				container.layer = 2;
-				container.transform.SetParent (containerPanel.transform);
+				container.transform.SetParent(containerPanel.transform);
 
-				if (str[i, j] == null || str[i, j] == "") {
-					if (word.Count > 1) {
-						wordIndexes.Add (word);
-						word = new List<int[]> ();
-					} else {
-						word.Clear ();
+				if (str[i, j] == null || str[i, j] == "")
+				{
+					if (word.Count > 1)
+					{
+						wordIndexes.Add(word);
+						word = new List<int[]>();
+					}
+					else
+					{
+						word.Clear();
 					}
 
 					container.name = "Placeholder";
-					Destroy (container.GetComponent<Image> ());
-					Destroy (container.GetComponent<Container> ());
-				} else {
+					Destroy(container.GetComponent<Image>());
+					Destroy(container.GetComponent<Container>());
+					Destroy(container.GetComponent<CanvasRenderer>());
+					Destroy(container.GetComponent<GridLayoutGroup>());
+
+				}
+				else
+				{
 					container.name = "Container " + count++;
-					container.tag = "container";
-					containers.Add (container);
-					letters.Add (str[i, j]);
+					containers.Add(container);
+					letters.Add(str[i, j]);
 					int[] letterIndex = { i, j };
-					word.Add (letterIndex);
-					container.transform.localScale = new Vector2 (0, 0);
-					container.GetComponent<Container> ().i = i;
-					container.GetComponent<Container> ().j = j;
-
-					LeanTween.scale (container, new Vector2 (1, 1), 0.5f).setEase (LeanTweenType.easeSpring).setDelay (0.1f * (i + j));
+					word.Add(letterIndex);
+					container.transform.localScale = new Vector2(0, 0);
+					Destroy(container.GetComponent<Container>());
+					LeanTween.scale(container, new Vector2(1, 1), 0.5f).setEase(LeanTweenType.easeSpring).setDelay(0.1f * (i + j));
 				}
 			}
-			if (word.Count > 1) {
-				wordIndexes.Add (word);
+			if (word.Count > 1)
+			{
+				wordIndexes.Add(word);
 			}
 		}
 
-		for (int j = 0; j < str.GetLength (1); j++) {
-			List<int[]> word = new List<int[]> ();
-			for (int i = 0; i < str.GetLength (0); i++) {
-				if (str[i, j] == null || str[i, j] == "") {
-					if (word.Count > 1) {
-						wordIndexes.Add (word);
-						word = new List<int[]> ();
-					} else {
-						word.Clear ();
+		for (int j = 0; j < str.GetLength(1); j++)
+		{
+			List<int[]> word = new List<int[]>();
+			for (int i = 0; i < str.GetLength(0); i++)
+			{
+				if (str[i, j] == null || str[i, j] == "")
+				{
+					if (word.Count > 1)
+					{
+						wordIndexes.Add(word);
+						word = new List<int[]>();
 					}
-				} else {
+					else
+					{
+						word.Clear();
+					}
+				}
+				else
+				{
 					int[] letterIndex = { i, j };
-					word.Add (letterIndex);
+					word.Add(letterIndex);
 				}
 			}
-			if (word.Count > 1) {
-				wordIndexes.Add (word);
+			if (word.Count > 1)
+			{
+				wordIndexes.Add(word);
 			}
 		}
 
-		letters = Shuffle (letters);
-		for (int a = 0; a < letters.Count; a++) {
-			GameObject letterObject = Instantiate (letterPrefab);
-			letterObjects.Add (letterObject);
-			letterObject.GetComponent<Letter> ().letter = letters[a];
-			letterObject.transform.GetChild (0).GetComponent<TextMeshProUGUI> ().text = letters[a];
-			letterObject.transform.SetParent (letterPanel.transform);
-			letterObject.transform.localScale = new Vector2 (0, 0);
-			LeanTween.scale (letterObject, new Vector2 (1, 1), 1f).setEase (LeanTweenType.easeSpring).setDelay (0.1f * a);
+		letters = Shuffle(letters);
+		for (int a = 0; a < letters.Count; a++)
+		{
+			GameObject letterObject = Instantiate(letterPrefab);
+			letterObjects.Add(letterObject);
+			letterObject.name = "" + letters[a];
+			letterObject.GetComponent<Letter>().letter = letters[a];
+			letterObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = letters[a];
+			letterObject.transform.SetParent(letterPanel.transform);
+			letterObject.transform.localScale = new Vector2(0, 0);
+			LeanTween.scale(letterObject, new Vector2(1, 1), 1f).setEase(LeanTweenType.easeSpring).setDelay(0.1f * a);
 		}
 	}
 
-	public List<string> Shuffle (List<string> list) {
+	public List<string> Shuffle(List<string> list)
+	{
 		int n = list.Count;
-		while (n > 1) {
+		while (n > 1)
+		{
 			n--;
-			int k = Random.Range (0, n + 1);
+			int k = Random.Range(0, n + 1);
 			var value = list[k];
 			list[k] = list[n];
 			list[n] = value;
@@ -184,48 +284,61 @@ public class Manager : MonoBehaviour {
 		return list;
 	}
 
-	public void completeCheck () {
+	public void completeCheck()
+	{
 		bool complete = true;
-		foreach (Transform child in correctnessPanel.transform) {
-			Destroy (child.gameObject);
+		foreach (Transform child in correctnessPanel.transform)
+		{
+			Destroy(child.gameObject);
 		}
 
-		foreach (var wordIndex in wordIndexes) {
+		foreach (var wordIndex in wordIndexes)
+		{
 			string find = "";
-			foreach (var index in wordIndex) {
+			foreach (var index in wordIndex)
+			{
 				find += currentGrid[index[0], index[1]];
 			}
-			find = find.ToLower ();
-			if (find.Length == wordIndex.Count) {
-				if (!search (find)) {
-					Debug.Log (find + " is not a word");
-					addToCorrectnessPanel (find.ToUpper (), new Color(0.8f,0.2f,0.2f));
+			find = find.ToLower();
+			if (find.Length == wordIndex.Count)
+			{
+				if (!search(find))
+				{
+					Debug.Log(find + " is not a word");
+					addToCorrectnessPanel(find.ToUpper(), new Color(0.8f, 0.2f, 0.2f));
 					complete = false;
-				} else {
-					addToCorrectnessPanel (find.ToUpper (), new Color(0.2f,0.7f,0.2f));
-					Debug.Log (find + " is a word");
 				}
-			} else {
+				else
+				{
+					addToCorrectnessPanel(find.ToUpper(), new Color(0.2f, 0.7f, 0.2f));
+					Debug.Log(find + " is a word");
+				}
+			}
+			else
+			{
 				complete = false;
 			}
 		}
-		if (complete) {
-			levelComplete ();
+		if (complete)
+		{
+			levelComplete();
 		}
 
 	}
 
-	void addToCorrectnessPanel (string word, Color color) {
-		GameObject correctnessText = Instantiate (correctnessPrefab);
-		correctnessText.transform.SetParent (correctnessPanel.transform);
-		TextMeshProUGUI textMesh = correctnessText.transform.GetChild (0).GetChild (0).GetComponent<TextMeshProUGUI> ();
+	void addToCorrectnessPanel(string word, Color color)
+	{
+		GameObject correctnessText = Instantiate(correctnessPrefab);
+		correctnessText.transform.SetParent(correctnessPanel.transform);
+		TextMeshProUGUI textMesh = correctnessText.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
 		textMesh.text = word;
-		Correctness correctness = correctnessText.transform.GetChild (0).GetComponent<Correctness> ();
-		correctness.animate (color);
+		Correctness correctness = correctnessText.transform.GetChild(0).GetComponent<Correctness>();
+		correctness.animate(color);
 	}
 
-	bool search (string str) {
-		return GameInfo.wordSet.Contains (str);
+	bool search(string str)
+	{
+		return GameInfo.wordSet.Contains(str);
 	}
 
 }

@@ -24,7 +24,7 @@ public class diffButton : MonoBehaviour
 
     public void onClick()
     {
-        GameInfo.currentDif = difficulty;
+        GameInfo.currentDiff = difficulty;
         SceneManager.LoadScene("Levels");
     }    
 

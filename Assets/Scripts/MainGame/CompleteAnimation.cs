@@ -15,7 +15,6 @@ public class CompleteAnimation : MonoBehaviour {
 
     public void startAnimation()
     {
-        print("Start Animation");
         for (int i = 0; i < manager.containers.Count; i++)
         {   
             LeanTween.scale(manager.letterObjects[i], new Vector2(1.2f, 1.2f), 1.2f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.2f).setOnComplete(AnimationFinished).setOnCompleteParam(i);

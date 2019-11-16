@@ -10,7 +10,7 @@ public class difficultyTitle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		int diff = GameInfo.currentDif;
+		int diff = GameInfo.currentDiff;
 		title = GetComponent<TextMeshProUGUI>();
 		switch (diff)
 		{
