@@ -140,6 +140,14 @@ public class Manager : MonoBehaviour
 			SceneManager.LoadScene("WordBridges");
 		}
 	}
+        
+    public void Restart()
+    {
+        for (int a = 0; a < letterObjects.Count; a++)
+        {
+           letterObjects[a].GetComponent<Letter>().ResetPosition();
+        }
+    }
 
 	void createLandingPanel(string[,] str)
 	{
@@ -169,8 +177,10 @@ public class Manager : MonoBehaviour
 					container.name = "Landing " + i + j;
 					container.GetComponent<Container>().i = i;
 					container.GetComponent<Container>().j = j;
-				}
-			}
+                    container.transform.localScale = new Vector2(1, 1);
+
+                }
+            }
 		}
 	}
 
@@ -330,13 +340,15 @@ public class Manager : MonoBehaviour
 	{
 		GameObject correctnessText = Instantiate(correctnessPrefab);
 		correctnessText.transform.SetParent(correctnessPanel.transform);
-		TextMeshProUGUI textMesh = correctnessText.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+		TextMeshProUGUI textMesh = correctnessText.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 		textMesh.text = word;
-		Correctness correctness = correctnessText.transform.GetChild(0).GetComponent<Correctness>();
+		Correctness correctness = correctnessText.GetComponent<Correctness>();
 		correctness.animate(color);
-	}
+        correctnessText.transform.localScale = new Vector2(1, 1);
 
-	bool search(string str)
+    }
+
+    bool search(string str)
 	{
 		return GameInfo.wordSet.Contains(str);
 	}

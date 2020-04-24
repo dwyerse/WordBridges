@@ -42,7 +42,7 @@ public class LevelPicker : MonoBehaviour {
 			{
 				txt.color = Color.white;
 			}
-            buttonGO.transform.SetParent(content.transform);
+            buttonGO.transform.SetParent(content.transform,false);
 
 		}        
 
