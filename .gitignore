@@ -20,6 +20,8 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
+*.keystore
+*.apk
 
 # ============ #
 # OS generated #
