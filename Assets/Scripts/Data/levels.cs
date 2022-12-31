@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-public class levels {
-    
+﻿
+public class levels
+{
+
     public string[] file;
-    public levels(){
-               
+    public levels()
+    {
+
     }
 
     //TEMPLATE
@@ -22,10 +21,10 @@ public class levels {
 
 
 
-    public string [,] A1()
+    public string[,] A1()
     {
         string[,] letters = new string[5, 5];
-        
+
         letters[1, 2] = "Z";
         letters[2, 2] = "O";
         letters[3, 2] = "O";

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Tutorial : MonoBehaviour {
+public class Tutorial : MonoBehaviour
+{
     int phase = 1;
     GameObject[] letters;
     public GameObject arrow;
@@ -13,14 +12,16 @@ public class Tutorial : MonoBehaviour {
 
     public GameObject overlay;
     // Use this for initialization
-    void Start () {     
+    void Start()
+    {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     private void OnEnable()
     {
@@ -36,8 +37,8 @@ public class Tutorial : MonoBehaviour {
 
     public void nextPhase(int dir)
     {
-        
-        phase+=dir;
+
+        phase += dir;
 
         switch (phase)
         {
@@ -47,12 +48,12 @@ public class Tutorial : MonoBehaviour {
                     go.GetComponent<SpriteRenderer>().sortingLayerName = "tutorial";
                     go.GetComponent<SpriteRenderer>().sortingOrder = 0;
                 }
-            break;
-            case 2:                
+                break;
+            case 2:
                 advice.text = "CREATE TWO WORDS \n THAT FIT THE BLOCKS";
                 arrowD.SetActive(true);
                 arrowR.SetActive(true);
-                arrow.SetActive(false);                
+                arrow.SetActive(false);
                 break;
             case 3:
                 foreach (GameObject go in letters)
@@ -61,11 +62,11 @@ public class Tutorial : MonoBehaviour {
                     go.GetComponent<SpriteRenderer>().sortingOrder = 0;
                 }
                 advice.text = "";
-                
+
                 arrowD.SetActive(false);
                 arrowR.SetActive(false);
                 overlay.SetActive(false);
-            break;
+                break;
         }
 
     }
