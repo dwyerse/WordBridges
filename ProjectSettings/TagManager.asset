@@ -9,6 +9,7 @@ TagManager:
   - letter
   - hint
   - tutorial
+  - landing
   layers:
   - Default
   - TransparentFX

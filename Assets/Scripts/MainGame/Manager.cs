@@ -27,8 +27,7 @@ public class Manager : MonoBehaviour
     public HintPanel hintPanel;
 
     int level;
-    int diff = 0;
-
+    int difficulty = 0;
 
     // Use this for initialization
     void Start()
@@ -43,7 +42,7 @@ public class Manager : MonoBehaviour
                 if (!PlayerPrefs.HasKey(d + "-" + 1))
                 {
                     level = 1;
-                    diff = d;
+                    difficulty = d;
                 }
                 else
                 {
@@ -55,7 +54,7 @@ public class Manager : MonoBehaviour
                         if (!PlayerPrefs.HasKey(d + "-" + (i + 1)))
                         {
                             level = i + 1;
-                            diff = d;
+                            difficulty = d;
                         }
                     }
                 }
@@ -66,18 +65,18 @@ public class Manager : MonoBehaviour
                 SceneManager.LoadScene("DifficultyLevels", LoadSceneMode.Single);
             }
             GameInfo.chosenLevel = level;
-            GameInfo.currentDiff = diff;
+            GameInfo.currentDiff = difficulty;
         }
         else
         {
-            diff = GameInfo.currentDiff;
+            difficulty = GameInfo.currentDiff;
             level = GameInfo.chosenLevel;
         }
         if (level != 0)
         {
             string methodName = "";
             string diffText = "";
-            switch (diff)
+            switch (difficulty)
             {
                 case 0:
                     methodName = "A";
@@ -94,7 +93,6 @@ public class Manager : MonoBehaviour
             }
 
             methodName += level;
-            print(methodName);
             levels l = GameInfo.l;
             MethodInfo mi = l.GetType().GetMethod(methodName);
             goalGrid = (string[,])mi.Invoke(l, null);
@@ -107,10 +105,10 @@ public class Manager : MonoBehaviour
     }
 
     //On completion of the level.
-    void levelComplete()
+    void LevelComplete()
     {
         print("Level Complete");
-        PlayerPrefs.SetString(diff + "-" + level, "done");
+        PlayerPrefs.SetString(difficulty + "-" + level, "done");
         canvasGroup.blocksRaycasts = true;
         gameObject.GetComponent<CompleteAnimation>().startAnimation();
     }
@@ -319,14 +317,12 @@ public class Manager : MonoBehaviour
             {
                 if (!GameInfo.wordSet.Contains(find))
                 {
-                    Debug.Log(find + " is not a word");
-                    hintPanel.Add(find.ToUpper(), new Color(0.8f, 0.2f, 0.2f));
+                    hintPanel.Add(find.ToUpper(), new Color(0.8f, 0.3f, 0.3f));
                     complete = false;
                 }
                 else
                 {
-                    hintPanel.Add(find.ToUpper(), new Color(0.2f, 0.7f, 0.2f));
-                    Debug.Log(find + " is a word");
+                    hintPanel.Add(find.ToUpper(), new Color(0.3f, 0.7f, 0.3f));
                 }
             }
             else
@@ -336,7 +332,7 @@ public class Manager : MonoBehaviour
         }
         if (complete)
         {
-            levelComplete();
+            LevelComplete();
         }
 
     }

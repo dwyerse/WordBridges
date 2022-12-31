@@ -7,12 +7,14 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     Image image;
     CanvasGroup canvasGroup;
     Manager manager;
-    Transform letterPanel;
+    RectTransform letterPanel;
+    RectTransform landingPanel;
 
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
-        letterPanel = GameObject.FindGameObjectWithTag("letterbox").transform;
+        letterPanel = (RectTransform)GameObject.FindGameObjectWithTag("letterbox").transform;
+        landingPanel = (RectTransform)GameObject.FindGameObjectWithTag("landing").transform;
         canvasGroup = GetComponent<CanvasGroup>();
         image = GetComponent<Image>();
     }
@@ -38,16 +40,13 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("DragEnd : " + eventData);
         LeanTween.scale(gameObject, new Vector2(1, 1), 0.2f);
 
-        overrideSorting();
-
+        transform.GetComponent<Image>().raycastTarget = true;
         canvasGroup.blocksRaycasts = true;
+        gameObject.GetComponent<Canvas>().overrideSorting = false;
+        LayoutRebuilder.MarkLayoutForRebuild(letterPanel);
+        LayoutRebuilder.MarkLayoutForRebuild(landingPanel);
     }
 
-    void overrideSorting()
-    {
-        gameObject.GetComponent<Canvas>().overrideSorting = false;
-    }
 }

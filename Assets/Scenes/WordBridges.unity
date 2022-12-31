@@ -232,7 +232,7 @@ RectTransform:
   - {fileID: 1967543724}
   - {fileID: 1718400983}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -650,10 +650,10 @@ MonoBehaviour:
   m_fontSize: 72
   m_fontSizeBase: 72
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 48
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1152,7 +1152,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.09077963, g: 0.22550593, b: 0.3773585, a: 1}
+  m_BackGroundColor: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1218,50 +1218,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1170470659}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1076333430
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1076333432}
-  - component: {fileID: 1076333431}
-  m_Layer: 0
-  m_Name: FPS
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1076333431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076333430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88166a9096100f2479b72a209aa99fec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1076333432
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076333430}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 843.079, y: 858.0508, z: -512.2591}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1170470659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1272,12 +1228,12 @@ PrefabInstance:
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_margin.w
-      value: 3.085394
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1293,7 +1249,7 @@ PrefabInstance:
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_fontSizeMax
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1574,12 +1530,12 @@ PrefabInstance:
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_margin.w
-      value: 3.085394
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1595,7 +1551,7 @@ PrefabInstance:
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_fontSizeMax
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1606,6 +1562,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_enableAutoSizing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1621,6 +1582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.wordCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1680,7 +1646,7 @@ PrefabInstance:
     - target: {fileID: 3518365642256599651, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599651, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -2239,7 +2205,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 128}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1718400984
 MonoBehaviour:
@@ -2254,12 +2220,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 64
-    m_Right: 64
-    m_Top: 64
-    m_Bottom: 64
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 64
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -2555,7 +2521,7 @@ GameObject:
   - component: {fileID: 2112668760}
   m_Layer: 5
   m_Name: LandingPanel
-  m_TagString: Untagged
+  m_TagString: landing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

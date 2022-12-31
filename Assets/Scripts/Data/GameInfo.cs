@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public static class GameInfo{
-    
+public static class GameInfo
+{
+
     public static int currentDiff = 0;
     public static int chosenLevel = 1;
     public static int play = 0;

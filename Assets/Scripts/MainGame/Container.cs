@@ -8,7 +8,7 @@ public class Container : MonoBehaviour, IDropHandler
     Manager manager;
     public int i;
     public int j;
-    // Use this for initialization
+
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
@@ -16,7 +16,8 @@ public class Container : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        print("OnDrop : " + eventData);
+        print("OnDrop");
+
         Letter beingDragged = manager.itemBeingDragged;
         if (transform.childCount == 0)
         {
