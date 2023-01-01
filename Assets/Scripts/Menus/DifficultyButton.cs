@@ -1,14 +1,13 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class diffButton : MonoBehaviour
+public class DifficultyButton : MonoBehaviour
 {
     public TextMeshProUGUI tm;
     public int difficulty;
 
-    void Start()
+    public void Start()
     {
-        levels l = GameInfo.l;
         int compl = 0;
         for (int i = 0; i < 20; i++)
         {
@@ -20,7 +19,7 @@ public class diffButton : MonoBehaviour
         tm.text = tm.text + " " + compl + "/" + 20;
     }
 
-    public void onClick()
+    public void OnClick()
     {
         GameInfo.currentDiff = difficulty;
         SceneManager.LoadScene("Levels");

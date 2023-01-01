@@ -29,8 +29,7 @@ public class Manager : MonoBehaviour
     int level;
     int difficulty = 0;
 
-    // Use this for initialization
-    void Start()
+    public void Start()
     {
         hintPanel = GameObject.Find("HintPanel").GetComponent<HintPanel>();
         wordIndexes = new List<List<int[]>>();
@@ -93,24 +92,22 @@ public class Manager : MonoBehaviour
             }
 
             methodName += level;
-            levels l = GameInfo.l;
+            Levels l = GameInfo.l;
             MethodInfo mi = l.GetType().GetMethod(methodName);
             goalGrid = (string[,])mi.Invoke(l, null);
 
             title.text = diffText + " " + level;
-            createContainers(goalGrid);
-            createLandingPanel(goalGrid);
+            CreateContainers(goalGrid);
+            CreateLandingPanel(goalGrid);
 
         }
     }
 
-    //On completion of the level.
     void LevelComplete()
     {
-        print("Level Complete");
         PlayerPrefs.SetString(difficulty + "-" + level, "done");
         canvasGroup.blocksRaycasts = true;
-        gameObject.GetComponent<CompleteAnimation>().startAnimation();
+        gameObject.GetComponent<CompleteAnimation>().StartAnimation();
     }
 
     public void Next()
@@ -149,7 +146,7 @@ public class Manager : MonoBehaviour
 
     }
 
-    void createLandingPanel(string[,] str)
+    void CreateLandingPanel(string[,] str)
     {
 
         for (int i = 0; i < str.GetLength(0); i++)
@@ -184,16 +181,16 @@ public class Manager : MonoBehaviour
         }
     }
 
-    void createContainers(string[,] str)
+    void CreateContainers(string[,] str)
     {
         currentGrid = new string[6, 6];
         containers = new List<GameObject>();
-        List<string> letters = new List<string>();
+        List<string> letters = new();
 
         int count = 0;
         for (int i = 0; i < str.GetLength(0); i++)
         {
-            List<int[]> word = new List<int[]>();
+            List<int[]> word = new();
             for (int j = 0; j < str.GetLength(1); j++)
             {
                 GameObject container = Instantiate(containerPrefab);
@@ -239,7 +236,7 @@ public class Manager : MonoBehaviour
 
         for (int j = 0; j < str.GetLength(1); j++)
         {
-            List<int[]> word = new List<int[]>();
+            List<int[]> word = new();
             for (int i = 0; i < str.GetLength(0); i++)
             {
                 if (str[i, j] == null || str[i, j] == "")
@@ -293,9 +290,7 @@ public class Manager : MonoBehaviour
         {
             n--;
             int k = Random.Range(0, n + 1);
-            var value = list[k];
-            list[k] = list[n];
-            list[n] = value;
+            (list[n], list[k]) = (list[k], list[n]);
         }
         return list;
     }
@@ -334,8 +329,5 @@ public class Manager : MonoBehaviour
         {
             LevelComplete();
         }
-
     }
-
-
 }

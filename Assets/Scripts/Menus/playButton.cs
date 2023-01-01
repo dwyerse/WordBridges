@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class playButton : MonoBehaviour
+public class PlayButton : MonoBehaviour
 {
-    public void onClick()
+    public void OnClick()
     {
         GameInfo.play = 1;
         SceneManager.LoadScene("WordBridges");

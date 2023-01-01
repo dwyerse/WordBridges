@@ -1,9 +1,9 @@
 ﻿
-public class levels
+public class Levels
 {
 
     public string[] file;
-    public levels()
+    public Levels()
     {
 
     }

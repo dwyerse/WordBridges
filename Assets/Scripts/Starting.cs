@@ -3,7 +3,7 @@ using UnityEngine;
 public class Starting : MonoBehaviour
 {
 
-    void Start()
+    public void Start()
     {
         if (GameInfo.wordSet == null)
         {

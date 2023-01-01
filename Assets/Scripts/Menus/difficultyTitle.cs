@@ -1,13 +1,12 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class difficultyTitle : MonoBehaviour
+public class DifficultyTitle : MonoBehaviour
 {
 
     TextMeshProUGUI title;
 
-    // Use this for initialization
-    void Start()
+    public void Start()
     {
         int diff = GameInfo.currentDiff;
         title = GetComponent<TextMeshProUGUI>();

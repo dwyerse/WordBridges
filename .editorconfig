@@ -1,0 +1,13 @@
+root = true
+
+[Assets/Assetstore/**.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none
+
+[Assets/Plugins/**.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none
+
+[Assets/LeanTween/**.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none

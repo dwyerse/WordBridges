@@ -2,16 +2,16 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class nextButton : MonoBehaviour
+public class NextButton : MonoBehaviour
 {
     public Button b;
     // Use this for initialization
-    void Start()
+    public void Start()
     {
-        b.onClick.AddListener(() => nextClick());
+        b.onClick.AddListener(() => NextClick());
     }
 
-    private void nextClick()
+    private void NextClick()
     {
         GameInfo.chosenLevel++;
         int diff = 20;

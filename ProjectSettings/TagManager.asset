@@ -10,6 +10,7 @@ TagManager:
   - hint
   - tutorial
   - landing
+  - LevelEditor-Letter
   layers:
   - Default
   - TransparentFX

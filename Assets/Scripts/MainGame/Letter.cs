@@ -9,14 +9,17 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     Manager manager;
     RectTransform letterPanel;
     RectTransform landingPanel;
+    public Color highlight;
+    Color originalColor;
 
-    void Start()
+    public void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
         letterPanel = (RectTransform)GameObject.FindGameObjectWithTag("letterbox").transform;
         landingPanel = (RectTransform)GameObject.FindGameObjectWithTag("landing").transform;
         canvasGroup = GetComponent<CanvasGroup>();
         image = GetComponent<Image>();
+        originalColor = image.color;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -28,6 +31,7 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     public void OnBeginDrag(PointerEventData eventData)
     {
         LeanTween.scale(gameObject, new Vector2(1.2f, 1.2f), 0.2f);
+        LeanTween.color(image.rectTransform, highlight, 0.2f);
         canvasGroup.blocksRaycasts = false;
         manager.itemBeingDragged = gameObject.GetComponent<Letter>();
         gameObject.GetComponent<Canvas>().overrideSorting = true;
@@ -41,7 +45,7 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     public void OnEndDrag(PointerEventData eventData)
     {
         LeanTween.scale(gameObject, new Vector2(1, 1), 0.2f);
-
+        LeanTween.color(image.rectTransform, originalColor, 0.2f);
         transform.GetComponent<Image>().raycastTarget = true;
         canvasGroup.blocksRaycasts = true;
         gameObject.GetComponent<Canvas>().overrideSorting = false;

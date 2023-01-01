@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   letter: 
+  highlight: {r: 0, g: 0.6039216, b: 0.6037736, a: 1}
 --- !u!114 &5681508163670924841
 MonoBehaviour:
   m_ObjectHideFlags: 0

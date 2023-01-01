@@ -160,8 +160,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -57.5}
-  m_SizeDelta: {x: 0, y: -115}
+  m_AnchoredPosition: {x: 0, y: -75}
+  m_SizeDelta: {x: 0, y: -150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &181517218
 MonoBehaviour:
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 260941807}
   - component: {fileID: 260941808}
   m_Layer: 5
-  m_Name: Spacing
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 56
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -431,8 +431,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50.4}
-  m_SizeDelta: {x: 0, y: -50.4}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &476599752
 MonoBehaviour:
@@ -589,7 +589,7 @@ PrefabInstance:
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
       propertyPath: m_fontSize
-      value: 26
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -604,8 +604,13 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
+        type: 3}
       propertyPath: m_fontSizeMax
-      value: 26
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3518365642256599648, guid: b61e92a4cc86e434f97a06db92230fca,
         type: 3}
@@ -1019,11 +1024,11 @@ RectTransform:
   m_Father: {fileID: 1194046091}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 902.5}
-  m_SizeDelta: {x: 0, y: -1805}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 150}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1708706960
 MonoBehaviour:
   m_ObjectHideFlags: 0

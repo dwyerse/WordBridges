@@ -9,7 +9,7 @@ public class Container : MonoBehaviour, IDropHandler
     public int i;
     public int j;
 
-    void Start()
+    public void Start()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
     }

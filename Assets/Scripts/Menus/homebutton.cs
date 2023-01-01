@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class homebutton : MonoBehaviour
+public class HomeButton : MonoBehaviour
 {
-
     public void OnClick()
     {
         SceneManager.LoadScene("Menu");
     }
-
 }
