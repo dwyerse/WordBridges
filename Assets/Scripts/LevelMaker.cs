@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 
@@ -11,47 +13,94 @@ public class LevelMaker : MonoBehaviour
     public TMP_InputField levelNameInput;
     public Transform letterContainer;
     public HintPanel hintPanel;
+    public TextMeshProUGUI message;
+    LevelModel model;
+
+    public void Start()
+    {
+
+        Guid guid = Guid.NewGuid();
+
+        model = new()
+        {
+            levelName = levelNameInput.text,
+            letters = GetLetters(),
+            ID = guid.ToString()
+        };
+
+        foreach (Transform child in letterContainer)
+        {
+            TMP_InputField inputField = child.GetComponent<TMP_InputField>();
+            inputField.onValueChanged.AddListener(delegate { OnValueChanged(); });
+        }
+    }
+
+    void OnValueChanged()
+    {
+        message.gameObject.SetActive(false);
+        model.letters = GetLetters();
+        PopulateHints(model.GetWords());
+    }
 
     public void SaveLevel()
     {
-        LevelModel model = new()
+        model.levelName = levelNameInput.text;
+
+        if (model.levelName == "")
         {
-            LevelName = levelNameInput.text,
-            Letters = GetLetters()
-        };
+            message.text = "Give the board a name";
+            message.gameObject.SetActive(true);
+            return;
+        }
 
-        IsSolvable(model.Letters);
-
+        if (!model.IsSolvable())
+        {
+            message.text = "Board is not solvable";
+            message.gameObject.SetActive(true);
+            return;
+        }
         IFormatter formatter = new BinaryFormatter();
-        Stream stream = new FileStream(LEVEL_FILE_NAME, FileMode.Create, FileAccess.Write, FileShare.None);
-        formatter.Serialize(stream, model);
-        stream.Close();
 
-        Stream str = new FileStream(LEVEL_FILE_NAME, FileMode.Open, FileAccess.Read, FileShare.Read);
-        LevelModel obj = (LevelModel)formatter.Deserialize(str);
-        str.Close();
-    }
+        Stream fileStream = new FileStream(LEVEL_FILE_NAME, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-    List<string> GetHorizontalWords(string[,] letters)
-    {
-        List<string> wordList = new();
+        AllLevelsModel allLevelsModel = new();
 
-        for (int i = 0; i < letters.GetLength(0); i++)
+        if (fileStream.Length != 0)
         {
-            for (int j = 0; j < letters.GetLength(1); j++)
+            string deserializedString = (string)formatter.Deserialize(fileStream);
+            if (deserializedString != null)
             {
-                print("" + letters[i, j]);
+                allLevelsModel = JsonConvert.DeserializeObject<AllLevelsModel>(deserializedString);
             }
         }
 
-        return wordList;
+        allLevelsModel.levels ??= new();
+        allLevelsModel.levels[model.ID] = model;
+        fileStream.Close();
+
+        string jsonString = JsonConvert.SerializeObject(allLevelsModel);
+        Stream stream = new FileStream(LEVEL_FILE_NAME, FileMode.Create, FileAccess.Write, FileShare.None);
+        formatter.Serialize(stream, jsonString);
+        stream.Close();
+
+        message.text = "Saved - " + model.levelName;
+        message.gameObject.SetActive(true);
     }
 
-    bool IsSolvable(string[,] letters)
+    void PopulateHints(List<string> words)
     {
-        GetHorizontalWords(letters);
-
-        return true;
+        hintPanel.Clear();
+        foreach (var word in words)
+        {
+            if (!GameInfo.wordSet.Contains(word.ToLower()))
+            {
+                hintPanel.Add(word, new Color(0.8f, 0.3f, 0.3f));
+            }
+            else
+            {
+                hintPanel.Add(word, new Color(0.3f, 0.7f, 0.3f));
+            }
+        }
     }
 
     private string[,] GetLetters()

@@ -39,14 +39,11 @@ public class LevelPicker : MonoBehaviour
             buttonGO.transform.SetParent(content.transform, false);
 
         }
-
-
     }
 
-    void TaskOnClick(String i)
+    void TaskOnClick(string i)
     {
-        GameInfo.chosenLevel = Int32.Parse(i);
+        GameInfo.chosenLevel = int.Parse(i);
         SceneManager.LoadScene("WordBridges");
     }
-
 }

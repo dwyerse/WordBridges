@@ -1,4 +1,6 @@
+using System.Collections.Generic;
+
 public class AllLevelsModel
 {
-    public LevelModel[] levels;
+    public Dictionary<string, LevelModel> levels;
 }

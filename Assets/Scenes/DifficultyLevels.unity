@@ -345,8 +345,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 341495873}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: onClick
+        m_TargetAssemblyTypeName: DifficultyButton, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 341495868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f93d93dfa0f6a141aa6849d5415b4a7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef4fcb14281d1754c9dd140f8fea411b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 417899274}
@@ -906,8 +906,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 767399420}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: onClick
+        m_TargetAssemblyTypeName: DifficultyButton, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -964,7 +964,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 767399415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f93d93dfa0f6a141aa6849d5415b4a7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef4fcb14281d1754c9dd140f8fea411b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 1723001705}
@@ -1288,8 +1288,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1166723632}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: onClick
+        m_TargetAssemblyTypeName: DifficultyButton, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166723627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f93d93dfa0f6a141aa6849d5415b4a7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef4fcb14281d1754c9dd140f8fea411b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tm: {fileID: 144408986}

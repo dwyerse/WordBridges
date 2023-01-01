@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class levelsButton : MonoBehaviour
+public class LevelsButton : MonoBehaviour
 {
-    public void onClick()
+    public void OnClick()
     {
         GameInfo.play = 0;
         SceneManager.LoadScene("DifficultyLevels");

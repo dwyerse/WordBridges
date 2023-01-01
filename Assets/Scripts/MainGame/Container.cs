@@ -16,8 +16,6 @@ public class Container : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        print("OnDrop");
-
         Letter beingDragged = manager.itemBeingDragged;
         if (transform.childCount == 0)
         {
