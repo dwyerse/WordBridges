@@ -27,9 +27,6 @@ public class Manager : MonoBehaviour
     public CanvasGroup canvasGroup;
     public HintPanel hintPanel;
 
-    int level;
-    int difficulty = 0;
-
     public void Start()
     {
         hintPanel = GameObject.Find("HintPanel").GetComponent<HintPanel>();
@@ -37,17 +34,13 @@ public class Manager : MonoBehaviour
         Dictionary<string, LevelModel> levels = GameInfo.customLevels.levels;
 
         LevelModel levelModel = levels[GameInfo.customLevel];
-        string[,] letters = levelModel.letters;
-
-        goalGrid = letters;
+        goalGrid = levelModel.letters;
         CreateContainers(goalGrid);
         CreateLandingPanel(goalGrid);
     }
 
     void LevelComplete()
     {
-        PlayerPrefs.SetString(difficulty + "-" + level, "done");
-        canvasGroup.blocksRaycasts = true;
         foreach (GameObject letter in letterObjects)
         {
             letter.GetComponent<Letter>().Lock();
@@ -57,26 +50,7 @@ public class Manager : MonoBehaviour
 
     public void Next()
     {
-        GameInfo.chosenLevel++;
-        if (GameInfo.chosenLevel > 20)
-        {
-            GameInfo.currentDiff++;
-            GameInfo.chosenLevel = 1;
-            print("Next level " + GameInfo.currentDiff + " - " + GameInfo.chosenLevel);
-            if (GameInfo.currentDiff > 2)
-            {
-                SceneManager.LoadScene("Menu");
-            }
-            else
-            {
-                SceneManager.LoadScene("WordBridges");
-
-            }
-        }
-        else
-        {
-            SceneManager.LoadScene("WordBridges");
-        }
+        SceneManager.LoadScene("WordBridges");
     }
 
     public void Restart()
