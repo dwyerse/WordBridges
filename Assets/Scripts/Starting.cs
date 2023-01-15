@@ -16,5 +16,10 @@ public class Starting : MonoBehaviour
             }
         }
 
+        if (GameInfo.customLevels == null)
+        {
+            GameInfo.customLevels = AllLevelsModel.Load();
+        }
+
     }
 }

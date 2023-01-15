@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 public class CompleteAnimation : MonoBehaviour
 {
@@ -10,28 +11,19 @@ public class CompleteAnimation : MonoBehaviour
     {
         for (int i = 0; i < manager.containers.Count; i++)
         {
-            LeanTween.scale(manager.letterObjects[i], new Vector2(1.2f, 1.2f), 1.2f).setEase(LeanTweenType.easeInOutQuad).setDelay(0.2f).setOnComplete(AnimationFinished).setOnCompleteParam(i);
-        }
-    }
-
-    void AnimationFinished(object onCompleteParams)
-    {
-        int i = (int)onCompleteParams;
-        LeanTween.scale(manager.letterObjects[i], new Vector2(0f, 0f), 0.5f).setEase(LeanTweenType.easeInOutQuad);
-        LeanTween.scale(manager.containers[i], new Vector2(1.1f, 1.1f), 0.6f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(LetterAnimFinished).setOnCompleteParam(i);
-
-    }
-
-    void LetterAnimFinished(object onCompleteParams)
-    {
-        int i = (int)onCompleteParams;
-        if (i == manager.containers.Count - 1)
-        {
-            LeanTween.scale(manager.containers[i], new Vector2(0f, 0f), 0.3f).setEase(LeanTweenType.easeInOutQuad).setOnComplete(LevelComplete);
-        }
-        else
-        {
-            LeanTween.scale(manager.containers[i], new Vector2(0f, 0f), 0.3f).setEase(LeanTweenType.easeInOutQuad);
+            Transform container = manager.containers[i].transform;
+            Transform letter = manager.letterObjects[i].transform;
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(letter.DOScale(new Vector2(1.2f, 1.2f), 1.2f).SetEase(Ease.InOutQuad).SetDelay(0.2f));
+            sequence.Append(letter.DOScale(new Vector2(0f, 0f), 0.5f).SetEase(Ease.InOutQuad));
+            if (i == manager.containers.Count - 1)
+            {
+                sequence.Append(container.DOScale(new Vector2(0f, 0f), 0.3f).SetEase(Ease.InOutQuad)).OnComplete(LevelComplete);
+            }
+            else
+            {
+                sequence.Append(container.DOScale(new Vector2(0f, 0f), 0.3f).SetEase(Ease.InOutQuad));
+            }
         }
     }
 

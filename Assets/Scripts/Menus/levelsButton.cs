@@ -8,6 +8,4 @@ public class LevelsButton : MonoBehaviour
         GameInfo.play = 0;
         SceneManager.LoadScene("DifficultyLevels");
     }
-
-
 }

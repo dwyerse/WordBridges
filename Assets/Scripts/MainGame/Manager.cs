@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,80 +34,24 @@ public class Manager : MonoBehaviour
     {
         hintPanel = GameObject.Find("HintPanel").GetComponent<HintPanel>();
         wordIndexes = new List<List<int[]>>();
-        if (GameInfo.play == 1)
-        {
-            level = 0;
-            for (int d = 0; d < 3 && level == 0; d++)
-            {
-                if (!PlayerPrefs.HasKey(d + "-" + 1))
-                {
-                    level = 1;
-                    difficulty = d;
-                }
-                else
-                {
-                    int b = 20;
+        Dictionary<string, LevelModel> levels = GameInfo.customLevels.levels;
 
-                    for (int i = 0; i < b && level == 0; i++)
-                    {
+        LevelModel levelModel = levels[GameInfo.customLevel];
+        string[,] letters = levelModel.letters;
 
-                        if (!PlayerPrefs.HasKey(d + "-" + (i + 1)))
-                        {
-                            level = i + 1;
-                            difficulty = d;
-                        }
-                    }
-                }
-            }
-            if (level == 0)
-            {
-                GameInfo.play = 0;
-                SceneManager.LoadScene("DifficultyLevels", LoadSceneMode.Single);
-            }
-            GameInfo.chosenLevel = level;
-            GameInfo.currentDiff = difficulty;
-        }
-        else
-        {
-            difficulty = GameInfo.currentDiff;
-            level = GameInfo.chosenLevel;
-        }
-        if (level != 0)
-        {
-            string methodName = "";
-            string diffText = "";
-            switch (difficulty)
-            {
-                case 0:
-                    methodName = "A";
-                    diffText = "Easy";
-                    break;
-                case 1:
-                    methodName = "B";
-                    diffText = "Medium";
-                    break;
-                case 2:
-                    methodName = "C";
-                    diffText = "Hard";
-                    break;
-            }
-
-            methodName += level;
-            Levels l = GameInfo.l;
-            MethodInfo mi = l.GetType().GetMethod(methodName);
-            goalGrid = (string[,])mi.Invoke(l, null);
-
-            title.text = diffText + " " + level;
-            CreateContainers(goalGrid);
-            CreateLandingPanel(goalGrid);
-
-        }
+        goalGrid = letters;
+        CreateContainers(goalGrid);
+        CreateLandingPanel(goalGrid);
     }
 
     void LevelComplete()
     {
         PlayerPrefs.SetString(difficulty + "-" + level, "done");
         canvasGroup.blocksRaycasts = true;
+        foreach (GameObject letter in letterObjects)
+        {
+            letter.GetComponent<Letter>().Lock();
+        }
         gameObject.GetComponent<CompleteAnimation>().StartAnimation();
     }
 
@@ -225,7 +170,7 @@ public class Manager : MonoBehaviour
                     word.Add(letterIndex);
                     container.transform.localScale = new Vector2(0, 0);
                     Destroy(container.GetComponent<Container>());
-                    LeanTween.scale(container, new Vector2(1, 1), 0.5f).setEase(LeanTweenType.easeSpring).setDelay(0.1f * (i + j));
+                    container.transform.DOScale(new Vector2(1, 1), 0.5f).SetEase(Ease.InOutCubic).SetDelay(0.1f * (i + j));
                 }
             }
             if (word.Count > 1)
@@ -279,7 +224,7 @@ public class Manager : MonoBehaviour
             letterObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = letters[a];
             letterObject.transform.SetParent(letterPanel.transform);
             letterObject.transform.localScale = new Vector2(0, 0);
-            LeanTween.scale(letterObject, new Vector2(1, 1), 1f).setEase(LeanTweenType.easeSpring).setDelay(0.1f * a);
+            letterObject.transform.DOScale(new Vector2(1, 1), 1f).SetEase(Ease.InOutCubic).SetDelay(a * 0.1f);
         }
     }
 

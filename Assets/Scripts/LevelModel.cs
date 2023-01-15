@@ -94,5 +94,4 @@ public class LevelModel
 
         return IsSolvable;
     }
-
 }
