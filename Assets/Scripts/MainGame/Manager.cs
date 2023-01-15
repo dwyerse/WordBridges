@@ -34,6 +34,7 @@ public class Manager : MonoBehaviour
         Dictionary<string, LevelModel> levels = GameInfo.customLevels.levels;
 
         LevelModel levelModel = levels[GameInfo.customLevel];
+
         goalGrid = levelModel.letters;
         CreateContainers(goalGrid);
         CreateLandingPanel(goalGrid);
