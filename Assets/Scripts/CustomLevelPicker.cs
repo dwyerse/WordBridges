@@ -9,10 +9,11 @@ public class CustomLevelPicker : MonoBehaviour
 {
     public GameObject levelButtonPrefab;
     public AllLevelsModel levelsModel;
+    public string levelFileName;
 
     public void Start()
     {
-        levelsModel = AllLevelsModel.Load();
+        levelsModel = AllLevelsModel.Load(levelFileName);
         CreateButtons(levelsModel.levels);
     }
 

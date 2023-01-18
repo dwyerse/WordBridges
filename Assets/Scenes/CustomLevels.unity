@@ -565,7 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelButtonPrefab: {fileID: 7913422491879135399, guid: 177d255ebd38f184083e3650f109bd0a,
     type: 3}
-  levelFileName: LevelData
+  levelFileName: CustomLevelData
 --- !u!1001 &881795432
 PrefabInstance:
   m_ObjectHideFlags: 0

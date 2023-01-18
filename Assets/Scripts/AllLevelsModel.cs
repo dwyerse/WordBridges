@@ -9,10 +9,12 @@ public class AllLevelsModel
 {
     public static string LEVEL_FILE_NAME = "LevelData";
     public Dictionary<string, LevelModel> levels;
+    public string levelFileName;
 
-    public AllLevelsModel(Dictionary<string, LevelModel> levels)
+    public AllLevelsModel(Dictionary<string, LevelModel> levels, string levelFileName)
     {
         this.levels = levels;
+        this.levelFileName = levelFileName;
     }
 
     public void Save()
@@ -20,7 +22,7 @@ public class AllLevelsModel
         IFormatter formatter = new BinaryFormatter();
 
         string jsonString = JsonConvert.SerializeObject(levels);
-        Stream stream = new FileStream(LEVEL_FILE_NAME, FileMode.Create, FileAccess.Write, FileShare.None);
+        Stream stream = new FileStream(levelFileName, FileMode.Create, FileAccess.Write, FileShare.None);
         formatter.Serialize(stream, jsonString);
         stream.Close();
     }
@@ -30,14 +32,14 @@ public class AllLevelsModel
         levels[ID] = levelModel;
     }
 
-    public static AllLevelsModel Load()
+    public static AllLevelsModel Load(string levelFileName)
     {
         Dictionary<string, LevelModel> levels = null;
 
         try
         {
             IFormatter formatter = new BinaryFormatter();
-            Stream fileStream = new FileStream(LEVEL_FILE_NAME, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Stream fileStream = new FileStream(levelFileName, FileMode.Open, FileAccess.Read, FileShare.Read);
 
             if (fileStream.Length != 0)
             {
@@ -53,7 +55,7 @@ public class AllLevelsModel
         {
         }
         levels ??= new();
-        AllLevelsModel allLevelsModel = new(levels);
+        AllLevelsModel allLevelsModel = new(levels, levelFileName);
         return allLevelsModel;
     }
 

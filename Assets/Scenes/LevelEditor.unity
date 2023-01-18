@@ -6898,6 +6898,7 @@ MonoBehaviour:
   letterContainer: {fileID: 1088281417}
   hintPanel: {fileID: 1508158886}
   message: {fileID: 84103976}
+  levelFileName: CustomLevelData
 --- !u!114 &1162410340
 MonoBehaviour:
   m_ObjectHideFlags: 0

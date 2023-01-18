@@ -16,10 +16,8 @@ public class Starting : MonoBehaviour
             }
         }
 
-        if (GameInfo.customLevels == null)
-        {
-            GameInfo.customLevels = AllLevelsModel.Load();
-        }
+        GameInfo.customLevels ??= AllLevelsModel.Load("CustomLevelData");
+        GameInfo.standardLevels ??= AllLevelsModel.Load("LevelData");
 
     }
 }

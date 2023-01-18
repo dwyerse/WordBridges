@@ -11,6 +11,7 @@ public class LevelEditor : MonoBehaviour
     public HintPanel hintPanel;
     public TextMeshProUGUI message;
     LevelModel model;
+    public string levelFileName;
 
     public void Start()
     {
@@ -54,7 +55,7 @@ public class LevelEditor : MonoBehaviour
             return;
         }
 
-        AllLevelsModel allLevelsModel = AllLevelsModel.Load();
+        AllLevelsModel allLevelsModel = AllLevelsModel.Load(levelFileName);
         allLevelsModel.SetLevel(model.ID, model);
         allLevelsModel.Save();
         GameInfo.customLevels = allLevelsModel;
