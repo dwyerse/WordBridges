@@ -13,16 +13,20 @@ public class LevelEditor : MonoBehaviour {
 
     public void Start() {
 
-        Guid guid = Guid.NewGuid();
-
+        levelFileName = GameInfo.gameMode == GameInfo.GameMode.Custom ? "CustomLevelData" : "LevelData";
         if (GameInfo.editLevel != null) {
             if (GameInfo.gameMode == GameInfo.GameMode.Custom) {
                 model = GameInfo.customLevels.levels[GameInfo.editLevel];
             } else {
                 model = GameInfo.standardLevels.levels[GameInfo.editLevel];
             }
-            SetLetters(model.letters);
+            if (model.letters != null) {
+                SetLetters(model.letters);
+            }
+            levelNameInput.text = model.levelName;
         } else {
+            Guid guid = Guid.NewGuid();
+
             model = new() {
                 levelName = levelNameInput.text,
                 letters = GetLetters(),
@@ -59,9 +63,9 @@ public class LevelEditor : MonoBehaviour {
         allLevelsModel.SetLevel(model.ID, model);
         allLevelsModel.Save();
         if (levelFileName == "CustomLevelData") {
-            GameInfo.customLevels = allLevelsModel;
+            GameInfo.customLevels = AllLevelsModel.Load(levelFileName);
         } else {
-            GameInfo.standardLevels = allLevelsModel;
+            GameInfo.standardLevels = AllLevelsModel.Load(levelFileName);
         }
         message.text = "Saved - " + model.levelName;
     }

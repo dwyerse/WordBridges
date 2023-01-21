@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Manager : MonoBehaviour
-{
+public class Manager : MonoBehaviour {
 
     string[,] goalGrid = new string[6, 6];
     public string[,] currentGrid;
@@ -27,45 +26,38 @@ public class Manager : MonoBehaviour
     public CanvasGroup canvasGroup;
     public HintPanel hintPanel;
 
-    public void Start()
-    {
+    public void Start() {
         hintPanel = GameObject.Find("HintPanel").GetComponent<HintPanel>();
         wordIndexes = new List<List<int[]>>();
         Dictionary<string, LevelModel> levels;
-        if (GameInfo.gameMode == GameInfo.GameMode.Custom)
-        {
+        if (GameInfo.gameMode == GameInfo.GameMode.Custom) {
             levels = GameInfo.customLevels.levels;
-        }
-        else
-        {
+        } else {
             levels = GameInfo.standardLevels.levels;
         }
 
         LevelModel levelModel = levels[GameInfo.level];
 
         goalGrid = levelModel.letters;
-        CreateContainers(goalGrid);
-        CreateLandingPanel(goalGrid);
+        if (goalGrid != null && goalGrid.GetLength(0) > 0) {
+            CreateContainers(goalGrid);
+            CreateLandingPanel(goalGrid);
+        }
     }
 
-    void LevelComplete()
-    {
-        foreach (GameObject letter in letterObjects)
-        {
+    void LevelComplete() {
+        foreach (GameObject letter in letterObjects) {
             letter.GetComponent<Letter>().Lock();
         }
         gameObject.GetComponent<CompleteAnimation>().StartAnimation();
     }
 
-    public void Next()
-    {
+    public void Next() {
         SceneManager.LoadScene("WordBridges");
     }
 
-    public void Restart()
-    {
-        for (int a = 0; a < letterObjects.Count; a++)
-        {
+    public void Restart() {
+        for (int a = 0; a < letterObjects.Count; a++) {
             letterObjects[a].GetComponent<Letter>().ResetPosition();
         }
 
@@ -74,15 +66,11 @@ public class Manager : MonoBehaviour
 
     }
 
-    void CreateLandingPanel(string[,] str)
-    {
+    void CreateLandingPanel(string[,] str) {
 
-        for (int i = 0; i < str.GetLength(0); i++)
-        {
-            for (int j = 0; j < str.GetLength(1); j++)
-            {
-                if (str[i, j] == null || str[i, j] == "")
-                {
+        for (int i = 0; i < str.GetLength(0); i++) {
+            for (int j = 0; j < str.GetLength(1); j++) {
+                if (str[i, j] == null || str[i, j] == "") {
                     GameObject container = Instantiate(landingPrefab);
                     container.layer = 2;
                     container.transform.SetParent(landingPanel.transform);
@@ -92,9 +80,7 @@ public class Manager : MonoBehaviour
                     Destroy(container.GetComponent<Container>());
                     Destroy(container.GetComponent<CanvasRenderer>());
                     Destroy(container.GetComponent<GridLayoutGroup>());
-                }
-                else
-                {
+                } else {
                     GameObject container = Instantiate(landingPrefab);
                     container.layer = 2;
                     container.transform.SetParent(landingPanel.transform);
@@ -109,31 +95,24 @@ public class Manager : MonoBehaviour
         }
     }
 
-    void CreateContainers(string[,] str)
-    {
+    void CreateContainers(string[,] str) {
         currentGrid = new string[6, 6];
         containers = new List<GameObject>();
         List<string> letters = new();
 
         int count = 0;
-        for (int i = 0; i < str.GetLength(0); i++)
-        {
+        for (int i = 0; i < str.GetLength(0); i++) {
             List<int[]> word = new();
-            for (int j = 0; j < str.GetLength(1); j++)
-            {
+            for (int j = 0; j < str.GetLength(1); j++) {
                 GameObject container = Instantiate(containerPrefab);
                 container.layer = 2;
                 container.transform.SetParent(containerPanel.transform);
 
-                if (str[i, j] == null || str[i, j] == "")
-                {
-                    if (word.Count > 1)
-                    {
+                if (str[i, j] == null || str[i, j] == "") {
+                    if (word.Count > 1) {
                         wordIndexes.Add(word);
                         word = new List<int[]>();
-                    }
-                    else
-                    {
+                    } else {
                         word.Clear();
                     }
 
@@ -143,9 +122,7 @@ public class Manager : MonoBehaviour
                     Destroy(container.GetComponent<CanvasRenderer>());
                     Destroy(container.GetComponent<GridLayoutGroup>());
 
-                }
-                else
-                {
+                } else {
                     container.name = "Container " + count++;
                     containers.Add(container);
                     letters.Add(str[i, j]);
@@ -156,37 +133,27 @@ public class Manager : MonoBehaviour
                     container.transform.DOScale(new Vector2(1, 1), 0.5f).SetEase(Ease.InOutCubic).SetDelay(0.1f * (i + j));
                 }
             }
-            if (word.Count > 1)
-            {
+            if (word.Count > 1) {
                 wordIndexes.Add(word);
             }
         }
 
-        for (int j = 0; j < str.GetLength(1); j++)
-        {
+        for (int j = 0; j < str.GetLength(1); j++) {
             List<int[]> word = new();
-            for (int i = 0; i < str.GetLength(0); i++)
-            {
-                if (str[i, j] == null || str[i, j] == "")
-                {
-                    if (word.Count > 1)
-                    {
+            for (int i = 0; i < str.GetLength(0); i++) {
+                if (str[i, j] == null || str[i, j] == "") {
+                    if (word.Count > 1) {
                         wordIndexes.Add(word);
                         word = new List<int[]>();
-                    }
-                    else
-                    {
+                    } else {
                         word.Clear();
                     }
-                }
-                else
-                {
+                } else {
                     int[] letterIndex = { i, j };
                     word.Add(letterIndex);
                 }
             }
-            if (word.Count > 1)
-            {
+            if (word.Count > 1) {
                 wordIndexes.Add(word);
             }
         }
@@ -195,11 +162,9 @@ public class Manager : MonoBehaviour
 
     }
 
-    void CreateLetters(List<string> letters)
-    {
+    void CreateLetters(List<string> letters) {
         letters = Shuffle(letters);
-        for (int a = 0; a < letters.Count; a++)
-        {
+        for (int a = 0; a < letters.Count; a++) {
             GameObject letterObject = Instantiate(letterPrefab);
             letterObjects.Add(letterObject);
             letterObject.name = "" + letters[a];
@@ -211,11 +176,9 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public List<string> Shuffle(List<string> list)
-    {
+    public List<string> Shuffle(List<string> list) {
         int n = list.Count;
-        while (n > 1)
-        {
+        while (n > 1) {
             n--;
             int k = Random.Range(0, n + 1);
             (list[n], list[k]) = (list[k], list[n]);
@@ -223,38 +186,28 @@ public class Manager : MonoBehaviour
         return list;
     }
 
-    public void CompleteCheck()
-    {
+    public void CompleteCheck() {
         hintPanel.Clear();
         bool complete = true;
 
-        foreach (var wordIndex in wordIndexes)
-        {
+        foreach (var wordIndex in wordIndexes) {
             string find = "";
-            foreach (var index in wordIndex)
-            {
+            foreach (var index in wordIndex) {
                 find += currentGrid[index[0], index[1]];
             }
             find = find.ToLower();
-            if (find.Length == wordIndex.Count)
-            {
-                if (!GameInfo.wordSet.Contains(find))
-                {
+            if (find.Length == wordIndex.Count) {
+                if (!GameInfo.wordSet.Contains(find)) {
                     hintPanel.Add(find.ToUpper(), new Color(0.8f, 0.3f, 0.3f));
                     complete = false;
-                }
-                else
-                {
+                } else {
                     hintPanel.Add(find.ToUpper(), new Color(0.3f, 0.7f, 0.3f));
                 }
-            }
-            else
-            {
+            } else {
                 complete = false;
             }
         }
-        if (complete)
-        {
+        if (complete) {
             LevelComplete();
         }
     }

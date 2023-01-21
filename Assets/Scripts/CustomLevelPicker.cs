@@ -5,44 +5,70 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CustomLevelPicker : MonoBehaviour {
-    public GameObject levelButtonPrefab;
-    public GameObject editButtonPrefab;
+    public GameObject levelPickerRowPrefab;
     public AllLevelsModel levelsModel;
     public string levelFileName;
+    public bool enableEditing;
 
     public void Start() {
         levelsModel = AllLevelsModel.Load(levelFileName);
         CreateButtons(levelsModel.levels);
     }
 
+    public void ResetList() {
+        foreach (Transform child in transform) {
+            Destroy(child.gameObject);
+        }
+        levelsModel = AllLevelsModel.Load(levelFileName);
+        CreateButtons(levelsModel.levels);
+    }
+
     void CreateButtons(Dictionary<string, LevelModel> levels) {
         foreach (KeyValuePair<string, LevelModel> entry in levels) {
-            GameObject levelButton = Instantiate(levelButtonPrefab);
+            GameObject levelPickerRow = Instantiate(levelPickerRowPrefab);
+            levelPickerRow.transform.SetParent(transform, false);
+
+            GameObject levelButton = levelPickerRow.transform.GetChild(0).gameObject;
+
             levelButton.GetComponent<Button>().onClick.AddListener(() => GoToLevel(entry.Key));
             TextMeshProUGUI txt = levelButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             txt.text = entry.Value.levelName;
 
-            levelButton.transform.SetParent(transform, false);
+            if (enableEditing) {
+                GameObject editButton = levelPickerRow.transform.GetChild(1).gameObject;
+                editButton.SetActive(true);
+                editButton.GetComponent<Button>().onClick.AddListener(() => GoToLevelEditor(entry.Key));
 
-            GameObject editButton = Instantiate(editButtonPrefab);
-            editButton.GetComponent<Button>().onClick.AddListener(() => GoToLevelEditor(entry.Key));
-            editButton.transform.SetParent(transform, false);
+                GameObject deleteButton = levelPickerRow.transform.GetChild(2).gameObject;
+                deleteButton.SetActive(true);
+                deleteButton.GetComponent<Button>().onClick.AddListener(() => DeleteLevel(entry.Key));
+
+            }
         }
     }
 
-    void GoToLevelEditor(string level) {
-        GameInfo.editLevel = level;
-        SceneManager.LoadScene("LevelEditor");
+    void DeleteLevel(string ID) {
+        levelsModel.DeleteLevel(ID);
+        ResetList();
     }
 
-    void GoToLevel(string level) {
-        GameInfo.level = level;
-
+    void SetGameMode() {
         if (levelFileName == "LevelData") {
             GameInfo.gameMode = GameInfo.GameMode.Standard;
         } else {
             GameInfo.gameMode = GameInfo.GameMode.Custom;
         }
+    }
+
+    void GoToLevelEditor(string level) {
+        GameInfo.editLevel = level;
+        SetGameMode();
+        SceneManager.LoadScene("LevelEditor");
+    }
+
+    void GoToLevel(string level) {
+        GameInfo.level = level;
+        SetGameMode();
         SceneManager.LoadScene("WordBridges");
     }
 }

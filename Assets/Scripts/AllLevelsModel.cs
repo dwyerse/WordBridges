@@ -28,6 +28,11 @@ public class AllLevelsModel {
         levels[ID] = levelModel;
     }
 
+    public void DeleteLevel(string ID) {
+        levels.Remove(ID);
+        Save();
+    }
+
     public static AllLevelsModel Load(string levelFileName) {
         Dictionary<string, LevelModel> levels = null;
 
