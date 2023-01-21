@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
-{
+public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
     public string letter;
     Image image;
     CanvasGroup canvasGroup;
@@ -15,8 +14,7 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     Color originalColor;
     bool isLocked = false;
 
-    public void Start()
-    {
+    public void Start() {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
         letterPanel = (RectTransform)GameObject.FindGameObjectWithTag("letterbox").transform;
         landingPanel = (RectTransform)GameObject.FindGameObjectWithTag("landing").transform;
@@ -25,24 +23,19 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         originalColor = image.color;
     }
 
-    public void Lock()
-    {
+    public void Lock() {
         isLocked = true;
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (!isLocked)
-        {
+    public void OnDrag(PointerEventData eventData) {
+        if (!isLocked) {
             gameObject.transform.position = eventData.position;
             gameObject.GetComponent<Image>().raycastTarget = false;
         }
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (!isLocked)
-        {
+    public void OnBeginDrag(PointerEventData eventData) {
+        if (!isLocked) {
             transform.DOScale(new Vector2(1.2f, 1.2f), 0.2f);
             transform.GetComponent<Image>().DOColor(highlight, 0.2f);
 
@@ -52,16 +45,13 @@ public class Letter : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         }
     }
 
-    public void ResetPosition()
-    {
-        if (!isLocked)
-        {
+    public void ResetPosition() {
+        if (!isLocked) {
             transform.SetParent(letterPanel);
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
+    public void OnEndDrag(PointerEventData eventData) {
         transform.DOScale(new Vector2(1f, 1f), 0.2f);
         transform.GetComponent<Image>().DOColor(originalColor, 0.2f);
 

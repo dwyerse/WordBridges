@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LevelEditor : MonoBehaviour
-{
-    public static string LEVEL_FILE_NAME = "LevelData";
+public class LevelEditor : MonoBehaviour {
     public TMP_InputField levelNameInput;
     public Transform letterContainer;
     public HintPanel hintPanel;
@@ -13,44 +11,46 @@ public class LevelEditor : MonoBehaviour
     LevelModel model;
     public string levelFileName;
 
-    public void Start()
-    {
+    public void Start() {
 
         Guid guid = Guid.NewGuid();
 
-        model = new()
-        {
-            levelName = levelNameInput.text,
-            letters = GetLetters(),
-            ID = guid.ToString()
-        };
+        if (GameInfo.editLevel != null) {
+            if (GameInfo.gameMode == GameInfo.GameMode.Custom) {
+                model = GameInfo.customLevels.levels[GameInfo.editLevel];
+            } else {
+                model = GameInfo.standardLevels.levels[GameInfo.editLevel];
+            }
+            SetLetters(model.letters);
+        } else {
+            model = new() {
+                levelName = levelNameInput.text,
+                letters = GetLetters(),
+                ID = guid.ToString()
+            };
+        }
 
-        foreach (Transform child in letterContainer)
-        {
+        foreach (Transform child in letterContainer) {
             TMP_InputField inputField = child.GetComponent<TMP_InputField>();
             inputField.onValueChanged.AddListener(delegate { OnValueChanged(); });
         }
     }
 
-    void OnValueChanged()
-    {
+    void OnValueChanged() {
         message.text = "";
         model.letters = GetLetters();
         PopulateHints(model.GetWords());
     }
 
-    public void SaveLevel()
-    {
+    public void SaveLevel() {
         model.levelName = levelNameInput.text;
 
-        if (model.levelName == "")
-        {
+        if (model.levelName == "") {
             message.text = "Give the board a name";
             return;
         }
 
-        if (!model.IsSolvable())
-        {
+        if (!model.IsSolvable()) {
             message.text = "Board is not solvable";
             return;
         }
@@ -58,34 +58,31 @@ public class LevelEditor : MonoBehaviour
         AllLevelsModel allLevelsModel = AllLevelsModel.Load(levelFileName);
         allLevelsModel.SetLevel(model.ID, model);
         allLevelsModel.Save();
-        GameInfo.customLevels = allLevelsModel;
+        if (levelFileName == "CustomLevelData") {
+            GameInfo.customLevels = allLevelsModel;
+        } else {
+            GameInfo.standardLevels = allLevelsModel;
+        }
         message.text = "Saved - " + model.levelName;
     }
 
-    void PopulateHints(List<string> words)
-    {
+    void PopulateHints(List<string> words) {
         hintPanel.Clear();
-        foreach (var word in words)
-        {
-            if (!GameInfo.wordSet.Contains(word.ToLower()))
-            {
+        foreach (var word in words) {
+            if (!GameInfo.wordSet.Contains(word.ToLower())) {
                 hintPanel.Add(word, new Color(0.8f, 0.3f, 0.3f));
-            }
-            else
-            {
+            } else {
                 hintPanel.Add(word, new Color(0.3f, 0.7f, 0.3f));
             }
         }
     }
 
-    private string[,] GetLetters()
-    {
+    private string[,] GetLetters() {
         string[,] letters = new string[5, 5];
 
         int letterIndex = 0;
 
-        foreach (Transform child in letterContainer)
-        {
+        foreach (Transform child in letterContainer) {
             TMP_InputField inputField = child.GetComponent<TMP_InputField>();
 
             int x = letterIndex / 5;
@@ -97,5 +94,20 @@ public class LevelEditor : MonoBehaviour
 
         return letters;
     }
+
+    void SetLetters(string[,] letters) {
+        int letterIndex = 0;
+
+        foreach (Transform child in letterContainer) {
+            TMP_InputField inputField = child.GetComponent<TMP_InputField>();
+
+            int x = letterIndex / 5;
+            int y = letterIndex % 5;
+
+            inputField.text = letters[x, y];
+            letterIndex++;
+        }
+    }
+
 
 }

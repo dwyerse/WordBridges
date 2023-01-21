@@ -31,9 +31,17 @@ public class Manager : MonoBehaviour
     {
         hintPanel = GameObject.Find("HintPanel").GetComponent<HintPanel>();
         wordIndexes = new List<List<int[]>>();
-        Dictionary<string, LevelModel> levels = GameInfo.customLevels.levels;
+        Dictionary<string, LevelModel> levels;
+        if (GameInfo.gameMode == GameInfo.GameMode.Custom)
+        {
+            levels = GameInfo.customLevels.levels;
+        }
+        else
+        {
+            levels = GameInfo.standardLevels.levels;
+        }
 
-        LevelModel levelModel = levels[GameInfo.customLevel];
+        LevelModel levelModel = levels[GameInfo.level];
 
         goalGrid = levelModel.letters;
         CreateContainers(goalGrid);

@@ -1,33 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Container : MonoBehaviour, IDropHandler
-{
+public class Container : MonoBehaviour, IDropHandler {
 
     public string goalLetter;
     Manager manager;
     public int i;
     public int j;
 
-    public void Start()
-    {
+    public void Start() {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Manager>();
     }
 
-    public void OnDrop(PointerEventData eventData)
-    {
+    public void OnDrop(PointerEventData eventData) {
         Letter beingDragged = manager.itemBeingDragged;
-        if (transform.childCount == 0)
-        {
+        if (transform.childCount == 0) {
             Container swappedContainer = beingDragged.transform.parent.GetComponent<Container>();
-            if (swappedContainer != null)
-            {
+            if (swappedContainer != null) {
                 manager.currentGrid[swappedContainer.i, swappedContainer.j] = null;
             }
             beingDragged.transform.SetParent(transform);
-        }
-        else
-        {
+        } else {
             Letter current = transform.GetChild(0).GetComponent<Letter>();
             Letter updated = beingDragged;
             SwapLetters(current, updated);
@@ -36,12 +29,10 @@ public class Container : MonoBehaviour, IDropHandler
         manager.CompleteCheck();
     }
 
-    public void SwapLetters(Letter current, Letter updated)
-    {
+    public void SwapLetters(Letter current, Letter updated) {
         current.transform.SetParent(updated.transform.parent);
         Container sourceContainer = updated.transform.parent.GetComponent<Container>();
-        if (sourceContainer != null)
-        {
+        if (sourceContainer != null) {
             int containerX = sourceContainer.i;
             int containerY = sourceContainer.j;
             manager.currentGrid[containerX, containerY] = current.letter;

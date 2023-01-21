@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
 
-public static class GameInfo
-{
-    public static int play = 0;
+public static class GameInfo {
+
+    public enum GameMode {
+        Play,
+        Custom,
+        Standard
+    }
+
+    public static GameMode gameMode;
+    public static string level;
+    public static string editLevel;
     public static HashSet<string> wordSet;
-    public static string customLevel = "1";
     public static AllLevelsModel standardLevels;
     public static AllLevelsModel customLevels;
 }

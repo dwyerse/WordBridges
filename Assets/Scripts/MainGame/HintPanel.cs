@@ -2,12 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HintPanel : MonoBehaviour
-{
+public class HintPanel : MonoBehaviour {
     public GameObject prefab;
 
-    public void Add(string word, Color color)
-    {
+    public void Add(string word, Color color) {
         GameObject hintText = Instantiate(prefab);
         hintText.transform.SetParent(transform);
         TextMeshProUGUI textMesh = hintText.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -17,10 +15,8 @@ public class HintPanel : MonoBehaviour
         hint.color = color;
     }
 
-    public void Clear()
-    {
-        foreach (Transform child in transform)
-        {
+    public void Clear() {
+        foreach (Transform child in transform) {
             Destroy(child.gameObject);
         }
     }
