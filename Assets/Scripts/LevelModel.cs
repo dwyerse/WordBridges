@@ -8,7 +8,7 @@ public class LevelModel {
     public string[,] letters;
     public string ID;
 
-    private List<string> GetHorizontalWords() {
+    private List<string> GetHorizontalWords(string[,] letters) {
         List<string> wordList = new();
         for (int i = 0; i < letters.GetLength(0); i++) {
             string currentWord = "";
@@ -30,7 +30,7 @@ public class LevelModel {
         return wordList;
     }
 
-    private List<string> GetVerticalWords() {
+    private List<string> GetVerticalWords(string[,] letters) {
         List<string> wordList = new();
         for (int i = 0; i < letters.GetLength(0); i++) {
             string currentWord = "";
@@ -52,9 +52,9 @@ public class LevelModel {
         return wordList;
     }
 
-    public List<string> GetWords() {
-        List<string> horizontalWords = GetHorizontalWords();
-        List<string> verticalWords = GetVerticalWords();
+    public List<string> GetWords(string[,] letters) {
+        List<string> horizontalWords = GetHorizontalWords(letters);
+        List<string> verticalWords = GetVerticalWords(letters);
         List<string> combinedWords = new();
         combinedWords.AddRange(horizontalWords);
         combinedWords.AddRange(verticalWords);
@@ -63,7 +63,7 @@ public class LevelModel {
 
     public bool IsSolvable() {
         bool IsSolvable = true;
-        var words = GetWords();
+        var words = GetWords(letters);
         foreach (var word in words) {
             if (!GameInfo.wordSet.Contains(word.ToLower())) {
                 Debug.Log(word);

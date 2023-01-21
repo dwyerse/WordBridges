@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Manager : MonoBehaviour {
 
-    string[,] goalGrid = new string[6, 6];
+    string[,] goalGrid = new string[5, 5];
     public string[,] currentGrid;
     public List<GameObject> containers;
     public List<GameObject> letterObjects;
@@ -24,10 +24,9 @@ public class Manager : MonoBehaviour {
     public GameObject landingPanel;
     List<List<int[]>> wordIndexes;
     public CanvasGroup canvasGroup;
-    public HintPanel hintPanel;
+    LevelModel levelModel;
 
     public void Start() {
-        hintPanel = GameObject.Find("HintPanel").GetComponent<HintPanel>();
         wordIndexes = new List<List<int[]>>();
         Dictionary<string, LevelModel> levels;
         if (GameInfo.gameMode == GameInfo.GameMode.Custom) {
@@ -36,7 +35,7 @@ public class Manager : MonoBehaviour {
             levels = GameInfo.standardLevels.levels;
         }
 
-        LevelModel levelModel = levels[GameInfo.level];
+        levelModel = levels[GameInfo.level];
 
         goalGrid = levelModel.letters;
         if (goalGrid != null && goalGrid.GetLength(0) > 0) {
@@ -61,7 +60,7 @@ public class Manager : MonoBehaviour {
             letterObjects[a].GetComponent<Letter>().ResetPosition();
         }
 
-        currentGrid = new string[6, 6];
+        currentGrid = new string[5, 5];
         CompleteCheck();
 
     }
@@ -96,7 +95,7 @@ public class Manager : MonoBehaviour {
     }
 
     void CreateContainers(string[,] str) {
-        currentGrid = new string[6, 6];
+        currentGrid = new string[5, 5];
         containers = new List<GameObject>();
         List<string> letters = new();
 
@@ -186,29 +185,19 @@ public class Manager : MonoBehaviour {
         return list;
     }
 
-    public void CompleteCheck() {
-        hintPanel.Clear();
-        bool complete = true;
 
-        foreach (var wordIndex in wordIndexes) {
-            string find = "";
-            foreach (var index in wordIndex) {
-                find += currentGrid[index[0], index[1]];
-            }
-            find = find.ToLower();
-            if (find.Length == wordIndex.Count) {
-                if (!GameInfo.wordSet.Contains(find)) {
-                    hintPanel.Add(find.ToUpper(), new Color(0.8f, 0.3f, 0.3f));
-                    complete = false;
-                } else {
-                    hintPanel.Add(find.ToUpper(), new Color(0.3f, 0.7f, 0.3f));
-                }
-            } else {
-                complete = false;
+    public void CompleteCheck() {
+
+        List<string> goal = levelModel.GetWords(goalGrid);
+        List<string> current = levelModel.GetWords(currentGrid);
+
+        foreach (string word in goal) {
+            if (!current.Contains(word)) {
+                return;
             }
         }
-        if (complete) {
-            LevelComplete();
-        }
+
+        LevelComplete();
+
     }
 }

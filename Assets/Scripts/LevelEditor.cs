@@ -43,7 +43,7 @@ public class LevelEditor : MonoBehaviour {
     void OnValueChanged() {
         message.text = "";
         model.letters = GetLetters();
-        PopulateHints(model.GetWords());
+        PopulateHints(model.GetWords(model.letters));
     }
 
     public void SaveLevel() {
