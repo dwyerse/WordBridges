@@ -45,6 +45,7 @@ public class Manager : MonoBehaviour {
     }
 
     void LevelComplete() {
+        PlayerPrefs.SetString(levelModel.ID, "complete");
         foreach (GameObject letter in letterObjects) {
             letter.GetComponent<Letter>().Lock();
         }

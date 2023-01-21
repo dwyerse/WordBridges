@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CompleteAnimation : MonoBehaviour {
     public Manager manager;
@@ -22,7 +23,7 @@ public class CompleteAnimation : MonoBehaviour {
     }
 
     void LevelComplete() {
-        levelComplete.SetActive(true);
+        SceneManager.LoadScene("Levels");
     }
 
 }

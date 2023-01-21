@@ -34,6 +34,11 @@ public class CustomLevelPicker : MonoBehaviour {
             TextMeshProUGUI txt = levelButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             txt.text = entry.Value.levelName;
 
+            bool showLevelCompleted = !enableEditing && PlayerPrefs.GetString(entry.Key) == "complete";
+            if (showLevelCompleted) {
+                levelButton.transform.GetChild(1).gameObject.SetActive(true);
+            }
+
             if (enableEditing) {
                 GameObject editButton = levelPickerRow.transform.GetChild(1).gameObject;
                 editButton.SetActive(true);
@@ -42,7 +47,6 @@ public class CustomLevelPicker : MonoBehaviour {
                 GameObject deleteButton = levelPickerRow.transform.GetChild(2).gameObject;
                 deleteButton.SetActive(true);
                 deleteButton.GetComponent<Button>().onClick.AddListener(() => DeleteLevel(entry.Key));
-
             }
         }
     }
