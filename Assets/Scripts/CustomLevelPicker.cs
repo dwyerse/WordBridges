@@ -11,7 +11,12 @@ public class CustomLevelPicker : MonoBehaviour {
     public bool enableEditing;
 
     public void Start() {
-        levelsModel = AllLevelsModel.Load(levelFileName);
+        if (levelFileName == "LevelData") {
+            levelsModel = AllLevelsModel.LoadFromResources(levelFileName);
+
+        } else {
+            levelsModel = AllLevelsModel.Load(levelFileName);
+        }
         CreateButtons(levelsModel.levels);
     }
 
@@ -19,7 +24,11 @@ public class CustomLevelPicker : MonoBehaviour {
         foreach (Transform child in transform) {
             Destroy(child.gameObject);
         }
-        levelsModel = AllLevelsModel.Load(levelFileName);
+        if (levelFileName == "LevelData") {
+            levelsModel = AllLevelsModel.LoadFromResources(levelFileName);
+        } else {
+            levelsModel = AllLevelsModel.Load(levelFileName);
+        }
         CreateButtons(levelsModel.levels);
     }
 

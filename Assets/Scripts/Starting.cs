@@ -13,7 +13,7 @@ public class Starting : MonoBehaviour {
         }
 
         GameInfo.customLevels ??= AllLevelsModel.Load("CustomLevelData");
-        GameInfo.standardLevels ??= AllLevelsModel.Load("LevelData");
+        GameInfo.standardLevels ??= AllLevelsModel.LoadFromResources("LevelData");
 
     }
 }

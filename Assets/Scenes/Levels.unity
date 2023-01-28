@@ -812,7 +812,7 @@ MonoBehaviour:
   levelPickerRowPrefab: {fileID: 4861580211644410157, guid: 115ecd6953656a544ab922b2d7a028e2,
     type: 3}
   levelFileName: LevelData
-  enableEditing: 0
+  enableEditing: 1
 --- !u!114 &821211564
 MonoBehaviour:
   m_ObjectHideFlags: 0
