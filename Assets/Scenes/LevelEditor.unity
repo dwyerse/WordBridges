@@ -6028,12 +6028,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 900314609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb3770a078315542b2d945cd305354b, type: 3}
+  m_Script: {fileID: 11500000, guid: d7c6ddf778b4e134eb051240e9b3beec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   modal: {fileID: 1476184487}
-  importButton: {fileID: 900314611}
+  share: {fileID: 900314611}
+  copy: {fileID: 729223592}
   cancel: {fileID: 1708311650}
+  levelEditor: {fileID: 1162410339}
 --- !u!1 &904651755
 GameObject:
   m_ObjectHideFlags: 0
@@ -7530,6 +7532,7 @@ MonoBehaviour:
   letterContainer: {fileID: 1088281417}
   hintPanel: {fileID: 1508158886}
   message: {fileID: 84103976}
+  shareable: {fileID: 1376532080}
   levelFileName: CustomLevelData
 --- !u!114 &1162410340
 MonoBehaviour:
@@ -9241,8 +9244,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 450, y: -192.30249}
-  m_SizeDelta: {x: 868, y: 352.60498}
+  m_AnchoredPosition: {x: 450, y: -158}
+  m_SizeDelta: {x: 868, y: 284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1376532080
 MonoBehaviour:
@@ -9264,7 +9267,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: .asdkfjnasdkjfnaskjdfnaksjdfakjsdnfakjsndfaksjndfkajsndfkjnaskdjfnakjsdnfkajsndfkajnsdfkjansdfkjnaskdfbaskdjhfaskljhbfalkjshjfalksbdflkasbjflaksdbflakshbflakjhsflaksdhfalksdhakjhsdalkjhsfalksbhflkabsdfkabsdflkbasdkfbaklsdbfaksdbfalksdbfalksdflaksbdfklabsdlkfabsdlkfbasldkfbalksdfbalskdfjbalskdfjalksdjfbalskdjfbalskdjfb
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9291,7 +9294,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9927,8 +9930,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 450, y: -476.3025}
-  m_SizeDelta: {x: 868, y: 215.39499}
+  m_AnchoredPosition: {x: 450, y: -442}
+  m_SizeDelta: {x: 868, y: 284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1416815898
 GameObject:

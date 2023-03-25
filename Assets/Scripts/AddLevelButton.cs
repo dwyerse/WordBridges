@@ -28,11 +28,10 @@ public class AddLevelButton : MonoBehaviour {
         if (levelFileName == "CustomLevelData") {
             GameInfo.customLevels = AllLevelsModel.Load(levelFileName);
         } else {
-            GameInfo.standardLevels = AllLevelsModel.Load(levelFileName);
+            GameInfo.standardLevels = AllLevelsModel.LoadFromResources(levelFileName);
         }
 
         customLevelPicker.ResetList();
-
     }
 
 }

@@ -8,6 +8,7 @@ public class LevelEditor : MonoBehaviour {
     public Transform letterContainer;
     public HintPanel hintPanel;
     public TextMeshProUGUI message;
+    public TextMeshProUGUI shareable;
     LevelModel model;
     public string levelFileName;
 
@@ -44,6 +45,15 @@ public class LevelEditor : MonoBehaviour {
         message.text = "";
         model.letters = GetLetters();
         PopulateHints(model.GetWords(model.letters));
+    }
+
+    public void UpdateShareableString() {
+        string shareableString = model.GetShareableString();
+        shareable.text = shareableString;
+    }
+
+    public string GetShareableString() {
+        return model.GetShareableString();
     }
 
     public void SaveLevel() {
@@ -112,6 +122,4 @@ public class LevelEditor : MonoBehaviour {
             letterIndex++;
         }
     }
-
-
 }

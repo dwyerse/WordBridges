@@ -1810,6 +1810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3518365643068234486, guid: b61e92a4cc86e434f97a06db92230fca, type: 3}
+    - {fileID: 152418038985282645, guid: b61e92a4cc86e434f97a06db92230fca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b61e92a4cc86e434f97a06db92230fca, type: 3}
 --- !u!224 &1332076227 stripped
 RectTransform:
@@ -2323,7 +2324,6 @@ MonoBehaviour:
   containerPanel: {fileID: 176316869}
   landingPanel: {fileID: 2112668758}
   canvasGroup: {fileID: 171299688}
-  hintPanel: {fileID: 0}
 --- !u!4 &1742772936
 Transform:
   m_ObjectHideFlags: 0

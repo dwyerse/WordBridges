@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -72,5 +73,17 @@ public class LevelModel {
         }
 
         return IsSolvable;
+    }
+
+    public string GetShareableString() {
+        string share = "";
+        for (int i = 0; i < letters.GetLength(0); i++) {
+            for (int j = 0; j < letters.GetLength(1); j++) {
+                share += letters[i, j] + ",";
+            }
+        }
+        share += levelName;
+        string base64share = Convert.ToBase64String(Encoding.UTF8.GetBytes(share));
+        return base64share;
     }
 }

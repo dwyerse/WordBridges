@@ -6,7 +6,6 @@ public class CompleteAnimation : MonoBehaviour {
     public Manager manager;
     public GameObject levelComplete;
 
-
     public void StartAnimation() {
         for (int i = 0; i < manager.containers.Count; i++) {
             Transform container = manager.containers[i].transform;

@@ -188,7 +188,6 @@ public class Manager : MonoBehaviour {
 
 
     public void CompleteCheck() {
-
         List<string> goal = levelModel.GetWords(goalGrid);
         List<string> current = levelModel.GetWords(currentGrid);
 
@@ -197,8 +196,6 @@ public class Manager : MonoBehaviour {
                 return;
             }
         }
-
         LevelComplete();
-
     }
 }
